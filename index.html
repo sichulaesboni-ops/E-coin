@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>EZBONI EN</title>
-    <!-- Font Awesome 6 (brand icons) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>E-Coin (ETC)</title>
     <style>
         /* ============================================================
-           RESET & FULL-SCREEN EDGE-TO-EDGE
+           RESET & GLOBAL
            ============================================================ */
         *,
         *::before,
@@ -16,13 +14,13 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
         }
 
         body {
-            background: #0b0d19;
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #0a0a12;
             color: #eef2ff;
             min-height: 100vh;
             min-height: 100dvh;
@@ -39,12 +37,13 @@
             width: 100vw;
             height: 100vh;
             height: 100dvh;
-            background: radial-gradient(circle at 20% 30%, #14182b, #070912);
+            max-width: 430px;
+            background: radial-gradient(ellipse at 50% 30%, #14182b, #070912);
             display: flex;
             flex-direction: column;
             position: relative;
             overflow: hidden;
-            box-shadow: none;
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
         }
 
         /* ============================================================
@@ -53,60 +52,101 @@
         #onboarding {
             position: absolute;
             inset: 0;
-            z-index: 999;
-            background: rgba(7, 9, 18, 0.96);
-            backdrop-filter: blur(8px);
+            z-index: 1000;
+            background: rgba(7, 9, 18, 0.97);
+            backdrop-filter: blur(12px);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 2rem 1.8rem;
             text-align: center;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
         #onboarding.hidden {
             opacity: 0;
             pointer-events: none;
+            transform: scale(1.05);
         }
-        .onboard-icon {
-            font-size: 4.5rem;
+        .onboard-logo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
             background: linear-gradient(145deg, #fbbf24, #b45309);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #0a0a12;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 60px rgba(251, 191, 36, 0.25);
+            position: relative;
+        }
+        .onboard-logo::after {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            filter: blur(4px);
         }
         .onboard-title {
-            font-size: 2.2rem;
-            font-weight: 700;
+            font-size: 2.4rem;
+            font-weight: 800;
             background: linear-gradient(135deg, #fbbf24, #3b82f6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
             letter-spacing: 2px;
         }
         .onboard-sub {
             color: #9ca3cf;
-            font-size: 1rem;
+            font-size: 0.95rem;
             line-height: 1.6;
             max-width: 300px;
+            margin-bottom: 1.5rem;
+        }
+        .onboard-rewards {
+            display: flex;
+            gap: 1.5rem;
             margin-bottom: 2rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .onboard-rewards .reward-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .onboard-rewards .reward-item .value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fbbf24;
+        }
+        .onboard-rewards .reward-item .label {
+            font-size: 0.6rem;
+            color: #6b7aa8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .btn-primary {
             background: linear-gradient(145deg, #2563eb, #1d4ed8);
             border: none;
-            padding: 1rem 2.8rem;
+            padding: 1rem 3rem;
             border-radius: 60px;
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: white;
-            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.5);
+            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.4);
             transition: all 0.2s;
             touch-action: manipulation;
             cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.15);
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
         .btn-primary:active {
             transform: scale(0.96);
@@ -120,14 +160,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 16px 4px;
+            padding: 10px 16px 6px;
             background: transparent;
             flex-shrink: 0;
-        }
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            min-height: 52px;
         }
         .user-badge {
             display: flex;
@@ -135,23 +171,23 @@
             gap: 10px;
             background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(4px);
-            padding: 4px 14px 4px 6px;
+            padding: 4px 14px 4px 4px;
             border-radius: 40px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .user-badge .avatar {
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             background: linear-gradient(145deg, #fbbf24, #b45309);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
             font-weight: 700;
-            color: #0b0d19;
+            color: #0a0a12;
             overflow: hidden;
             flex-shrink: 0;
+            font-size: 0.85rem;
         }
         .user-badge .avatar img {
             width: 100%;
@@ -160,8 +196,8 @@
         }
         .user-badge .avatar .initials {
             font-weight: 600;
-            font-size: 0.9rem;
-            color: #0b0d19;
+            font-size: 0.8rem;
+            color: #0a0a12;
         }
         .user-badge .user-info {
             display: flex;
@@ -170,7 +206,7 @@
             min-width: 0;
         }
         .user-badge .user-name {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             color: #eef2ff;
             display: flex;
@@ -179,17 +215,18 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            max-width: 100px;
         }
         .user-badge .user-name .verified {
             color: #3b82f6;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             flex-shrink: 0;
         }
         .user-badge .level-badge {
-            font-size: 0.65rem;
+            font-size: 0.55rem;
             color: #fbbf24;
             background: rgba(251, 191, 36, 0.1);
-            padding: 0 10px;
+            padding: 0 8px;
             border-radius: 20px;
             border: 1px solid rgba(251, 191, 36, 0.08);
             display: inline-block;
@@ -198,51 +235,64 @@
         .header-right {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             flex-shrink: 0;
         }
         .header-right .notif-btn {
             background: transparent;
             border: none;
             color: #6b7aa8;
-            font-size: 1.3rem;
             cursor: pointer;
-            transition: 0.2s;
             padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            transition: 0.2s;
         }
         .header-right .notif-btn:hover {
             color: #fbbf24;
         }
+        .header-right .notif-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
         .coin-badge {
             background: rgba(251, 191, 36, 0.1);
-            padding: 4px 12px 4px 8px;
+            padding: 4px 10px 4px 8px;
             border-radius: 40px;
             border: 1px solid rgba(251, 191, 36, 0.1);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #fbbf24;
+            white-space: nowrap;
         }
-        .coin-badge i {
-            font-size: 1rem;
+        .coin-badge svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+            flex-shrink: 0;
         }
 
         /* ============================================================
            XP BAR
            ============================================================ */
         .xp-bar-wrap {
-            padding: 0 16px 8px;
+            padding: 0 16px 6px;
         }
         .xp-bar {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         .xp-track {
             flex: 1;
-            height: 6px;
+            height: 5px;
             background: rgba(255, 255, 255, 0.06);
             border-radius: 20px;
             overflow: hidden;
@@ -255,7 +305,7 @@
             transition: width 0.3s ease;
         }
         .xp-text {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: #9ca3cf;
             white-space: nowrap;
         }
@@ -278,32 +328,32 @@
             margin-bottom: 2px;
         }
         .balance-label {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #6b7aa8;
             text-transform: uppercase;
             letter-spacing: 1.5px;
         }
         .balance-amount {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 700;
             color: #fff;
             letter-spacing: -0.5px;
             line-height: 1.1;
         }
-        .balance-amount .etc-symbol {
-            font-size: 2rem;
+        .balance-amount .currency {
+            font-size: 1.8rem;
             color: #fbbf24;
             margin-right: 4px;
         }
         .balance-usd {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #6b7aa8;
         }
         .pre-list-note {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             color: #fbbf24;
             background: rgba(251, 191, 36, 0.08);
-            padding: 2px 14px;
+            padding: 2px 12px;
             border-radius: 40px;
             display: inline-block;
             margin-top: 2px;
@@ -312,46 +362,49 @@
         .profit-box {
             background: rgba(255, 255, 255, 0.04);
             border-radius: 40px;
-            padding: 4px 18px;
-            margin: 6px 0 8px;
+            padding: 4px 16px;
+            margin: 4px 0 6px;
             border: 1px solid rgba(255, 255, 255, 0.04);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #b9c6f0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .profit-box span {
             color: #fbbf24;
             font-weight: 700;
         }
         .tap-hint {
-            font-size: 0.7rem;
-            color: #6b7aa8;
+            font-size: 0.65rem;
+            color: #4b5563;
             letter-spacing: 2.5px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
-        /* ---- OFFICIAL COIN with neon glow ---- */
+        /* ---- CENTRAL COIN ---- */
         .coin-wrapper {
-            width: 170px;
-            height: 170px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: transparent;
             position: relative;
-            padding: 8px;
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.25), 0 0 60px rgba(59, 130, 246, 0.1);
+            padding: 6px;
+            touch-action: manipulation;
+            cursor: pointer;
         }
         .coin-wrapper::before {
             content: '';
             position: absolute;
-            inset: -4px;
+            inset: -6px;
             border-radius: 50%;
             background: conic-gradient(from 0deg, #3b82f6, #fbbf24, #3b82f6, #fbbf24, #3b82f6);
             opacity: 0.3;
             z-index: 0;
-            filter: blur(6px);
-            animation: spinGlow 8s linear infinite;
+            filter: blur(10px);
+            animation: spinGlow 10s linear infinite;
         }
         @keyframes spinGlow {
             to {
@@ -365,15 +418,37 @@
             object-fit: contain;
             position: relative;
             z-index: 1;
-            border: 3px solid rgba(59, 130, 246, 0.5);
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3), inset 0 0 30px rgba(59, 130, 246, 0.1);
+            border: 3px solid rgba(59, 130, 246, 0.4);
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.2), inset 0 -4px 20px rgba(0, 0, 0, 0.2);
             transition: transform 0.08s ease;
-            touch-action: manipulation;
-            cursor: pointer;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.15);
         }
         .coin-wrapper .coin-img:active {
-            transform: scale(0.90);
+            transform: scale(0.88);
+        }
+
+        /* ============================================================
+           FLOATING NUMBERS (multi-touch)
+           ============================================================ */
+        .float-number {
+            position: absolute;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: #fbbf24;
+            text-shadow: 0 0 30px rgba(251, 191, 36, 0.5), 0 0 60px rgba(59, 130, 246, 0.2);
+            pointer-events: none;
+            animation: floatUp 1s ease-out forwards;
+            z-index: 50;
+        }
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(1.3);
+            }
         }
 
         /* ============================================================
@@ -381,23 +456,29 @@
            ============================================================ */
         .energy-section {
             width: 85%;
-            max-width: 340px;
-            margin-top: 14px;
+            max-width: 320px;
+            margin-top: 12px;
         }
         .energy-row {
             display: flex;
             justify-content: space-between;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #9ca3cf;
             margin-bottom: 2px;
         }
-        .energy-row .energy-label i {
-            color: #fbbf24;
-            margin-right: 4px;
+        .energy-row .energy-label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .energy-row .energy-label svg {
+            width: 14px;
+            height: 14px;
+            fill: #fbbf24;
         }
         .energy-bar {
             width: 100%;
-            height: 8px;
+            height: 6px;
             background: rgba(255, 255, 255, 0.06);
             border-radius: 20px;
             overflow: hidden;
@@ -408,19 +489,19 @@
             background: linear-gradient(90deg, #3b82f6, #60a5fa);
             border-radius: 20px;
             transition: width 0.2s ease;
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
         }
         .energy-timer {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #6b7aa8;
             text-align: right;
             margin-top: 2px;
         }
         .energy-recharge-note {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             color: #5a6a92;
             text-align: center;
-            margin-top: 4px;
+            margin-top: 3px;
         }
 
         /* ============================================================
@@ -429,22 +510,27 @@
         .wallet-submit-card {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 20px;
-            padding: 14px 16px;
-            margin-top: 14px;
+            padding: 12px 14px;
+            margin-top: 10px;
             width: 88%;
             max-width: 360px;
             border: 1px solid rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(4px);
         }
         .wallet-submit-card .card-title {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: #b9c6f0;
             margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
-        .wallet-submit-card .card-title i {
-            margin-right: 6px;
-            color: #fbbf24;
+        .wallet-submit-card .card-title svg {
+            width: 16px;
+            height: 16px;
+            fill: #fbbf24;
+            flex-shrink: 0;
         }
         .wallet-submit-card .input-group {
             display: flex;
@@ -456,12 +542,13 @@
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid #2a3045;
             border-radius: 40px;
-            padding: 10px 16px;
+            padding: 8px 14px;
             color: white;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             outline: none;
             transition: border 0.2s;
             min-width: 0;
+            height: 38px;
         }
         .wallet-submit-card input:focus {
             border-color: #3b82f6;
@@ -472,49 +559,34 @@
         .wallet-submit-card .btn-submit {
             background: linear-gradient(145deg, #2563eb, #1d4ed8);
             border: none;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 40px;
             color: white;
             font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             white-space: nowrap;
             cursor: pointer;
             transition: 0.15s;
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
             flex-shrink: 0;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
         .wallet-submit-card .btn-submit:active {
             transform: scale(0.95);
         }
+        .wallet-submit-card .btn-submit svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
         .wallet-submit-card .security-note {
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             color: #5a6a92;
-            margin-top: 6px;
+            margin-top: 4px;
             text-align: center;
-        }
-
-        /* ============================================================
-           FLOATING NUMBERS (multi-touch)
-           ============================================================ */
-        .float-number {
-            position: absolute;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: #fbbf24;
-            text-shadow: 0 0 25px rgba(251, 191, 36, 0.5), 0 0 50px rgba(59, 130, 246, 0.3);
-            pointer-events: none;
-            animation: floatUp 0.9s ease-out forwards;
-            z-index: 50;
-        }
-        @keyframes floatUp {
-            0% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-90px) scale(1.25);
-            }
         }
 
         /* ============================================================
@@ -524,34 +596,40 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-            background: rgba(10, 12, 26, 0.9);
+            background: rgba(10, 12, 26, 0.92);
             backdrop-filter: blur(16px);
             border-top: 1px solid rgba(255, 255, 255, 0.04);
-            padding: 6px 0 env(safe-area-inset-bottom);
+            padding: 4px 0 env(safe-area-inset-bottom);
             flex-shrink: 0;
+            min-height: 52px;
         }
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 1px;
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             color: #6b7aa8;
             transition: 0.2s;
-            padding: 4px 12px;
-            border-radius: 20px;
+            padding: 4px 8px;
+            border-radius: 16px;
             background: transparent;
             border: none;
             touch-action: manipulation;
             cursor: pointer;
+            min-width: 44px;
         }
         .nav-item.active {
             color: #fbbf24;
             background: rgba(251, 191, 36, 0.06);
         }
-        .nav-item i {
-            font-size: 1.4rem;
-            line-height: 1;
+        .nav-item svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+        .nav-item span {
+            font-size: 0.5rem;
         }
 
         /* ============================================================
@@ -561,7 +639,7 @@
             flex: 1;
             display: none;
             flex-direction: column;
-            padding: 20px 16px;
+            padding: 16px 16px 8px;
             overflow-y: auto;
             width: 100%;
             scroll-behavior: smooth;
@@ -570,26 +648,29 @@
             display: flex;
         }
         .panel-title {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             background: linear-gradient(135deg, #fbbf24, #3b82f6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
-        .panel-title i {
+        .panel-title svg {
+            width: 20px;
+            height: 20px;
+            fill: #fbbf24;
             -webkit-text-fill-color: initial;
-            color: #fbbf24;
+            flex-shrink: 0;
         }
 
         .card {
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            padding: 16px;
-            margin-bottom: 12px;
+            border-radius: 18px;
+            padding: 14px;
+            margin-bottom: 10px;
             border: 1px solid rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(4px);
         }
@@ -604,28 +685,32 @@
         .btn-small {
             background: #2563eb;
             border: none;
-            padding: 6px 16px;
+            padding: 6px 14px;
             border-radius: 40px;
             color: white;
             font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
             touch-action: manipulation;
             cursor: pointer;
             transition: 0.15s;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             white-space: nowrap;
+            height: 32px;
         }
         .btn-small:active {
             transform: scale(0.95);
         }
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #3b82f6;
-            color: #b9c6f0;
-            box-shadow: none;
+        .btn-small svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+        .btn-gold {
+            background: linear-gradient(145deg, #fbbf24, #b45309);
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
         }
         .btn-success {
             background: #16a34a;
@@ -633,33 +718,38 @@
         .btn-danger {
             background: #dc2626;
         }
-        .btn-warning {
-            background: #f59e0b;
+        .text-muted {
+            color: #6b7aa8;
+        }
+        .text-gold {
+            color: #fbbf24;
         }
 
         /* Wallet grid (10 wallets) */
         .wallet-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 8px;
+            gap: 8px;
+            margin-top: 6px;
         }
         .wallet-item {
             background: rgba(255, 255, 255, 0.04);
-            border-radius: 16px;
-            padding: 12px 8px;
+            border-radius: 14px;
+            padding: 10px 6px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: 0.2s;
             cursor: pointer;
         }
-        .wallet-item i {
-            font-size: 2rem;
+        .wallet-item svg {
+            width: 28px;
+            height: 28px;
             display: block;
-            margin-bottom: 4px;
+            margin: 0 auto 4px;
+            fill: #b9c6f0;
         }
         .wallet-item span {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #b9c6f0;
         }
         .wallet-item:active {
@@ -689,8 +779,8 @@
         }
         .modal-box {
             background: #14182b;
-            border-radius: 28px;
-            padding: 24px 20px;
+            border-radius: 24px;
+            padding: 20px;
             max-width: 380px;
             width: 100%;
             max-height: 80vh;
@@ -702,27 +792,40 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
         .modal-box .modal-header h3 {
             color: #fbbf24;
-            font-size: 1.1rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .modal-box .modal-header h3 svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
         }
         .modal-box .modal-close {
             background: transparent;
             border: none;
             color: #6b7aa8;
-            font-size: 1.4rem;
             cursor: pointer;
+            padding: 4px;
+        }
+        .modal-box .modal-close svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
         }
         .modal-box textarea {
             width: 100%;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid #2a3045;
-            border-radius: 16px;
-            padding: 12px;
+            border-radius: 14px;
+            padding: 10px 12px;
             color: white;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             resize: vertical;
             min-height: 80px;
             outline: none;
@@ -734,27 +837,6 @@
             margin-top: 10px;
             width: 100%;
         }
-        .inbox-item {
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 12px;
-            padding: 10px 12px;
-            margin-bottom: 8px;
-            border-left: 3px solid #3b82f6;
-        }
-        .inbox-item .msg-user {
-            font-size: 0.7rem;
-            color: #fbbf24;
-        }
-        .inbox-item .msg-text {
-            font-size: 0.85rem;
-            color: #b9c6f0;
-            margin-top: 2px;
-            word-break: break-word;
-        }
-        .inbox-item .msg-time {
-            font-size: 0.6rem;
-            color: #5a6a92;
-        }
 
         /* ============================================================
            ADMIN TASK MANAGER
@@ -762,18 +844,19 @@
         .admin-task-input {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
         .admin-task-input input,
         .admin-task-input select {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid #2a3045;
             border-radius: 40px;
-            padding: 10px 16px;
+            padding: 8px 14px;
             color: white;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             outline: none;
             width: 100%;
+            height: 36px;
         }
         .admin-task-input input:focus,
         .admin-task-input select:focus {
@@ -781,7 +864,7 @@
         }
         .admin-task-input .row {
             display: flex;
-            gap: 8px;
+            gap: 6px;
         }
         .admin-task-input .row>* {
             flex: 1;
@@ -795,7 +878,7 @@
             position: absolute;
             inset: 0;
             z-index: 1000;
-            background: #0b0d19;
+            background: #0a0a12;
             padding: 20px 16px;
             overflow-y: auto;
             flex-direction: column;
@@ -808,19 +891,25 @@
             background: #1e293b;
             border: none;
             color: white;
-            padding: 6px 18px;
+            padding: 6px 16px;
             border-radius: 40px;
             margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .admin-close svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
         }
         .admin-user-item {
             background: #1a1e30;
-            padding: 12px;
-            border-radius: 16px;
-            margin-bottom: 8px;
+            padding: 10px 12px;
+            border-radius: 14px;
+            margin-bottom: 6px;
             border-left: 4px solid #3b82f6;
         }
         .admin-user-item .row {
@@ -828,84 +917,84 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 4px;
         }
         .ban-btn {
             background: #b91c1c;
             border: none;
             color: white;
-            padding: 4px 16px;
+            padding: 4px 14px;
             border-radius: 40px;
             font-weight: 600;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
+            font-size: 0.7rem;
+            height: 28px;
+        }
+        .ban-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
         }
         .unban-btn {
             background: #16a34a;
         }
 
         /* ============================================================
-           TOAST NOTIFICATION
+           TOAST
            ============================================================ */
         .toast {
             position: absolute;
-            bottom: 80px;
+            bottom: 70px;
             left: 50%;
             transform: translateX(-50%);
             background: #1a1e30;
-            padding: 10px 24px;
+            padding: 8px 20px;
             border-radius: 40px;
             border: 1px solid rgba(255, 255, 255, 0.06);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             color: #eef2ff;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             z-index: 700;
             opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.3s ease;
             pointer-events: none;
             white-space: nowrap;
             backdrop-filter: blur(8px);
         }
         .toast.visible {
             opacity: 1;
-            transform: translateX(-50%) translateY(0);
         }
 
         /* ============================================================
            UTILITIES
            ============================================================ */
         ::-webkit-scrollbar {
-            width: 4px;
+            width: 3px;
         }
         ::-webkit-scrollbar-thumb {
             background: #3b82f6;
             border-radius: 10px;
         }
-        .text-muted {
-            color: #7b8ab8;
+        .hidden {
+            display: none !important;
         }
         .text-center {
             text-align: center;
         }
         .mt-2 {
-            margin-top: 12px;
+            margin-top: 10px;
         }
         .mb-1 {
             margin-bottom: 6px;
         }
-        .flex-1 {
-            flex: 1;
-        }
-        .hidden {
-            display: none !important;
+        .gap-2 {
+            gap: 6px;
         }
         .w-full {
             width: 100%;
-        }
-        .gap-2 {
-            gap: 8px;
         }
     </style>
 </head>
@@ -916,35 +1005,67 @@
         ONBOARDING
         ============================================================ -->
         <div id="onboarding">
-            <div class="onboard-icon"><i class="fa-solid fa-bolt"></i></div>
-            <div class="onboard-title">EZBONI EN</div>
-            <div class="onboard-sub">Start mining and earn EZBONI POINTS.<br>Welcome to the future of tap-to-earn.</div>
-            <button class="btn-primary" id="startBtn"><i class="fa-regular fa-circle-play"></i> START MINING</button>
+            <div class="onboard-logo">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                </svg>
+            </div>
+            <div class="onboard-title">E-Coin</div>
+            <div class="onboard-sub">Tap the coin to earn ETC points.<br>Invite friends and boost your earnings.</div>
+            <div class="onboard-rewards">
+                <div class="reward-item">
+                    <span class="value">+30</span>
+                    <span class="label">Welcome Bonus</span>
+                </div>
+                <div class="reward-item">
+                    <span class="value">+100</span>
+                    <span class="label">Per Referral</span>
+                </div>
+            </div>
+            <button class="btn-primary" id="startBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="5,3 19,12 5,21 5,3"/>
+                </svg>
+                START MINING
+            </button>
         </div>
 
         <!-- ============================================================
         HEADER
         ============================================================ -->
         <div id="header">
-            <div class="header-left">
-                <div class="user-badge">
-                    <div class="avatar" id="avatarContainer">
-                        <img id="avatarImg" src="" alt="avatar" style="display:none;">
-                        <span class="initials" id="avatarFallback">EZ</span>
+            <div class="user-badge">
+                <div class="avatar" id="avatarContainer">
+                    <img id="avatarImg" src="" alt="avatar" style="display:none;">
+                    <span class="initials" id="avatarFallback">E</span>
+                </div>
+                <div class="user-info">
+                    <div class="user-name">
+                        <span id="tgUsername">User</span>
+                        <span class="verified">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                        </span>
                     </div>
-                    <div class="user-info">
-                        <div class="user-name">
-                            <span id="tgUsername">User</span>
-                            <span class="verified"><i class="fa-solid fa-circle-check"></i></span>
-                        </div>
-                        <div class="level-badge">Lv. <span id="levelDisplay">1</span></div>
-                    </div>
+                    <div class="level-badge">Lv. <span id="levelDisplay">1</span></div>
                 </div>
             </div>
             <div class="header-right">
-                <button class="notif-btn" id="supportInboxBtn"><i class="fa-regular fa-envelope"></i></button>
+                <button class="notif-btn" id="supportInboxBtn" aria-label="Support">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                </button>
                 <div class="coin-badge">
-                    <i class="fa-solid fa-coins"></i> <span id="balanceDisplay">0.00</span>
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v12M8 12h8"/>
+                    </svg>
+                    <span id="balanceDisplay">0.00</span>
                 </div>
             </div>
         </div>
@@ -962,50 +1083,73 @@
         </div>
 
         <!-- ============================================================
-        TAP AREA (Earn)
+        TAP AREA
         ============================================================ -->
         <div id="tap-area" class="panel active">
             <div class="balance-section">
                 <div class="balance-label">Your Balance</div>
                 <div class="balance-amount">
-                    <span class="etc-symbol">⧫</span><span id="balanceDisplayLarge">0.00</span> EZBONI POINTS
+                    <span class="currency">⧫</span><span id="balanceDisplayLarge">0.00</span> ETC
                 </div>
                 <div class="balance-usd">≈ $0.00 USD</div>
-                <div class="pre-list-note"><i class="fa-regular fa-clock"></i> Pre-Listing / Pre-TGE Phase</div>
+                <div class="pre-list-note">Pre-Listing Phase</div>
             </div>
 
             <div class="profit-box">
-                <i class="fa-regular fa-hand-peace"></i> Profit per Tap: <span id="profitPerTap">+1</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+                Profit per Tap: <span id="profitPerTap">+1</span>
             </div>
 
-            <div class="tap-hint">••• Tap to Earn •••</div>
+            <div class="tap-hint">••• TAP TO EARN •••</div>
 
-            <!-- Official EZBONI Coin -->
-            <div class="coin-wrapper">
-                <img class="coin-img" id="coinImg" src="https://i.postimg.cc/8j5WFcjZ/file-000000008128820eaef0567b3e29fdf4-3.png" alt="EZBONI Coin" draggable="false">
+            <!-- Official E-Coin Image -->
+            <div class="coin-wrapper" id="coinWrapper">
+                <img class="coin-img" id="coinImg"
+                src="https://i.postimg.cc/8j5WFcjZ/file-000000008128820eaef0567b3e29fdf4-3.png"
+                alt="E-Coin"
+                draggable="false"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                <div style="display:none;width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fbbf24,#b45309);align-items:center;justify-content:center;font-size:3rem;font-weight:900;color:#0a0a12;position:relative;z-index:1;">⧫</div>
             </div>
 
-            <!-- Energy Section -->
+            <!-- Energy -->
             <div class="energy-section">
                 <div class="energy-row">
-                    <span class="energy-label"><i class="fa-solid fa-bolt"></i> Energy</span>
-                    <span><span id="energyCurrent">1000</span> / <span id="energyMax">1000</span></span>
+                    <span class="energy-label">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                        Energy
+                    </span>
+                    <span><span id="energyCurrent">100</span> / <span id="energyMax">100</span></span>
                 </div>
                 <div class="energy-bar">
                     <div class="energy-fill" id="energyFill" style="width:100%"></div>
                 </div>
-                <div class="energy-timer" id="energyTimer">02:45</div>
-                <div class="energy-recharge-note"><i class="fa-regular fa-clock"></i> Recharge energy to keep earning!</div>
+                <div class="energy-timer" id="energyTimer">Full</div>
+                <div class="energy-recharge-note">Recharge energy to keep earning!</div>
             </div>
 
-            <!-- Wallet Submit Card -->
+            <!-- Wallet Submit -->
             <div class="wallet-submit-card">
-                <div class="card-title"><i class="fa-regular fa-wallet"></i> Submit Your Wallet</div>
+                <div class="card-title">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M21 18v-4a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2zM21 6v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    Submit Your Wallet
+                </div>
                 <div class="input-group">
                     <input type="text" id="walletInput" placeholder="0x... (EVM wallet address)">
-                    <button class="btn-submit" id="submitWalletBtn"><i class="fa-regular fa-paper-plane"></i> Submit</button>
+                    <button class="btn-submit" id="submitWalletBtn">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                        </svg>
+                        Submit
+                    </button>
                 </div>
-                <div class="security-note"><i class="fa-regular fa-shield-halved"></i> We never store your private keys.</div>
+                <div class="security-note">We never store your private keys.</div>
             </div>
         </div>
 
@@ -1013,22 +1157,36 @@
         FRIENDS PANEL
         ============================================================ -->
         <div id="friends-panel" class="panel">
-            <div class="panel-title"><i class="fa-solid fa-users"></i> Friends</div>
-            <div class="card">
-                <div class="card-row">
-                    <span><i class="fa-solid fa-link"></i> Invite link</span>
-                    <button class="btn-small" id="copyInviteBtn"><i class="fa-regular fa-copy"></i> Copy</button>
-                </div>
-                <div style="font-size:0.7rem; color:#7b8ab8; word-break:break-all; margin-top:8px;" id="inviteLinkDisplay">loading...</div>
+            <div class="panel-title">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                Friends
             </div>
             <div class="card">
                 <div class="card-row">
-                    <span><i class="fa-regular fa-user"></i> Invites</span>
-                    <span id="inviteCount">0</span>
+                    <span>Your Referral Link</span>
+                    <button class="btn-small btn-gold" id="copyRefBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>
+                        Copy
+                    </button>
+                </div>
+                <div style="font-size:0.7rem; color:#6b7aa8; word-break:break-all; margin-top:6px;" id="refLinkDisplay">loading...</div>
+            </div>
+            <div class="card">
+                <div class="card-row">
+                    <span>✅ Total Referrals</span>
+                    <span id="refCount">0</span>
                 </div>
                 <div class="card-row">
-                    <span><i class="fa-solid fa-gift"></i> Bonus per invite</span>
-                    <span>+100 EZBONI POINTS</span>
+                    <span>💰 Bonus per Referral</span>
+                    <span class="text-gold">+100 ETC</span>
                 </div>
             </div>
         </div>
@@ -1037,24 +1195,41 @@
         BOOST PANEL
         ============================================================ -->
         <div id="boost-panel" class="panel">
-            <div class="panel-title"><i class="fa-solid fa-rocket"></i> Boosters</div>
-            <div class="card">
-                <div class="card-row">
-                    <span><i class="fa-regular fa-star"></i> Tap Power</span>
-                    <span>Level <span id="boostLevelDisplay">1</span></span>
-                </div>
-                <div class="card-row">
-                    <span><i class="fa-solid fa-hand-pointer"></i> Per tap</span>
-                    <span>+<span id="boostTapDisplay">1</span> EZBONI POINTS</span>
-                </div>
-                <button class="btn-small" id="upgradeBoostBtn" style="width:100%; margin-top:10px; justify-content:center;"><i class="fa-solid fa-arrow-up"></i> Upgrade (cost: <span id="upgradeCost">50</span> EZBONI POINTS)</button>
+            <div class="panel-title">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                </svg>
+                Boosters
             </div>
             <div class="card">
                 <div class="card-row">
-                    <span><i class="fa-solid fa-battery-full"></i> Max Energy</span>
+                    <span>⚡ Tap Power</span>
+                    <span>Level <span id="boostLevel">1</span></span>
+                </div>
+                <div class="card-row">
+                    <span>💪 Per Tap</span>
+                    <span>+<span id="boostPerTap">1</span> ETC</span>
+                </div>
+                <button class="btn-small btn-gold" id="upgradeBoostBtn" style="width:100%; margin-top:8px; justify-content:center;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="18,15 12,9 6,15"/>
+                    </svg>
+                    Upgrade (cost: <span id="boostCost">50</span> ETC)
+                </button>
+            </div>
+            <div class="card">
+                <div class="card-row">
+                    <span>🔋 Max Energy</span>
                     <span>Level <span id="energyLevelDisplay">1</span></span>
                 </div>
-                <button class="btn-small" id="upgradeEnergyBtn" style="width:100%; justify-content:center;"><i class="fa-solid fa-arrow-up"></i> Upgrade (cost: <span id="energyUpgradeCost">100</span> EZBONI POINTS)</button>
+                <button class="btn-small btn-gold" id="upgradeEnergyBtn" style="width:100%; justify-content:center;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="18,15 12,9 6,15"/>
+                    </svg>
+                    Upgrade (cost: <span id="energyCost">100</span> ETC)
+                </button>
             </div>
         </div>
 
@@ -1062,12 +1237,20 @@
         TASKS PANEL
         ============================================================ -->
         <div id="tasks-panel" class="panel">
-            <div class="panel-title"><i class="fa-regular fa-list-check"></i> Tasks</div>
+            <div class="panel-title">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22,4 12,14.01 9,11.01"/>
+                </svg>
+                Tasks
+            </div>
             <div id="tasksContainer">
-                <!-- Dynamically rendered -->
+                <div class="card text-center">
+                    <p class="text-muted">Loading tasks...</p>
+                </div>
             </div>
             <div id="adminTaskPanel" class="card hidden">
-                <div style="font-weight:600; color:#fbbf24; margin-bottom:8px;"><i class="fa-solid fa-plus"></i> Add New Task</div>
+                <div style="font-weight:600; color:#fbbf24; margin-bottom:8px;">📋 Add New Task</div>
                 <div class="admin-task-input">
                     <input type="text" id="taskLinkInput" placeholder="Task link (URL)">
                     <div class="row">
@@ -1088,7 +1271,13 @@
                             <option value="years">Years</option>
                         </select>
                     </div>
-                    <button class="btn-small btn-success" id="addTaskBtn" style="width:100%; justify-content:center;"><i class="fa-solid fa-plus"></i> Publish Task</button>
+                    <button class="btn-small btn-success" id="addTaskBtn" style="width:100%; justify-content:center;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Publish Task
+                    </button>
                 </div>
             </div>
         </div>
@@ -1097,14 +1286,19 @@
         WALLET PANEL (10 wallets)
         ============================================================ -->
         <div id="wallet-panel" class="panel">
-            <div class="panel-title"><i class="fa-solid fa-wallet"></i> Wallets</div>
+            <div class="panel-title">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M21 18v-4a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2zM21 6v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+                Wallets
+            </div>
             <div class="card text-center">
                 <p class="text-muted" style="margin-bottom:8px;">Connect your preferred wallet</p>
                 <div class="wallet-grid" id="walletGrid">
-                    <!-- 10 wallets injected by JS -->
+                    <!-- Injected by JS -->
                 </div>
                 <div id="connectedWalletDisplay" style="color:#b9c6f0; font-size:0.85rem; margin-top:12px;">
-                    <i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> No wallet connected
+                    <span style="color:#16a34a;">●</span> No wallet connected
                 </div>
             </div>
         </div>
@@ -1113,7 +1307,14 @@
         LEADERBOARD PANEL
         ============================================================ -->
         <div id="leaderboard-panel" class="panel">
-            <div class="panel-title"><i class="fa-solid fa-trophy"></i> Leaderboard</div>
+            <div class="panel-title">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                </svg>
+                Leaderboard
+            </div>
             <div id="leaderboardContainer">
                 <div class="card text-center">
                     <p class="text-muted">Loading leaderboard...</p>
@@ -1125,10 +1326,16 @@
         HISTORY PANEL
         ============================================================ -->
         <div id="history-panel" class="panel">
-            <div class="panel-title"><i class="fa-regular fa-clock"></i> History</div>
+            <div class="panel-title">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12,6 12,12 16,14"/>
+                </svg>
+                History
+            </div>
             <div id="historyContainer">
                 <div class="card text-center">
-                    <p class="text-muted">Loading history...</p>
+                    <p class="text-muted">No history yet. Start tapping!</p>
                 </div>
             </div>
         </div>
@@ -1137,13 +1344,57 @@
         BOTTOM NAVIGATION
         ============================================================ -->
         <div id="bottom-nav">
-            <button class="nav-item active" data-tab="tap-area"><i class="fa-solid fa-coins"></i><span>Earn</span></button>
-            <button class="nav-item" data-tab="friends-panel"><i class="fa-solid fa-users"></i><span>Friends</span></button>
-            <button class="nav-item" data-tab="tasks-panel"><i class="fa-regular fa-list-check"></i><span>Tasks</span></button>
-            <button class="nav-item" data-tab="boost-panel"><i class="fa-solid fa-rocket"></i><span>Boost</span></button>
-            <button class="nav-item" data-tab="wallet-panel"><i class="fa-solid fa-wallet"></i><span>Wallet</span></button>
-            <button class="nav-item" data-tab="leaderboard-panel"><i class="fa-solid fa-trophy"></i><span>Top</span></button>
-            <button class="nav-item" data-tab="history-panel"><i class="fa-regular fa-clock"></i><span>History</span></button>
+            <button class="nav-item active" data-tab="tap-area">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v6l4 2"/>
+                </svg>
+                <span>Earn</span>
+            </button>
+            <button class="nav-item" data-tab="friends-panel">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <span>Friends</span>
+            </button>
+            <button class="nav-item" data-tab="tasks-panel">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22,4 12,14.01 9,11.01"/>
+                </svg>
+                <span>Tasks</span>
+            </button>
+            <button class="nav-item" data-tab="boost-panel">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                </svg>
+                <span>Boost</span>
+            </button>
+            <button class="nav-item" data-tab="wallet-panel">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M21 18v-4a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2zM21 6v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+                <span>Wallet</span>
+            </button>
+            <button class="nav-item" data-tab="leaderboard-panel">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M6 20l4-9 4 9M16 20l2-7 2 7"/>
+                    <path d="M12 2v5"/>
+                </svg>
+                <span>Top</span>
+            </button>
+            <button class="nav-item" data-tab="history-panel">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12,6 12,12 16,14"/>
+                </svg>
+                <span>History</span>
+            </button>
         </div>
 
         <!-- ============================================================
@@ -1152,26 +1403,42 @@
         <div class="modal-overlay" id="inboxModal">
             <div class="modal-box">
                 <div class="modal-header">
-                    <h3 id="modalTitle"><i class="fa-regular fa-envelope"></i> Support</h3>
-                    <button class="modal-close" id="modalCloseBtn"><i class="fa-regular fa-circle-xmark"></i></button>
+                    <h3 id="modalTitle">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                        Support
+                    </h3>
+                    <button class="modal-close" id="modalCloseBtn">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
                 </div>
                 <div id="modalBody">
-                    <!-- Dynamic content: support form or inbox -->
+                    <!-- Dynamic content -->
                 </div>
             </div>
         </div>
 
         <!-- ============================================================
-        TOAST NOTIFICATION
+        TOAST
         ============================================================ -->
         <div class="toast" id="toast"></div>
 
         <!-- ============================================================
-        ADMIN PANEL (hidden, double-tap coin)
+        ADMIN PANEL
         ============================================================ -->
         <div id="admin-panel">
-            <button class="admin-close" id="adminCloseBtn"><i class="fa-regular fa-circle-xmark"></i> Close Admin</button>
-            <h2 style="color:#fbbf24; margin-bottom:8px;"><i class="fa-solid fa-crown"></i> EZBONI Admin</h2>
+            <button class="admin-close" id="adminCloseBtn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+                Close Admin
+            </button>
+            <h2 style="color:#fbbf24; margin-bottom:8px;">👑 E-Coin Admin</h2>
             <div id="adminUserList"></div>
         </div>
 
@@ -1185,44 +1452,41 @@
             // ============================================================
             // CONFIGURATION
             // ============================================================
-            // Change this to your production backend URL
-            const API_BASE_URL = localStorage.getItem('EZBONI_API_URL') || '';
-
-            // Telegram Bot username for invite links (configure this)
-            const BOT_USERNAME = 'EZBONI_BOT';
+            const API_BASE_URL = ''; // Set your backend URL here
+            const BOT_USERNAME = 'ECoinBot'; // Your bot username
 
             // ============================================================
-            // STATE
+            // STATE (client-side cache only)
             // ============================================================
             let state = {
                 balance: 0,
-                energy: 1000,
-                maxEnergy: 1000,
+                energy: 100,
+                maxEnergy: 100,
                 tapPower: 1,
                 level: 1,
                 xp: 0,
                 xpToNext: 100,
-                invites: 0,
+                boostLevel: 1,
+                energyLevel: 1,
+                referrals: 0,
+                refCode: '',
                 tgId: 'anon',
                 tgUsername: 'User',
                 tgPhoto: '',
+                isAdmin: false,
                 connectedWallet: null,
                 walletAddress: '',
-                isAdmin: false,
                 tasks: [],
                 messages: [],
-                boostLevel: 1,
-                energyLevel: 1,
                 history: [],
                 leaderboard: [],
                 dailyReward: { day: 1, claimed: false, amount: 100 },
                 dailyStreak: 0,
-                lastDailyClaim: null,
+                lastDailyClaim: null
             };
 
             let usersDB = [];
             let isMasterAdmin = false;
-            let isInitialized = false;
             let tapTimeout = null;
 
             // ============================================================
@@ -1242,15 +1506,15 @@
             const profitPerTap = $('profitPerTap');
             const startBtn = $('startBtn');
             const onboarding = $('onboarding');
-            const inviteLinkDisplay = $('inviteLinkDisplay');
-            const copyInviteBtn = $('copyInviteBtn');
-            const inviteCount = $('inviteCount');
-            const boostLevelDisplay = $('boostLevelDisplay');
-            const boostTapDisplay = $('boostTapDisplay');
+            const refLinkDisplay = $('refLinkDisplay');
+            const refCount = $('refCount');
+            const copyRefBtn = $('copyRefBtn');
+            const boostLevel = $('boostLevel');
+            const boostPerTap = $('boostPerTap');
+            const boostCost = $('boostCost');
             const upgradeBoostBtn = $('upgradeBoostBtn');
-            const upgradeCost = $('upgradeCost');
             const energyLevelDisplay = $('energyLevelDisplay');
-            const energyUpgradeCost = $('energyUpgradeCost');
+            const energyCost = $('energyCost');
             const upgradeEnergyBtn = $('upgradeEnergyBtn');
             const walletInput = $('walletInput');
             const submitWalletBtn = $('submitWalletBtn');
@@ -1286,25 +1550,23 @@
                         state.tgId = String(user.id) || 'anon';
                         state.tgUsername = user.username || user.first_name || 'User';
                         state.tgPhoto = user.photo_url || '';
-                        // Update avatar
-                        const avatarImg = document.getElementById('avatarImg');
+                        const avatarContainer = document.getElementById('avatarContainer');
+                        const img = document.getElementById('avatarImg');
                         const fallback = document.getElementById('avatarFallback');
                         if (state.tgPhoto) {
-                            avatarImg.src = state.tgPhoto;
-                            avatarImg.style.display = 'block';
+                            img.src = state.tgPhoto;
+                            img.style.display = 'block';
                             fallback.style.display = 'none';
                         } else {
-                            avatarImg.style.display = 'none';
-                            fallback.style.display = 'block';
+                            img.style.display = 'none';
+                            fallback.style.display = 'flex';
                             const initials = state.tgUsername.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-                            fallback.textContent = initials || 'EZ';
+                            fallback.textContent = initials || 'E';
                         }
                         document.getElementById('tgUsername').textContent = state.tgUsername;
                     } else {
-                        // Fallback: show "Open in Telegram" prompt
                         document.getElementById('tgUsername').textContent = 'Guest';
-                        const fallback = document.getElementById('avatarFallback');
-                        fallback.textContent = 'G';
+                        document.getElementById('avatarFallback').textContent = 'G';
                     }
                 } catch (e) {
                     console.warn('Telegram not available:', e);
@@ -1312,60 +1574,33 @@
             }
 
             // ============================================================
-            // ADMIN DETECTION (server-side authoritative)
+            // REFERRAL CODE
             // ============================================================
-            function checkAdminStatus() {
-                // This should be done via API. For now, we'll use a simple
-                // localStorage flag for demo, but with a clear note.
-                // In production, this must be server-side.
-                const adminKey = 'ezboni_admin_id';
-                const storedAdminId = localStorage.getItem(adminKey);
-                if (storedAdminId === state.tgId) {
-                    state.isAdmin = true;
-                    isMasterAdmin = true;
-                } else if (!storedAdminId) {
-                    // First user becomes admin for demo purposes only
-                    // In production, admin is set via server config
-                    localStorage.setItem(adminKey, state.tgId);
-                    state.isAdmin = true;
-                    isMasterAdmin = true;
+            function generateRefCode() {
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                let code = '';
+                for (let i = 0; i < 8; i++) {
+                    code += chars.charAt(Math.floor(Math.random() * chars.length));
                 }
-                // Update UI
-                if (state.isAdmin) {
-                    adminTaskPanel.classList.remove('hidden');
-                    supportInboxBtn.innerHTML = '<i class="fa-regular fa-bell"></i>';
-                } else {
-                    adminTaskPanel.classList.add('hidden');
-                    supportInboxBtn.innerHTML = '<i class="fa-regular fa-envelope"></i>';
+                return code;
+            }
+
+            function getRefCode() {
+                let code = localStorage.getItem('etc_ref_code');
+                if (!code) {
+                    code = generateRefCode();
+                    localStorage.setItem('etc_ref_code', code);
                 }
+                return code;
+            }
+
+            function getRefLink() {
+                const code = getRefCode();
+                return `https://t.me/${BOT_USERNAME}?start=ref_${code}`;
             }
 
             // ============================================================
-            // API HELPERS
-            // ============================================================
-            async function apiCall(endpoint, options = {}) {
-                const url = API_BASE_URL ? `${API_BASE_URL}${endpoint}` : endpoint;
-                const headers = {
-                    'Content-Type': 'application/json',
-                    ...options.headers,
-                };
-                // Add Telegram initData for auth
-                if (window.Telegram?.WebApp?.initData) {
-                    headers['X-Telegram-Init-Data'] = window.Telegram.WebApp.initData;
-                }
-                const response = await fetch(url, {
-                    ...options,
-                    headers,
-                });
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    throw new Error(errorText || `API error: ${response.status}`);
-                }
-                return response.json();
-            }
-
-            // ============================================================
-            // STATE SAVE/LOAD (client-side cache only)
+            // STATE SAVE/LOAD (client cache only)
             // ============================================================
             function saveState() {
                 try {
@@ -1377,27 +1612,206 @@
                         level: state.level,
                         xp: state.xp,
                         xpToNext: state.xpToNext,
-                        invites: state.invites,
                         boostLevel: state.boostLevel,
                         energyLevel: state.energyLevel,
+                        referrals: state.referrals,
                         connectedWallet: state.connectedWallet,
                         walletAddress: state.walletAddress,
                         dailyStreak: state.dailyStreak,
                         lastDailyClaim: state.lastDailyClaim,
                         dailyReward: state.dailyReward,
+                        history: state.history.slice(-50)
                     };
-                    localStorage.setItem('ezboni_state', JSON.stringify(cache));
+                    localStorage.setItem('etc_state', JSON.stringify(cache));
                 } catch (e) {}
             }
 
             function loadState() {
                 try {
-                    const raw = localStorage.getItem('ezboni_state');
+                    const raw = localStorage.getItem('etc_state');
                     if (raw) {
                         const parsed = JSON.parse(raw);
                         Object.assign(state, parsed);
                     }
                 } catch (e) {}
+                state.refCode = getRefCode();
+            }
+
+            // ============================================================
+            // API HELPERS
+            // ============================================================
+            async function apiCall(endpoint, options = {}) {
+                if (!API_BASE_URL) {
+                    // Demo mode - simulate API
+                    return simulateApiCall(endpoint, options);
+                }
+                const url = `${API_BASE_URL}${endpoint}`;
+                const headers = {
+                    'Content-Type': 'application/json',
+                    ...options.headers,
+                };
+                if (window.Telegram?.WebApp?.initData) {
+                    headers['X-Telegram-Init-Data'] = window.Telegram.WebApp.initData;
+                }
+                const response = await fetch(url, {
+                    ...options,
+                    headers,
+                });
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.status}`);
+                }
+                return response.json();
+            }
+
+            // ============================================================
+            // DEMO MODE (when no backend)
+            // ============================================================
+            function simulateApiCall(endpoint, options) {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        if (endpoint === '/api/me') {
+                            resolve({
+                                balance: state.balance,
+                                energy: state.energy,
+                                maxEnergy: state.maxEnergy,
+                                tapPower: state.tapPower,
+                                level: state.level,
+                                xp: state.xp,
+                                xpToNext: state.xpToNext,
+                                boostLevel: state.boostLevel,
+                                energyLevel: state.energyLevel,
+                                referrals: state.referrals,
+                                isAdmin: state.isAdmin,
+                                walletAddress: state.walletAddress,
+                                connectedWallet: state.connectedWallet
+                            });
+                        } else if (endpoint === '/api/tap' && options.method === 'POST') {
+                            const body = JSON.parse(options.body || '{}');
+                            const taps = body.taps || 1;
+                            const earned = taps * state.tapPower;
+                            state.balance += earned;
+                            state.energy = Math.max(0, state.energy - taps);
+                            state.xp += taps;
+                            if (state.xp >= state.xpToNext) {
+                                state.xp = 0;
+                                state.level += 1;
+                                state.xpToNext = Math.floor(state.xpToNext * 1.4);
+                            }
+                            saveState();
+                            resolve({
+                                balance: state.balance,
+                                energy: state.energy,
+                                xp: state.xp,
+                                level: state.level,
+                                earned: earned
+                            });
+                        } else if (endpoint === '/api/tasks') {
+                            resolve(state.tasks);
+                        } else if (endpoint.includes('/api/tasks/') && options.method === 'POST') {
+                            const taskId = endpoint.split('/')[3];
+                            const task = state.tasks.find(t => t.id == taskId);
+                            if (task && !task.claimed?.includes(state.tgId)) {
+                                if (!task.claimed) task.claimed = [];
+                                task.claimed.push(state.tgId);
+                                state.balance += task.reward;
+                                state.history.push({ type: 'Task Reward', amount: task.reward, time: new Date()
+                                        .toLocaleString() });
+                                saveState();
+                                resolve({ success: true, reward: task.reward });
+                            } else {
+                                resolve({ success: false, message: 'Already claimed or task not found' });
+                            }
+                        } else if (endpoint === '/api/referrals') {
+                            resolve({ referrals: state.referrals, code: state.refCode });
+                        } else if (endpoint === '/api/rewards/daily') {
+                            resolve(state.dailyReward);
+                        } else if (endpoint === '/api/rewards/daily/claim' && options.method === 'POST') {
+                            if (!state.dailyReward.claimed) {
+                                state.balance += state.dailyReward.amount;
+                                state.dailyReward.claimed = true;
+                                state.lastDailyClaim = new Date().toDateString();
+                                state.dailyStreak = (state.dailyStreak || 0) + 1;
+                                const day = (state.dailyStreak % 7) + 1;
+                                const amounts = [100, 200, 300, 500, 750, 1000, 2000];
+                                state.dailyReward.day = day;
+                                state.dailyReward.amount = amounts[day - 1] || 100;
+                                state.history.push({ type: 'Daily Reward', amount: state.dailyReward.amount,
+                                    time: new Date().toLocaleString() });
+                                saveState();
+                                resolve({ success: true, amount: state.dailyReward.amount });
+                            } else {
+                                resolve({ success: false, message: 'Already claimed today' });
+                            }
+                        } else if (endpoint === '/api/leaderboard') {
+                            const sorted = [...usersDB].sort((a, b) => (b.balance || 0) - (a.balance || 0)).slice(0, 10);
+                            resolve(sorted);
+                        } else if (endpoint === '/api/history') {
+                            resolve(state.history);
+                        } else if (endpoint === '/api/support' && options.method === 'POST') {
+                            const body = JSON.parse(options.body || '{}');
+                            state.messages.push({
+                                from: state.tgUsername,
+                                text: body.message,
+                                time: new Date().toLocaleString()
+                            });
+                            saveState();
+                            resolve({ success: true });
+                        } else if (endpoint === '/api/support/inbox') {
+                            resolve(state.messages);
+                        } else if (endpoint.startsWith('/api/admin/tasks') && options.method === 'POST') {
+                            const body = JSON.parse(options.body || '{}');
+                            const task = {
+                                id: Date.now(),
+                                platform: body.platform,
+                                link: body.link,
+                                reward: body.reward || 25,
+                                duration: body.duration || 24,
+                                unit: body.unit || 'hours',
+                                claimed: []
+                            };
+                            state.tasks.push(task);
+                            saveState();
+                            resolve({ success: true, task });
+                        } else if (endpoint.startsWith('/api/admin/tasks/') && options.method === 'DELETE') {
+                            const id = parseInt(endpoint.split('/')[4]);
+                            state.tasks = state.tasks.filter(t => t.id !== id);
+                            saveState();
+                            resolve({ success: true });
+                        } else if (endpoint === '/api/wallet' && options.method === 'POST') {
+                            const body = JSON.parse(options.body || '{}');
+                            state.walletAddress = body.address;
+                            saveState();
+                            resolve({ success: true });
+                        } else if (endpoint === '/api/boosters' && options.method === 'POST') {
+                            const body = JSON.parse(options.body || '{}');
+                            if (body.type === 'tap') {
+                                const cost = 20 + state.boostLevel * 30;
+                                if (state.balance >= cost) {
+                                    state.balance -= cost;
+                                    state.boostLevel += 1;
+                                    state.tapPower = state.boostLevel;
+                                    saveState();
+                                    resolve({ success: true, newLevel: state.boostLevel });
+                                } else {
+                                    resolve({ success: false, message: 'Not enough balance' });
+                                }
+                            } else if (body.type === 'energy') {
+                                const cost = 50 + state.energyLevel * 40;
+                                if (state.balance >= cost) {
+                                    state.balance -= cost;
+                                    state.energyLevel += 1;
+                                    state.maxEnergy = 100 + state.energyLevel * 10;
+                                    saveState();
+                                    resolve({ success: true, newLevel: state.energyLevel });
+                                } else {
+                                    resolve({ success: false, message: 'Not enough balance' });
+                                }
+                            }
+                        } else {
+                            resolve({});
+                        }
+                    }, 200);
+                });
             }
 
             // ============================================================
@@ -1416,20 +1830,22 @@
                 const pct = Math.floor((state.energy / state.maxEnergy) * 100);
                 energyFill.style.width = pct + '%';
                 profitPerTap.textContent = `+${state.tapPower}`;
-                boostLevelDisplay.textContent = state.boostLevel || 1;
-                boostTapDisplay.textContent = state.tapPower;
-                const boostCost = 20 + (state.boostLevel || 1) * 30;
-                upgradeCost.textContent = boostCost;
+                boostLevel.textContent = state.boostLevel || 1;
+                boostPerTap.textContent = state.tapPower;
+                const boostCostVal = 20 + (state.boostLevel || 1) * 30;
+                boostCost.textContent = boostCostVal;
                 energyLevelDisplay.textContent = state.energyLevel || 1;
-                const energyCost = 50 + (state.energyLevel || 1) * 40;
-                energyUpgradeCost.textContent = energyCost;
-                inviteCount.textContent = state.invites;
+                const energyCostVal = 50 + (state.energyLevel || 1) * 40;
+                energyCost.textContent = energyCostVal;
+                refCount.textContent = state.referrals;
                 if (state.connectedWallet) {
-                    const label = state.connectedWallet;
                     connectedWalletDisplay.innerHTML =
-                        `<i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> Connected: ${label}`;
+                        `<span style="color:#16a34a;">●</span> Connected: ${state.connectedWallet}`;
                 }
+                updateEnergyTimer();
                 renderTasks();
+                renderLeaderboard();
+                renderHistory();
             }
 
             // ============================================================
@@ -1437,7 +1853,7 @@
             // ============================================================
             function regenEnergy() {
                 if (state.energy < state.maxEnergy) {
-                    const regenRate = 3 + (state.energyLevel || 1) * 0.5;
+                    const regenRate = 1 + (state.energyLevel || 1) * 0.2;
                     state.energy = Math.min(state.maxEnergy, state.energy + regenRate);
                     updateUI();
                     saveState();
@@ -1448,38 +1864,52 @@
             function updateEnergyTimer() {
                 const missing = state.maxEnergy - state.energy;
                 if (missing <= 0) { energyTimer.textContent = 'Full'; return; }
-                const regenRate = 3 + (state.energyLevel || 1) * 0.5;
+                const regenRate = 1 + (state.energyLevel || 1) * 0.2;
                 const seconds = Math.ceil(missing / regenRate);
                 const min = Math.floor(seconds / 60);
                 const sec = seconds % 60;
                 energyTimer.textContent = `${String(min).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
             }
-            setInterval(updateEnergyTimer, 1000);
 
             // ============================================================
-            // TAP LOGIC (Hamster-style bounce, floating numbers)
+            // TAP LOGIC
             // ============================================================
             function handleTap(e) {
                 if (state.energy < 1) {
-                    if (navigator.vibrate) navigator.vibrate(20);
                     showToast('⛽ Not enough energy!');
+                    if (navigator.vibrate) navigator.vibrate(20);
                     return;
                 }
-                state.energy = Math.max(0, state.energy - 1);
-                state.balance += state.tapPower;
-                state.xp += 1;
-                if (state.xp >= state.xpToNext) {
-                    state.xp = 0;
-                    state.level += 1;
-                    state.xpToNext = Math.floor(state.xpToNext * 1.4);
-                    showToast(`🎉 Level Up! You are now level ${state.level}`);
-                }
-                saveState();
-                updateUI();
-                if (navigator.vibrate) navigator.vibrate(8);
+
+                // Send tap to backend
+                apiCall('/api/tap', {
+                    method: 'POST',
+                    body: JSON.stringify({ taps: 1 })
+                }).then(result => {
+                    if (result.balance !== undefined) {
+                        state.balance = result.balance;
+                        state.energy = result.energy || state.energy;
+                        state.xp = result.xp || state.xp;
+                        state.level = result.level || state.level;
+                        saveState();
+                        updateUI();
+                    }
+                }).catch(() => {
+                    // Fallback: local tap
+                    state.energy = Math.max(0, state.energy - 1);
+                    state.balance += state.tapPower;
+                    state.xp += 1;
+                    if (state.xp >= state.xpToNext) {
+                        state.xp = 0;
+                        state.level += 1;
+                        state.xpToNext = Math.floor(state.xpToNext * 1.4);
+                    }
+                    saveState();
+                    updateUI();
+                });
 
                 // Bounce animation
-                coinImg.style.transform = 'scale(0.90)';
+                coinImg.style.transform = 'scale(0.88)';
                 clearTimeout(tapTimeout);
                 tapTimeout = setTimeout(() => {
                     coinImg.style.transform = '';
@@ -1487,6 +1917,7 @@
 
                 // Floating number
                 spawnFloatNumber(e, state.tapPower);
+                if (navigator.vibrate) navigator.vibrate(8);
             }
 
             function spawnFloatNumber(e, value) {
@@ -1518,44 +1949,68 @@
             // BOOST UPGRADES
             // ============================================================
             function upgradeBoost() {
-                const cost = 20 + (state.boostLevel || 1) * 30;
-                if (state.balance < cost) {
-                    showToast('❌ Not enough EZBONI POINTS');
-                    return;
-                }
-                state.balance -= cost;
-                state.boostLevel = (state.boostLevel || 1) + 1;
-                state.tapPower = state.boostLevel;
-                saveState();
-                updateUI();
-                showToast(`⚡ Tap Power upgraded to level ${state.boostLevel}`);
+                apiCall('/api/boosters', {
+                    method: 'POST',
+                    body: JSON.stringify({ type: 'tap' })
+                }).then(result => {
+                    if (result.success) {
+                        state.boostLevel = result.newLevel;
+                        state.tapPower = state.boostLevel;
+                        saveState();
+                        updateUI();
+                        showToast(`⚡ Tap Power upgraded to level ${state.boostLevel}`);
+                    } else {
+                        showToast(`❌ ${result.message || 'Not enough ETC'}`);
+                    }
+                }).catch(() => {
+                    const cost = 20 + (state.boostLevel || 1) * 30;
+                    if (state.balance < cost) {
+                        showToast('❌ Not enough ETC');
+                        return;
+                    }
+                    state.balance -= cost;
+                    state.boostLevel = (state.boostLevel || 1) + 1;
+                    state.tapPower = state.boostLevel;
+                    saveState();
+                    updateUI();
+                    showToast(`⚡ Tap Power upgraded to level ${state.boostLevel}`);
+                });
             }
 
             function upgradeEnergy() {
-                const cost = 50 + (state.energyLevel || 1) * 40;
-                if (state.balance < cost) {
-                    showToast('❌ Not enough EZBONI POINTS');
-                    return;
-                }
-                state.balance -= cost;
-                state.energyLevel = (state.energyLevel || 1) + 1;
-                state.maxEnergy = 1000 + (state.energyLevel - 1) * 100;
-                saveState();
-                updateUI();
-                showToast(`🔋 Max Energy upgraded to ${state.maxEnergy}`);
+                apiCall('/api/boosters', {
+                    method: 'POST',
+                    body: JSON.stringify({ type: 'energy' })
+                }).then(result => {
+                    if (result.success) {
+                        state.energyLevel = result.newLevel;
+                        state.maxEnergy = 100 + state.energyLevel * 10;
+                        saveState();
+                        updateUI();
+                        showToast(`🔋 Max Energy upgraded to ${state.maxEnergy}`);
+                    } else {
+                        showToast(`❌ ${result.message || 'Not enough ETC'}`);
+                    }
+                }).catch(() => {
+                    const cost = 50 + (state.energyLevel || 1) * 40;
+                    if (state.balance < cost) {
+                        showToast('❌ Not enough ETC');
+                        return;
+                    }
+                    state.balance -= cost;
+                    state.energyLevel = (state.energyLevel || 1) + 1;
+                    state.maxEnergy = 100 + state.energyLevel * 10;
+                    saveState();
+                    updateUI();
+                    showToast(`🔋 Max Energy upgraded to ${state.maxEnergy}`);
+                });
             }
 
             // ============================================================
-            // INVITE SYSTEM
+            // REFERRAL
             // ============================================================
-            function generateInviteLink() {
-                const base = `https://t.me/${BOT_USERNAME}?start=ref_`;
-                const code = state.tgId + '_' + Date.now().toString(36);
-                return base + code;
-            }
-
-            function copyInvite() {
-                const link = generateInviteLink();
+            function copyRefLink() {
+                const link = getRefLink();
                 if (navigator.clipboard) {
                     navigator.clipboard.writeText(link).then(() => showToast('📋 Link copied!'));
                 } else {
@@ -1563,34 +2018,29 @@
                 }
             }
 
-            function addInvite() {
-                state.invites += 1;
-                state.balance += 100;
-                saveState();
-                updateUI();
-                showToast('👥 +100 EZBONI POINTS for referral!');
-            }
-
             // ============================================================
             // WALLET (10 wallets)
             // ============================================================
             const walletList = [
-                { name: 'Binance', icon: 'fa-brands fa-binance' },
-                { name: 'Trust Wallet', icon: 'fa-solid fa-wallet' },
-                { name: 'MetaMask', icon: 'fa-brands fa-ethereum' },
-                { name: 'Coinbase', icon: 'fa-regular fa-circle-dot' },
-                { name: 'OKX', icon: 'fa-solid fa-cube' },
-                { name: 'Phantom', icon: 'fa-regular fa-ghost' },
-                { name: 'Tonkeeper', icon: 'fa-solid fa-bolt' },
-                { name: 'KuCoin', icon: 'fa-solid fa-coins' },
-                { name: 'Bybit', icon: 'fa-solid fa-chart-simple' },
-                { name: 'Bitget', icon: 'fa-solid fa-arrow-trend-up' }
+                { name: 'Binance', icon: 'B' },
+                { name: 'Trust Wallet', icon: 'T' },
+                { name: 'MetaMask', icon: 'M' },
+                { name: 'Coinbase', icon: 'C' },
+                { name: 'OKX', icon: 'O' },
+                { name: 'Phantom', icon: 'P' },
+                { name: 'Tonkeeper', icon: 'T' },
+                { name: 'KuCoin', icon: 'K' },
+                { name: 'Bybit', icon: 'B' },
+                { name: 'Bitget', icon: 'G' }
             ];
 
             function renderWallets() {
                 walletGrid.innerHTML = walletList.map(w => `
                     <div class="wallet-item" data-wallet="${w.name}">
-                        <i class="${w.icon}"></i>
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <circle cx="12" cy="12" r="10"/>
+                            <text x="12" y="17" font-size="12" text-anchor="middle" fill="#0a0a12" font-weight="700">${w.icon}</text>
+                        </svg>
                         <span>${w.name}</span>
                     </div>
                 `).join('');
@@ -1599,50 +2049,52 @@
                         const name = this.dataset.wallet;
                         state.connectedWallet = name;
                         connectedWalletDisplay.innerHTML =
-                            `<i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> Connected: ${name}`;
+                            `<span style="color:#16a34a;">●</span> Connected: ${name}`;
                         saveState();
-                        updateUI();
                         showToast(`🔗 Connected to ${name}`);
                     });
                 });
             }
 
-            function submitWalletAddress() {
+            function submitWallet() {
                 const addr = walletInput.value.trim();
                 if (!addr) { showToast('❌ Please enter a wallet address'); return; }
                 if (!addr.match(/^0x[a-fA-F0-9]{40}$/)) {
                     showToast('❌ Please enter a valid EVM address (0x...)');
                     return;
                 }
-                state.walletAddress = addr;
-                let existing = usersDB.find(u => u.id === state.tgId);
-                if (existing) {
-                    existing.wallet = addr;
-                } else {
-                    usersDB.push({ id: state.tgId, username: state.tgUsername, balance: state.balance, wallet: addr });
-                }
-                localStorage.setItem('ezboni_admin_db', JSON.stringify(usersDB));
-                saveState();
-                showToast('✅ Wallet address saved!');
-                walletInput.value = '';
+                apiCall('/api/wallet', {
+                    method: 'POST',
+                    body: JSON.stringify({ address: addr })
+                }).then(() => {
+                    state.walletAddress = addr;
+                    saveState();
+                    showToast('✅ Wallet address saved!');
+                    walletInput.value = '';
+                }).catch(() => {
+                    state.walletAddress = addr;
+                    saveState();
+                    showToast('✅ Wallet address saved!');
+                    walletInput.value = '';
+                });
             }
 
             // ============================================================
-            // TASKS SYSTEM
+            // TASKS
             // ============================================================
             function renderTasks() {
                 if (!tasksContainer) return;
                 if (state.isAdmin) {
-                    // Admin task management
-                    let html = `<div class="card"><div style="font-weight:600; color:#fbbf24; margin-bottom:6px;">📋 Published Tasks</div>`;
+                    let html =
+                    `<div class="card"><div style="font-weight:600; color:#fbbf24; margin-bottom:6px;">📋 Published Tasks</div>`;
                     if (state.tasks.length === 0) {
                         html += `<p class="text-muted" style="font-size:0.8rem;">No tasks published yet.</p>`;
                     } else {
                         state.tasks.forEach((task, idx) => {
                             const claimedCount = task.claimed ? task.claimed.length : 0;
                             html += `<div class="card-row" style="border-bottom:1px solid rgba(255,255,255,0.05); padding:6px 0;">
-                                <span><i class="fa-brands fa-${task.platform}"></i> ${task.platform}</span>
-                                <span style="font-size:0.7rem; color:#6b7aa8;">${claimedCount} claimed · ${task.duration}${task.unit}</span>
+                                <span>${task.platform}</span>
+                                <span style="font-size:0.7rem; color:#6b7aa8;">${claimedCount} claimed</span>
                                 <button class="btn-small btn-danger" data-taskidx="${idx}" style="padding:2px 10px; font-size:0.6rem;">Remove</button>
                             </div>`;
                         });
@@ -1652,16 +2104,26 @@
                     document.querySelectorAll('[data-taskidx]').forEach(btn => {
                         btn.addEventListener('click', function() {
                             const idx = parseInt(this.dataset.taskidx);
-                            state.tasks.splice(idx, 1);
-                            saveState();
-                            renderTasks();
-                            showToast('🗑️ Task removed');
+                            const task = state.tasks[idx];
+                            if (!task) return;
+                            apiCall(`/api/admin/tasks/${task.id}`, {
+                                method: 'DELETE'
+                            }).then(() => {
+                                state.tasks.splice(idx, 1);
+                                saveState();
+                                renderTasks();
+                                showToast('🗑️ Task removed');
+                            }).catch(() => {
+                                state.tasks.splice(idx, 1);
+                                saveState();
+                                renderTasks();
+                                showToast('🗑️ Task removed');
+                            });
                         });
                     });
                     return;
                 }
 
-                // User view
                 let html = '';
                 if (state.tasks.length === 0) {
                     html = `<div class="card text-center"><p class="text-muted">No tasks available right now.</p></div>`;
@@ -1670,15 +2132,15 @@
                         const isClaimed = task.claimed && task.claimed.includes(state.tgId);
                         html += `<div class="card">
                             <div class="card-row">
-                                <span><i class="fa-brands fa-${task.platform}" style="font-size:1.2rem;"></i> ${task.platform}</span>
-                                <span style="color:#fbbf24;">+${task.reward} EZBONI POINTS</span>
+                                <span>📌 ${task.platform}</span>
+                                <span style="color:#fbbf24;">+${task.reward} ETC</span>
                             </div>
                             <div class="card-row" style="font-size:0.7rem; color:#6b7aa8;">
                                 <span>⏱ ${task.duration} ${task.unit}</span>
                                 <a href="${task.link}" target="_blank" style="color:#3b82f6; text-decoration:none;">View Task</a>
                             </div>
-                            <button class="btn-small ${isClaimed ? 'btn-success' : ''}" data-taskidx="${idx}" style="width:100%; margin-top:6px; justify-content:center;" ${isClaimed ? 'disabled' : ''}>
-                                ${isClaimed ? '<i class="fa-regular fa-circle-check"></i> Claimed' : '<i class="fa-regular fa-circle-check"></i> Claim Reward'}
+                            <button class="btn-small ${isClaimed ? 'btn-success' : 'btn-gold'}" data-taskidx="${idx}" style="width:100%; margin-top:6px; justify-content:center;" ${isClaimed ? 'disabled' : ''}>
+                                ${isClaimed ? '✅ Claimed' : '🎯 Claim Reward'}
                             </button>
                         </div>`;
                     });
@@ -1694,206 +2156,227 @@
                             showToast('❌ Already claimed');
                             return;
                         }
-                        if (!task.claimed) task.claimed = [];
-                        task.claimed.push(state.tgId);
-                        state.balance += task.reward;
-                        saveState();
-                        updateUI();
-                        showToast(`🎉 +${task.reward} EZBONI POINTS earned!`);
-                        renderTasks();
+                        apiCall(`/api/tasks/${task.id}/claim`, {
+                            method: 'POST'
+                        }).then(result => {
+                            if (result.success) {
+                                if (!task.claimed) task.claimed = [];
+                                task.claimed.push(state.tgId);
+                                state.balance += task.reward;
+                                state.history.push({ type: 'Task Reward', amount: task.reward,
+                                    time: new Date().toLocaleString() });
+                                saveState();
+                                updateUI();
+                                showToast(`🎉 +${task.reward} ETC earned!`);
+                                renderTasks();
+                            } else {
+                                showToast(`❌ ${result.message || 'Already claimed'}`);
+                            }
+                        }).catch(() => {
+                            if (!task.claimed) task.claimed = [];
+                            task.claimed.push(state.tgId);
+                            state.balance += task.reward;
+                            state.history.push({ type: 'Task Reward', amount: task.reward,
+                                time: new Date().toLocaleString() });
+                            saveState();
+                            updateUI();
+                            showToast(`🎉 +${task.reward} ETC earned!`);
+                            renderTasks();
+                        });
                     });
                 });
             }
 
-            // Admin: Add new task
-            function addNewTask() {
+            // Admin: Add task
+            function addTask() {
                 const link = taskLinkInput.value.trim();
                 const platform = taskPlatformSelect.value;
                 const reward = parseFloat(taskRewardInput.value) || 25;
                 const duration = parseInt(taskDurationInput.value) || 24;
                 const unit = taskDurationUnit.value;
                 if (!link) { showToast('❌ Please enter a task link'); return; }
-                state.tasks.push({
-                    id: Date.now(),
-                    platform,
-                    link,
-                    reward,
-                    duration,
-                    unit,
-                    claimed: []
+                apiCall('/api/admin/tasks', {
+                    method: 'POST',
+                    body: JSON.stringify({ link, platform, reward, duration, unit })
+                }).then(result => {
+                    if (result.success) {
+                        state.tasks.push(result.task);
+                        saveState();
+                        renderTasks();
+                        taskLinkInput.value = '';
+                        showToast('📌 Task published!');
+                    }
+                }).catch(() => {
+                    state.tasks.push({
+                        id: Date.now(),
+                        platform,
+                        link,
+                        reward,
+                        duration,
+                        unit,
+                        claimed: []
+                    });
+                    saveState();
+                    renderTasks();
+                    taskLinkInput.value = '';
+                    showToast('📌 Task published!');
                 });
-                taskLinkInput.value = '';
-                saveState();
-                renderTasks();
-                showToast('📌 Task published!');
             }
 
             // ============================================================
-            // SUPPORT / INBOX MODAL
+            // SUPPORT / INBOX
             // ============================================================
             function openSupportModal() {
-                modalTitle.innerHTML = state.isAdmin ? '<i class="fa-regular fa-bell"></i> EZBONI Admin Inbox' :
-                    '<i class="fa-regular fa-envelope"></i> Support';
+                modalTitle.innerHTML = state.isAdmin ? '📬 Admin Inbox' : '💬 Support';
                 if (state.isAdmin) {
-                    let html =
-                    `<div style="margin-bottom:10px;"><p class="text-muted" style="font-size:0.8rem;">User messages &amp; reports</p></div>`;
-                    if (state.messages.length === 0) {
-                        html += `<p class="text-muted">No messages yet.</p>`;
-                    } else {
-                        state.messages.forEach(msg => {
-                            html += `<div class="inbox-item">
-                                <div class="msg-user">${msg.from}</div>
-                                <div class="msg-text">${msg.text}</div>
-                                <div class="msg-time">${msg.time}</div>
-                            </div>`;
-                        });
-                    }
-                    modalBody.innerHTML = html;
+                    apiCall('/api/support/inbox').then(messages => {
+                        let html =
+                        `<div style="margin-bottom:10px;"><p class="text-muted" style="font-size:0.8rem;">User messages</p></div>`;
+                        if (messages.length === 0) {
+                            html += `<p class="text-muted">No messages yet.</p>`;
+                        } else {
+                            messages.forEach(msg => {
+                                html += `<div class="inbox-item">
+                                    <div style="font-size:0.65rem; color:#fbbf24;">${msg.from}</div>
+                                    <div style="font-size:0.8rem; color:#b9c6f0;">${msg.text}</div>
+                                    <div style="font-size:0.55rem; color:#5a6a92;">${msg.time}</div>
+                                </div>`;
+                            });
+                        }
+                        modalBody.innerHTML = html;
+                    }).catch(() => {
+                        let html =
+                        `<div style="margin-bottom:10px;"><p class="text-muted" style="font-size:0.8rem;">User messages</p></div>`;
+                        if (state.messages.length === 0) {
+                            html += `<p class="text-muted">No messages yet.</p>`;
+                        } else {
+                            state.messages.forEach(msg => {
+                                html += `<div class="inbox-item">
+                                    <div style="font-size:0.65rem; color:#fbbf24;">${msg.from}</div>
+                                    <div style="font-size:0.8rem; color:#b9c6f0;">${msg.text}</div>
+                                    <div style="font-size:0.55rem; color:#5a6a92;">${msg.time}</div>
+                                </div>`;
+                            });
+                        }
+                        modalBody.innerHTML = html;
+                    });
                 } else {
                     modalBody.innerHTML = `
-                        <p class="text-muted" style="font-size:0.85rem; margin-bottom:8px;">Send a message or report to the admin</p>
+                        <p class="text-muted" style="font-size:0.85rem; margin-bottom:8px;">Send a message to the admin</p>
                         <textarea id="supportMsgInput" placeholder="Describe your issue or feedback..."></textarea>
-                        <button class="btn-small btn-send" id="sendSupportBtn" style="width:100%; justify-content:center; margin-top:10px;"><i class="fa-regular fa-paper-plane"></i> Send</button>
+                        <button class="btn-small btn-gold" id="sendSupportBtn" style="width:100%; margin-top:10px; justify-content:center;">📤 Send</button>
                     `;
                     document.getElementById('sendSupportBtn').addEventListener('click', function() {
                         const text = document.getElementById('supportMsgInput').value.trim();
                         if (!text) { showToast('❌ Please write a message'); return; }
-                        state.messages.push({
-                            from: state.tgUsername,
-                            text: text,
-                            time: new Date().toLocaleString()
+                        apiCall('/api/support', {
+                            method: 'POST',
+                            body: JSON.stringify({ message: text })
+                        }).then(() => {
+                            state.messages.push({ from: state.tgUsername, text, time: new Date()
+                                    .toLocaleString() });
+                            saveState();
+                            showToast('✅ Message sent to admin');
+                            inboxModal.classList.remove('visible');
+                        }).catch(() => {
+                            state.messages.push({ from: state.tgUsername, text, time: new Date()
+                                    .toLocaleString() });
+                            saveState();
+                            showToast('✅ Message sent to admin');
+                            inboxModal.classList.remove('visible');
                         });
-                        saveState();
-                        document.getElementById('supportMsgInput').value = '';
-                        showToast('✅ Message sent to admin');
-                        inboxModal.classList.remove('visible');
                     });
                 }
                 inboxModal.classList.add('visible');
             }
 
             // ============================================================
-            // ADMIN PANEL
-            // ============================================================
-            function loadAdminDB() {
-                try {
-                    const raw = localStorage.getItem('ezboni_admin_db');
-                    if (raw) {
-                        const parsed = JSON.parse(raw);
-                        if (Array.isArray(parsed)) usersDB = parsed;
-                    }
-                } catch (e) {}
-                if (!usersDB.find(u => u.id === state.tgId)) {
-                    usersDB.push({ id: state.tgId, username: state.tgUsername, balance: state.balance,
-                        wallet: state.walletAddress || 'not set' });
-                    localStorage.setItem('ezboni_admin_db', JSON.stringify(usersDB));
-                }
-            }
-
-            function renderAdminPanel() {
-                const list = usersDB.length ? usersDB : [{ id: 'system', username: 'admin', balance: 0, wallet: '—' }];
-                adminUserList.innerHTML = list.map((u, idx) => {
-                    const isBanned = u.banned || false;
-                    const banAction = isBanned ?
-                        `<button class="ban-btn unban-btn" data-action="unban" data-idx="${idx}"><i class="fa-regular fa-circle-check"></i> UNBAN</button>` :
-                        `<button class="ban-btn" data-action="ban" data-idx="${idx}"><i class="fa-solid fa-ban"></i> BAN</button>`;
-                    return `<div class="admin-user-item">
-                        <div class="row">
-                            <span><i class="fa-regular fa-user"></i> <strong>${u.username || 'anon'}</strong> (${u.id}) ${u.id === state.tgId && state.isAdmin ? '👑' : ''}</span>
-                            <span><i class="fa-solid fa-coins"></i> ${u.balance || 0}</span>
-                        </div>
-                        <div class="row">
-                            <span><i class="fa-solid fa-wallet"></i> ${u.wallet || 'not set'}</span>
-                            ${banAction}
-                        </div>
-                    </div>`;
-                }).join('');
-                document.querySelectorAll('[data-action="ban"]').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const idx = parseInt(this.dataset.idx);
-                        const target = usersDB[idx];
-                        if (!target) return;
-                        if (target.id === state.tgId && state.isAdmin) {
-                            showToast('❌ You cannot ban yourself');
-                            return;
-                        }
-                        target.banned = true;
-                        localStorage.setItem('ezboni_admin_db', JSON.stringify(usersDB));
-                        showToast(`🚫 Banned ${target.username}`);
-                        renderAdminPanel();
-                    });
-                });
-                document.querySelectorAll('[data-action="unban"]').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const idx = parseInt(this.dataset.idx);
-                        const target = usersDB[idx];
-                        if (target) {
-                            target.banned = false;
-                            localStorage.setItem('ezboni_admin_db', JSON.stringify(usersDB));
-                            showToast(`✅ Unbanned ${target.username}`);
-                            renderAdminPanel();
-                        }
-                    });
-                });
-            }
-
-            function toggleAdminPanel() {
-                if (!state.isAdmin) {
-                    showToast('🔒 Admin access restricted');
-                    return;
-                }
-                adminPanel.style.display = adminPanel.style.display === 'flex' ? 'none' : 'flex';
-                renderAdminPanel();
-            }
-
-            // ============================================================
             // LEADERBOARD
             // ============================================================
             function renderLeaderboard() {
-                // Simulate leaderboard from usersDB
-                const sorted = [...usersDB].sort((a, b) => (b.balance || 0) - (a.balance || 0)).slice(0, 10);
-                let html = '';
-                if (sorted.length === 0) {
-                    html = `<div class="card text-center"><p class="text-muted">No users yet.</p></div>`;
-                } else {
-                    html = `<div class="card">`;
-                    sorted.forEach((u, i) => {
-                        const rank = i + 1;
-                        const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `#${rank}`;
-                        html += `<div class="card-row" style="border-bottom:1px solid rgba(255,255,255,0.05); padding:6px 0;">
-                            <span>${medal} ${u.username || 'anon'}</span>
-                            <span style="color:#fbbf24;">${(u.balance || 0).toFixed(2)}</span>
-                        </div>`;
-                    });
-                    html += `</div>`;
-                }
-                leaderboardContainer.innerHTML = html;
+                apiCall('/api/leaderboard').then(data => {
+                    let html = '';
+                    if (!data || data.length === 0) {
+                        html = `<div class="card text-center"><p class="text-muted">No users yet.</p></div>`;
+                    } else {
+                        html = `<div class="card">`;
+                        data.forEach((u, i) => {
+                            const rank = i + 1;
+                            const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' :
+                            `#${rank}`;
+                            html += `<div class="card-row" style="border-bottom:1px solid rgba(255,255,255,0.05); padding:6px 0;">
+                                <span>${medal} ${u.username || 'anon'}</span>
+                                <span style="color:#fbbf24;">${(u.balance || 0).toFixed(2)}</span>
+                            </div>`;
+                        });
+                        html += `</div>`;
+                    }
+                    leaderboardContainer.innerHTML = html;
+                }).catch(() => {
+                    const sorted = [...usersDB].sort((a, b) => (b.balance || 0) - (a.balance || 0)).slice(0, 10);
+                    let html = '';
+                    if (sorted.length === 0) {
+                        html = `<div class="card text-center"><p class="text-muted">No users yet.</p></div>`;
+                    } else {
+                        html = `<div class="card">`;
+                        sorted.forEach((u, i) => {
+                            const rank = i + 1;
+                            const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' :
+                            `#${rank}`;
+                            html += `<div class="card-row" style="border-bottom:1px solid rgba(255,255,255,0.05); padding:6px 0;">
+                                <span>${medal} ${u.username || 'anon'}</span>
+                                <span style="color:#fbbf24;">${(u.balance || 0).toFixed(2)}</span>
+                            </div>`;
+                        });
+                        html += `</div>`;
+                    }
+                    leaderboardContainer.innerHTML = html;
+                });
             }
 
             // ============================================================
             // HISTORY
             // ============================================================
             function renderHistory() {
-                let html = '';
-                if (state.history.length === 0) {
-                    html = `<div class="card text-center"><p class="text-muted">No history yet.</p></div>`;
-                } else {
-                    html = `<div class="card">`;
-                    state.history.slice().reverse().forEach(h => {
-                        const sign = h.amount >= 0 ? '+' : '';
-                        html += `<div class="card-row" style="border-bottom:1px solid rgba(255,255,255,0.05); padding:6px 0;">
-                            <span>${h.type}</span>
-                            <span style="color:${h.amount >= 0 ? '#16a34a' : '#dc2626'};">${sign}${h.amount}</span>
-                            <span style="font-size:0.6rem; color:#5a6a92;">${h.time}</span>
-                        </div>`;
-                    });
-                    html += `</div>`;
-                }
-                historyContainer.innerHTML = html;
+                apiCall('/api/history').then(data => {
+                    let html = '';
+                    if (!data || data.length === 0) {
+                        html = `<div class="card text-center"><p class="text-muted">No history yet.</p></div>`;
+                    } else {
+                        html = `<div class="card">`;
+                        data.slice().reverse().forEach(h => {
+                            const sign = h.amount >= 0 ? '+' : '';
+                            html += `<div class="card-row" style="border-bottom:1px solid rgba(255,255,255,0.05); padding:6px 0;">
+                                <span>${h.type}</span>
+                                <span style="color:${h.amount >= 0 ? '#16a34a' : '#dc2626'};">${sign}${h.amount}</span>
+                                <span style="font-size:0.55rem; color:#5a6a92;">${h.time}</span>
+                            </div>`;
+                        });
+                        html += `</div>`;
+                    }
+                    historyContainer.innerHTML = html;
+                }).catch(() => {
+                    let html = '';
+                    if (state.history.length === 0) {
+                        html = `<div class="card text-center"><p class="text-muted">No history yet.</p></div>`;
+                    } else {
+                        html = `<div class="card">`;
+                        state.history.slice().reverse().forEach(h => {
+                            const sign = h.amount >= 0 ? '+' : '';
+                            html += `<div class="card-row" style="border-bottom:1px solid rgba(255,255,255,0.05); padding:6px 0;">
+                                <span>${h.type}</span>
+                                <span style="color:${h.amount >= 0 ? '#16a34a' : '#dc2626'};">${sign}${h.amount}</span>
+                                <span style="font-size:0.55rem; color:#5a6a92;">${h.time}</span>
+                            </div>`;
+                        });
+                        html += `</div>`;
+                    }
+                    historyContainer.innerHTML = html;
+                });
             }
 
             // ============================================================
-            // TOAST NOTIFICATION
+            // TOAST
             // ============================================================
             let toastTimeout = null;
 
@@ -1916,10 +2399,82 @@
                 document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
                 document.querySelector(`.nav-item[data-tab="${tabId}"]`)?.classList.add('active');
                 adminPanel.style.display = 'none';
-
-                // Refresh content for certain tabs
                 if (tabId === 'leaderboard-panel') renderLeaderboard();
                 if (tabId === 'history-panel') renderHistory();
+            }
+
+            // ============================================================
+            // ADMIN PANEL
+            // ============================================================
+            function loadAdminDB() {
+                try {
+                    const raw = localStorage.getItem('etc_admin_db');
+                    if (raw) {
+                        const parsed = JSON.parse(raw);
+                        if (Array.isArray(parsed)) usersDB = parsed;
+                    }
+                } catch (e) {}
+                if (!usersDB.find(u => u.id === state.tgId)) {
+                    usersDB.push({ id: state.tgId, username: state.tgUsername, balance: state.balance,
+                        wallet: state.walletAddress || 'not set' });
+                    localStorage.setItem('etc_admin_db', JSON.stringify(usersDB));
+                }
+            }
+
+            function renderAdminPanel() {
+                const list = usersDB.length ? usersDB : [{ id: 'system', username: 'admin', balance: 0, wallet: '—' }];
+                adminUserList.innerHTML = list.map((u, idx) => {
+                    const isBanned = u.banned || false;
+                    const banAction = isBanned ?
+                        `<button class="ban-btn unban-btn" data-action="unban" data-idx="${idx}">↺ UNBAN</button>` :
+                        `<button class="ban-btn" data-action="ban" data-idx="${idx}">⛔ BAN</button>`;
+                    return `<div class="admin-user-item">
+                        <div class="row">
+                            <span>👤 ${u.username || 'anon'} (${u.id}) ${u.id === state.tgId && state.isAdmin ? '👑' : ''}</span>
+                            <span>💰 ${u.balance || 0}</span>
+                        </div>
+                        <div class="row">
+                            <span>💳 ${u.wallet || 'not set'}</span>
+                            ${banAction}
+                        </div>
+                    </div>`;
+                }).join('');
+                document.querySelectorAll('[data-action="ban"]').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const idx = parseInt(this.dataset.idx);
+                        const target = usersDB[idx];
+                        if (!target) return;
+                        if (target.id === state.tgId && state.isAdmin) {
+                            showToast('❌ You cannot ban yourself');
+                            return;
+                        }
+                        target.banned = true;
+                        localStorage.setItem('etc_admin_db', JSON.stringify(usersDB));
+                        showToast(`🚫 Banned ${target.username}`);
+                        renderAdminPanel();
+                    });
+                });
+                document.querySelectorAll('[data-action="unban"]').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const idx = parseInt(this.dataset.idx);
+                        const target = usersDB[idx];
+                        if (target) {
+                            target.banned = false;
+                            localStorage.setItem('etc_admin_db', JSON.stringify(usersDB));
+                            showToast(`✅ Unbanned ${target.username}`);
+                            renderAdminPanel();
+                        }
+                    });
+                });
+            }
+
+            function toggleAdminPanel() {
+                if (!state.isAdmin) {
+                    showToast('🔒 Admin access restricted');
+                    return;
+                }
+                adminPanel.style.display = adminPanel.style.display === 'flex' ? 'none' : 'flex';
+                renderAdminPanel();
             }
 
             // ============================================================
@@ -1928,9 +2483,7 @@
             function checkDailyReward() {
                 const today = new Date().toDateString();
                 if (state.lastDailyClaim !== today) {
-                    // Reset claim
                     state.dailyReward.claimed = false;
-                    // Calculate streak
                     if (state.lastDailyClaim) {
                         const yesterday = new Date();
                         yesterday.setDate(yesterday.getDate() - 1);
@@ -1949,16 +2502,40 @@
             }
 
             function claimDailyReward() {
-                if (state.dailyReward.claimed) {
-                    showToast('❌ Already claimed today');
-                    return;
-                }
-                state.balance += state.dailyReward.amount;
-                state.dailyReward.claimed = true;
-                state.lastDailyClaim = new Date().toDateString();
-                saveState();
-                updateUI();
-                showToast(`🎁 +${state.dailyReward.amount} EZBONI POINTS (Day ${state.dailyReward.day})`);
+                apiCall('/api/rewards/daily/claim', {
+                    method: 'POST'
+                }).then(result => {
+                    if (result.success) {
+                        state.balance += result.amount;
+                        state.dailyReward.claimed = true;
+                        state.lastDailyClaim = new Date().toDateString();
+                        state.history.push({ type: 'Daily Reward', amount: result.amount, time: new Date()
+                                .toLocaleString() });
+                        saveState();
+                        updateUI();
+                        showToast(`🎁 +${result.amount} ETC (Day ${state.dailyReward.day})`);
+                    } else {
+                        showToast(`❌ ${result.message || 'Already claimed'}`);
+                    }
+                }).catch(() => {
+                    if (state.dailyReward.claimed) {
+                        showToast('❌ Already claimed today');
+                        return;
+                    }
+                    state.balance += state.dailyReward.amount;
+                    state.dailyReward.claimed = true;
+                    state.lastDailyClaim = new Date().toDateString();
+                    state.dailyStreak = (state.dailyStreak || 0) + 1;
+                    const day = (state.dailyStreak % 7) + 1;
+                    const amounts = [100, 200, 300, 500, 750, 1000, 2000];
+                    state.dailyReward.day = day;
+                    state.dailyReward.amount = amounts[day - 1] || 100;
+                    state.history.push({ type: 'Daily Reward', amount: state.dailyReward.amount, time: new Date()
+                            .toLocaleString() });
+                    saveState();
+                    updateUI();
+                    showToast(`🎁 +${state.dailyReward.amount} ETC (Day ${state.dailyReward.day})`);
+                });
             }
 
             // ============================================================
@@ -1967,14 +2544,40 @@
             function init() {
                 loadTelegramUser();
                 loadState();
-                checkAdminStatus();
                 renderWallets();
                 updateUI();
                 loadAdminDB();
                 checkDailyReward();
 
+                // Admin detection from backend
+                apiCall('/api/me').then(data => {
+                    if (data.isAdmin !== undefined) {
+                        state.isAdmin = data.isAdmin;
+                        if (state.isAdmin) {
+                            adminTaskPanel.classList.remove('hidden');
+                            supportInboxBtn.innerHTML =
+                                `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`;
+                        }
+                    }
+                }).catch(() => {
+                    // Demo: check localStorage
+                    const adminId = localStorage.getItem('etc_admin_id');
+                    if (adminId === state.tgId) {
+                        state.isAdmin = true;
+                        adminTaskPanel.classList.remove('hidden');
+                        supportInboxBtn.innerHTML =
+                            `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`;
+                    } else if (!localStorage.getItem('etc_admin_id')) {
+                        localStorage.setItem('etc_admin_id', state.tgId);
+                        state.isAdmin = true;
+                        adminTaskPanel.classList.remove('hidden');
+                        supportInboxBtn.innerHTML =
+                            `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`;
+                    }
+                });
+
                 // Onboarding
-                const onboarded = localStorage.getItem('ezboni_onboarded');
+                const onboarded = localStorage.getItem('etc_onboarded');
                 if (onboarded === 'true') {
                     onboarding.classList.add('hidden');
                 } else {
@@ -1985,20 +2588,19 @@
                     state.tapPower = 1;
                     state.boostLevel = 1;
                     state.energyLevel = 1;
-                    state.maxEnergy = 1000;
+                    state.maxEnergy = 100;
                     saveState();
                     updateUI();
                 }
 
                 startBtn.addEventListener('click', function() {
-                    localStorage.setItem('ezboni_onboarded', 'true');
+                    localStorage.setItem('etc_onboarded', 'true');
                     onboarding.classList.add('hidden');
-                    // Welcome bonus
-                    state.balance += 50;
-                    state.history.push({ type: 'Welcome Bonus', amount: 50, time: new Date().toLocaleString() });
+                    state.balance += 30;
+                    state.history.push({ type: 'Welcome Bonus', amount: 30, time: new Date().toLocaleString() });
                     saveState();
                     updateUI();
-                    showToast('🎉 Welcome! +50 EZBONI POINTS');
+                    showToast('🎉 Welcome! +30 ETC');
                 });
 
                 // Coin tap
@@ -2012,26 +2614,21 @@
                 upgradeBoostBtn.addEventListener('click', upgradeBoost);
                 upgradeEnergyBtn.addEventListener('click', upgradeEnergy);
 
-                // Invite
-                inviteLinkDisplay.textContent = generateInviteLink();
-                copyInviteBtn.addEventListener('click', copyInvite);
-                inviteCount.parentElement?.addEventListener('dblclick', function() {
-                    addInvite();
-                });
+                // Referral
+                refLinkDisplay.textContent = getRefLink();
+                copyRefBtn.addEventListener('click', copyRefLink);
 
-                // Wallet submit
-                submitWalletBtn.addEventListener('click', submitWalletAddress);
+                // Wallet
+                submitWalletBtn.addEventListener('click', submitWallet);
                 walletInput.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter') submitWalletAddress();
+                    if (e.key === 'Enter') submitWallet();
                 });
 
-                // Tasks admin
-                addTaskBtn.addEventListener('click', addNewTask);
+                // Tasks
+                addTaskBtn.addEventListener('click', addTask);
 
-                // Support/Inbox button
+                // Support
                 supportInboxBtn.addEventListener('click', openSupportModal);
-
-                // Modal close
                 modalCloseBtn.addEventListener('click', () => inboxModal.classList.remove('visible'));
                 inboxModal.addEventListener('click', (e) => {
                     if (e.target === inboxModal) inboxModal.classList.remove('visible');
@@ -2047,42 +2644,3 @@
 
                 // Admin panel: double-tap coin
                 let tapCount = 0;
-                coinImg.addEventListener('dblclick', function(e) {
-                    tapCount++;
-                    if (tapCount >= 1) {
-                        toggleAdminPanel();
-                        tapCount = 0;
-                    }
-                    setTimeout(() => tapCount = 0, 500);
-                });
-
-                adminCloseBtn.addEventListener('click', () => {
-                    adminPanel.style.display = 'none';
-                });
-
-                // Daily reward claim (double-tap balance)
-                balanceDisplayLarge.parentElement?.addEventListener('dblclick', function() {
-                    claimDailyReward();
-                });
-
-                // Render initial data
-                renderLeaderboard();
-                renderHistory();
-
-                setInterval(() => saveState(), 15000);
-
-                // Show API config status
-                if (!API_BASE_URL) {
-                    showToast('⚠️ Backend not configured. Using local demo mode.');
-                } else {
-                    showToast('✅ Connected to EZBONI backend');
-                }
-
-                isInitialized = true;
-            }
-
-            document.addEventListener('DOMContentLoaded', init);
-        })();
-    </script>
-</body>
-</html>
