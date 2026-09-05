@@ -2644,3 +2644,44 @@
 
                 // Admin panel: double-tap coin
                 let tapCount = 0;
+                coinImg.addEventListener('dblclick', function() {
+                    tapCount++;
+                    if (tapCount >= 1) {
+                        toggleAdminPanel();
+                        tapCount = 0;
+                    }
+                    setTimeout(() => tapCount = 0, 500);
+                });
+
+                adminCloseBtn.addEventListener('click', () => {
+                    adminPanel.style.display = 'none';
+                });
+
+                // Daily reward: double-tap balance
+                document.querySelector('.balance-section')?.addEventListener('dblclick', function() {
+                    claimDailyReward();
+                });
+
+                setInterval(() => saveState(), 15000);
+
+                if (!API_BASE_URL) {
+                    showToast('⚠️ Backend not configured. Using local demo mode.');
+                } else {
+                    showToast('✅ Connected to E-Coin backend');
+                }
+
+                // Load tasks from API
+                apiCall('/api/tasks').then(tasks => {
+                    state.tasks = tasks;
+                    saveState();
+                    renderTasks();
+                }).catch(() => {
+                    renderTasks();
+                });
+            }
+
+            document.addEventListener('DOMContentLoaded', init);
+        })();
+    </script>
+</body>
+</html>
