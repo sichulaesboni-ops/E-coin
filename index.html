@@ -107,44 +107,44 @@
       box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
     }
 
-    /* ----- HEADER / TOP BAR (inspired by reference) ----- */
+    /* ----- HEADER (reference: Avatar, ECoin Master, Level, XP bar) ----- */
     #header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 16px 6px;
+      padding: 10px 16px 4px;
       background: transparent;
       flex-shrink: 0;
     }
     .user-badge {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.05);
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(4px);
-      padding: 4px 12px 4px 6px;
+      padding: 4px 14px 4px 6px;
       border-radius: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
     .user-badge .avatar {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       background: linear-gradient(145deg, #fbbf24, #b45309);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.9rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: #0b0d19;
     }
     .user-badge .user-info {
       display: flex;
       flex-direction: column;
-      line-height: 1.1;
+      line-height: 1.15;
     }
     .user-badge .user-name {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 600;
       color: #eef2ff;
       display: flex;
@@ -153,30 +153,31 @@
     }
     .user-badge .user-name .verified {
       color: #3b82f6;
-      font-size: 0.65rem;
+      font-size: 0.7rem;
     }
     .user-badge .level-badge {
-      font-size: 0.6rem;
+      font-size: 0.65rem;
       color: #fbbf24;
-      background: rgba(251, 191, 36, 0.15);
-      padding: 0 8px;
+      background: rgba(251, 191, 36, 0.1);
+      padding: 0 10px;
       border-radius: 20px;
-      border: 1px solid rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.08);
+      display: inline-block;
     }
     .header-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
     .header-right .notif {
       color: #6b7aa8;
       font-size: 1.2rem;
     }
     .coin-badge {
-      background: rgba(251, 191, 36, 0.12);
+      background: rgba(251, 191, 36, 0.1);
       padding: 4px 12px 4px 8px;
       border-radius: 40px;
-      border: 1px solid rgba(251, 191, 36, 0.15);
+      border: 1px solid rgba(251, 191, 36, 0.1);
       display: flex;
       align-items: center;
       gap: 6px;
@@ -190,17 +191,17 @@
 
     /* ----- XP BAR ----- */
     .xp-bar-wrap {
-      padding: 2px 16px 6px;
+      padding: 0 16px 8px;
     }
     .xp-bar {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
     .xp-track {
       flex: 1;
       height: 6px;
-      background: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.06);
       border-radius: 20px;
       overflow: hidden;
     }
@@ -212,7 +213,7 @@
       transition: width 0.3s ease;
     }
     .xp-text {
-      font-size: 0.6rem;
+      font-size: 0.65rem;
       color: #9ca3cf;
       white-space: nowrap;
     }
@@ -224,28 +225,29 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0 16px;
+      padding: 0 16px 8px;
       position: relative;
     }
 
     .balance-section {
       text-align: center;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
     .balance-label {
       font-size: 0.7rem;
       color: #6b7aa8;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
     }
     .balance-amount {
-      font-size: 2.8rem;
+      font-size: 3rem;
       font-weight: 700;
       color: #fff;
       letter-spacing: -0.5px;
+      line-height: 1.1;
     }
     .balance-amount .etc-symbol {
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: #fbbf24;
       margin-right: 4px;
     }
@@ -256,21 +258,21 @@
     .pre-list-note {
       font-size: 0.6rem;
       color: #fbbf24;
-      background: rgba(251, 191, 36, 0.1);
-      padding: 2px 12px;
+      background: rgba(251, 191, 36, 0.08);
+      padding: 2px 14px;
       border-radius: 40px;
       display: inline-block;
       margin-top: 2px;
-      border: 1px solid rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.06);
     }
 
     .profit-box {
       background: rgba(255, 255, 255, 0.04);
       border-radius: 40px;
-      padding: 4px 16px;
-      margin: 6px 0 10px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      font-size: 0.8rem;
+      padding: 4px 18px;
+      margin: 6px 0 8px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 0.85rem;
       color: #b9c6f0;
     }
     .profit-box span {
@@ -281,14 +283,14 @@
     .tap-hint {
       font-size: 0.7rem;
       color: #6b7aa8;
-      letter-spacing: 2px;
+      letter-spacing: 2.5px;
       margin-bottom: 6px;
     }
 
-    /* central coin */
+    /* central coin (gold & blue glow) */
     .tap-coin {
-      width: 160px;
-      height: 160px;
+      width: 165px;
+      height: 165px;
       border-radius: 50%;
       background: radial-gradient(circle at 35% 35%, #2a2f4f, #12162b);
       display: flex;
@@ -298,9 +300,9 @@
       font-weight: 800;
       color: #fbbf24;
       text-shadow: 0 0 30px #3b82f6, 0 0 80px #1d4ed8;
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.2);
-      border: 2px solid rgba(59, 130, 246, 0.6);
-      transition: transform 0.1s ease;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.35), 0 0 40px rgba(59, 130, 246, 0.15);
+      border: 2px solid rgba(59, 130, 246, 0.5);
+      transition: transform 0.08s ease;
       touch-action: manipulation;
       cursor: pointer;
       position: relative;
@@ -309,7 +311,7 @@
     }
     .tap-coin:active {
       transform: scale(0.92);
-      box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.7), 0 0 60px #3b82f6;
+      box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.6), 0 0 60px #3b82f6;
     }
     .tap-coin::after {
       content: '';
@@ -317,7 +319,7 @@
       inset: -8px;
       border-radius: 50%;
       background: conic-gradient(from 0deg, #3b82f6, #fbbf24, #3b82f6, #fbbf24, #3b82f6);
-      opacity: 0.25;
+      opacity: 0.2;
       z-index: -1;
       filter: blur(8px);
       animation: spinGlow 8s linear infinite;
@@ -330,13 +332,13 @@
       position: absolute;
       inset: 6px;
       border-radius: 50%;
-      border: 1px dashed rgba(59, 130, 246, 0.25);
-      background: repeating-conic-gradient(rgba(59,130,246,0.15) 0% 2%, transparent 2% 4%);
+      border: 1px dashed rgba(59, 130, 246, 0.2);
+      background: repeating-conic-gradient(rgba(59,130,246,0.1) 0% 2%, transparent 2% 4%);
       background-size: 12px 12px;
       opacity: 0.4;
     }
 
-    /* ----- ENERGY BAR (below coin) ----- */
+    /* ----- ENERGY SECTION (below coin) ----- */
     .energy-section {
       width: 85%;
       max-width: 340px;
@@ -345,7 +347,7 @@
     .energy-row {
       display: flex;
       justify-content: space-between;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       color: #9ca3cf;
       margin-bottom: 2px;
     }
@@ -356,7 +358,7 @@
     .energy-bar {
       width: 100%;
       height: 8px;
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.06);
       border-radius: 20px;
       overflow: hidden;
     }
@@ -366,10 +368,10 @@
       background: linear-gradient(90deg, #3b82f6, #60a5fa);
       border-radius: 20px;
       transition: width 0.2s ease;
-      box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
     }
     .energy-timer {
-      font-size: 0.65rem;
+      font-size: 0.7rem;
       color: #6b7aa8;
       text-align: right;
       margin-top: 2px;
@@ -380,23 +382,30 @@
       text-align: center;
       margin-top: 4px;
     }
+    .energy-recharge-note i {
+      margin-right: 4px;
+    }
 
     /* ----- WALLET SUBMIT CARD ----- */
     .wallet-submit-card {
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.03);
       border-radius: 20px;
       padding: 14px 16px;
       margin-top: 14px;
       width: 88%;
       max-width: 360px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(4px);
     }
     .wallet-submit-card .card-title {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 600;
       color: #b9c6f0;
       margin-bottom: 6px;
+    }
+    .wallet-submit-card .card-title i {
+      margin-right: 6px;
+      color: #fbbf24;
     }
     .wallet-submit-card .input-group {
       display: flex;
@@ -405,7 +414,7 @@
     }
     .wallet-submit-card input {
       flex: 1;
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.04);
       border: 1px solid #2a3045;
       border-radius: 40px;
       padding: 10px 16px;
@@ -444,7 +453,7 @@
       margin-right: 4px;
     }
 
-    /* ----- BOTTOM NAVIGATION (4 tabs) ----- */
+    /* ----- BOTTOM NAV (4 tabs) ----- */
     #bottom-nav {
       display: flex;
       justify-content: space-around;
@@ -472,27 +481,27 @@
     }
     .nav-item.active {
       color: #fbbf24;
-      background: rgba(251, 191, 36, 0.08);
+      background: rgba(251, 191, 36, 0.06);
     }
     .nav-item i {
       font-size: 1.4rem;
       line-height: 1;
     }
 
-    /* ----- FLOATING TAP NUMBERS (multi-touch) ----- */
+    /* ----- FLOATING NUMBERS (multi-touch) ----- */
     .float-number {
       position: absolute;
       font-weight: 700;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       color: #fbbf24;
-      text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+      text-shadow: 0 0 25px rgba(251, 191, 36, 0.5), 0 0 50px rgba(59, 130, 246, 0.3);
       pointer-events: none;
       animation: floatUp 0.9s ease-out forwards;
       z-index: 50;
     }
     @keyframes floatUp {
       0% { opacity: 1; transform: translateY(0) scale(1); }
-      100% { opacity: 0; transform: translateY(-80px) scale(1.2); }
+      100% { opacity: 0; transform: translateY(-90px) scale(1.25); }
     }
 
     /* ----- PANELS (Friends, Boost, Wallet) ----- */
@@ -525,11 +534,11 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.03);
       border-radius: 20px;
       padding: 16px;
       margin-bottom: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(4px);
     }
     .card-row {
@@ -555,14 +564,8 @@
       gap: 6px;
     }
     .btn-small:active { transform: scale(0.95); }
-    .btn-outline {
-      background: transparent;
-      border: 1px solid #3b82f6;
-      color: #b9c6f0;
-      box-shadow: none;
-    }
 
-    /* ----- ADMIN PANEL (hidden) ----- */
+    /* ----- ADMIN PANEL (hidden, double-tap coin) ----- */
     #admin-panel {
       display: none;
       position: absolute;
@@ -623,8 +626,6 @@
     ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
     .text-muted { color: #7b8ab8; }
     .text-center { text-align: center; }
-    .mt-2 { margin-top: 12px; }
-    .gap-2 { gap: 8px; }
   </style>
 </head>
 <body>
@@ -634,7 +635,7 @@
   <div id="onboarding">
     <div class="onboard-icon"><i class="fa-solid fa-bolt"></i></div>
     <div class="onboard-title">ECoin Master</div>
-    <div class="onboard-sub">Welcome to ECoin Master.<br>Start mining and earn rewards.</div>
+    <div class="onboard-sub">Start mining and earn rewards.<br>Welcome to the future of tap-to-earn.</div>
     <button class="btn-primary" id="startBtn"><i class="fa-regular fa-circle-play"></i> START MINING</button>
   </div>
 
@@ -775,14 +776,14 @@
     <button class="nav-item" data-tab="wallet-panel"><i class="fa-solid fa-wallet"></i><span>Wallet</span></button>
   </div>
 
-  <!-- ADMIN PANEL (hidden, double-tap coin) -->
+  <!-- ADMIN PANEL (hidden) -->
   <div id="admin-panel">
     <button class="admin-close" id="adminCloseBtn"><i class="fa-regular fa-circle-xmark"></i> Close Admin</button>
     <h2 style="color:#fbbf24; margin-bottom:8px;"><i class="fa-solid fa-crown"></i> Admin Panel</h2>
     <div id="adminUserList"></div>
   </div>
 
-  <div style="position:absolute; bottom:80px; right:16px; opacity:0.05; font-size:8px; z-index:1; pointer-events:none;">ADMIN</div>
+  <div style="position:absolute; bottom:80px; right:16px; opacity:0.04; font-size:8px; z-index:1; pointer-events:none;">ADMIN</div>
 </div>
 
 <script>
@@ -801,14 +802,13 @@
       streak: 0,
       lastVisit: null,
       invites: 0,
-      banned: false,
+      banned: false,        // NEVER auto-banned, only manual
       banReason: '',
       tgId: 'anon',
       tgUsername: 'User',
       connectedWallet: null,
       walletAddress: '',
-      tasksClaimed: { fb:false, tt:false, ig:false, yt:false },
-      isAdmin: false   // first user becomes admin
+      isAdmin: false
     };
 
     let usersDB = [];
@@ -886,29 +886,23 @@
     }
 
     function updateUI() {
-      // Balance
       const balStr = state.balance.toFixed(2);
       balanceDisplay.textContent = balStr;
       balanceDisplayLarge.textContent = balStr;
-      // Level & XP
       levelDisplay.textContent = state.level;
       const xpPercent = Math.min((state.xp / state.xpToNext) * 100, 100);
       xpFill.style.width = xpPercent + '%';
       xpText.textContent = `${state.xp} / ${state.xpToNext} XP`;
-      // Energy
       energyCurrent.textContent = Math.floor(state.energy);
       energyMax.textContent = state.maxEnergy;
       const pct = Math.floor((state.energy / state.maxEnergy) * 100);
       energyFill.style.width = pct + '%';
-      // Profit per tap
       profitPerTap.textContent = `+${state.tapPower}`;
-      // Boost
       boostLevelDisplay.textContent = state.boostLevel || 1;
       boostTapDisplay.textContent = state.tapPower;
       const cost = 20 + (state.boostLevel || 1) * 30;
       upgradeCost.textContent = cost;
       inviteCount.textContent = state.invites;
-      // Wallet
       if (state.connectedWallet) {
         const label = state.connectedWallet.charAt(0).toUpperCase() + state.connectedWallet.slice(1);
         connectedWalletDisplay.innerHTML = `<i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> Connected: ${label}`;
@@ -925,7 +919,6 @@
     }
     setInterval(regenEnergy, 1000);
 
-    // Timer display
     function updateEnergyTimer() {
       const missing = state.maxEnergy - state.energy;
       if (missing <= 0) { energyTimer.textContent = 'Full'; return; }
@@ -936,7 +929,7 @@
     }
     setInterval(updateEnergyTimer, 1000);
 
-    // ----- TAP LOGIC (no auto-ban, floating numbers) -----
+    // ----- TAP LOGIC (NO AUTO-BAN, floating numbers) -----
     function handleTap(e) {
       if (state.energy < 1) { 
         if (navigator.vibrate) navigator.vibrate(20);
@@ -944,7 +937,6 @@
       }
       state.energy = Math.max(0, state.energy - 1);
       state.balance += state.tapPower;
-      // XP: 1 XP per tap
       state.xp += 1;
       if (state.xp >= state.xpToNext) {
         state.xp = 0;
@@ -1036,7 +1028,6 @@
         return;
       }
       state.walletAddress = addr;
-      // store in DB
       let existing = usersDB.find(u => u.id === state.tgId);
       if (existing) {
         existing.wallet = addr;
@@ -1049,7 +1040,7 @@
       walletInput.value = '';
     }
 
-    // ----- ADMIN PANEL -----
+    // ----- ADMIN PANEL (manual ban only) -----
     function loadAdminDB() {
       try {
         const raw = localStorage.getItem('ecoin_admin_db');
@@ -1082,7 +1073,7 @@
           </div>
         </div>`;
       }).join('');
-      // Ban/Unban handlers
+      // Manual Ban/Unban handlers
       document.querySelectorAll('[data-action="ban"]').forEach(btn => {
         btn.addEventListener('click', function() {
           const idx = parseInt(this.dataset.idx);
@@ -1149,12 +1140,10 @@
       updateUI();
       loadAdminDB();
 
-      // Onboarding
       const onboarded = localStorage.getItem('ecoin_onboarded');
       if (onboarded === 'true') {
         onboarding.classList.add('hidden');
       } else {
-        // Fresh start: 0 balance, level 1, 0 XP
         state.balance = 0;
         state.level = 1;
         state.xp = 0;
@@ -1168,26 +1157,21 @@
       startBtn.addEventListener('click', function() {
         localStorage.setItem('ecoin_onboarded', 'true');
         onboarding.classList.add('hidden');
-        // No welcome bonus - clean start
         saveState();
         updateUI();
       });
 
-      // Tap events (mouse + touch)
       tapCoin.addEventListener('click', handleTap);
       tapCoin.addEventListener('touchstart', (e) => { e.preventDefault(); handleTap(e); });
 
-      // Boost
       upgradeBoostBtn.addEventListener('click', upgradeBoost);
 
-      // Invite
       inviteLinkDisplay.textContent = generateInviteLink();
       copyInviteBtn.addEventListener('click', copyInvite);
       inviteCount.parentElement?.addEventListener('dblclick', function() {
         addInvite();
       });
 
-      // Wallet
       submitWalletBtn.addEventListener('click', submitWalletAddress);
       walletInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitWalletAddress(); });
 
@@ -1198,7 +1182,6 @@
         });
       });
 
-      // Navigation
       document.querySelectorAll('.nav-item').forEach(item => {
         item.addEventListener('click', function() {
           const tab = this.dataset.tab;
@@ -1206,7 +1189,6 @@
         });
       });
 
-      // Admin: double-tap coin
       let tapCount = 0;
       tapCoin.addEventListener('dblclick', function(e) {
         tapCount++;
