@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>ECoin (ETC) · Tap-to-Earn</title>
+  <title>ECoin Master</title>
+  <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* ----- RESET & GLOBAL ----- */
+    /* ----- RESET & FULL-SCREEN EDGE-TO-EDGE ----- */
     * {
       margin: 0;
       padding: 0;
@@ -30,7 +31,6 @@
       padding: 0;
     }
 
-    /* FULL SCREEN EDGE-TO-EDGE: no max-width, no centering padding */
     #app {
       width: 100vw;
       height: 100vh;
@@ -40,7 +40,7 @@
       flex-direction: column;
       position: relative;
       overflow: hidden;
-      box-shadow: none; /* remove card shadow */
+      box-shadow: none;
     }
 
     /* ----- ONBOARDING OVERLAY ----- */
@@ -67,7 +67,6 @@
       background: linear-gradient(145deg, #fbbf24, #b45309);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 60px #3b82f6;
       margin-bottom: 0.8rem;
     }
     .onboard-title {
@@ -108,93 +107,12 @@
       box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
     }
 
-    /* ----- BANNED OVERLAY (with appeal & AI auto-forgiveness) ----- */
-    #banned-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 1000;
-      background: rgba(7, 9, 18, 0.98);
-      backdrop-filter: blur(12px);
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 1.8rem;
-      text-align: center;
-    }
-    #banned-overlay.visible {
-      display: flex;
-    }
-    #banned-overlay .ban-icon {
-      font-size: 4rem;
-      color: #dc2626;
-      margin-bottom: 1rem;
-    }
-    #banned-overlay h2 {
-      color: #dc2626;
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
-    }
-    #banned-overlay .ban-reason {
-      color: #fca5a5;
-      background: rgba(220, 38, 38, 0.12);
-      padding: 8px 20px;
-      border-radius: 40px;
-      font-size: 0.95rem;
-      margin-bottom: 1.2rem;
-      border: 1px solid rgba(220, 38, 38, 0.2);
-    }
-    #banned-overlay .appeal-box {
-      width: 100%;
-      max-width: 360px;
-    }
-    #banned-overlay textarea {
-      width: 100%;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid #2a3045;
-      border-radius: 16px;
-      padding: 14px;
-      color: white;
-      font-size: 0.95rem;
-      resize: vertical;
-      min-height: 100px;
-      outline: none;
-      transition: border 0.2s;
-    }
-    #banned-overlay textarea:focus {
-      border-color: #3b82f6;
-    }
-    #banned-overlay textarea::placeholder {
-      color: #6b7aa8;
-    }
-    #banned-overlay .btn-appeal {
-      background: #2563eb;
-      border: none;
-      padding: 10px 28px;
-      border-radius: 40px;
-      color: white;
-      font-weight: 600;
-      font-size: 1rem;
-      margin-top: 12px;
-      cursor: pointer;
-      transition: 0.15s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    #banned-overlay .btn-appeal:active { transform: scale(0.95); }
-    #banned-overlay .appeal-status {
-      margin-top: 12px;
-      font-size: 0.9rem;
-      color: #fbbf24;
-    }
-
-    /* ----- HEADER / TOP BAR ----- */
+    /* ----- HEADER / TOP BAR (inspired by reference) ----- */
     #header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 16px 6px;
+      padding: 10px 16px 6px;
       background: transparent;
       flex-shrink: 0;
     }
@@ -202,56 +120,101 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(4px);
-      padding: 5px 14px 5px 10px;
+      padding: 4px 12px 4px 6px;
       border-radius: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .user-badge span {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #b9c6f0;
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
     .user-badge .avatar {
-      width: 28px;
-      height: 28px;
-      background: linear-gradient(145deg, #3b82f6, #2563eb);
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(145deg, #fbbf24, #b45309);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.9rem;
       font-weight: 700;
-      color: white;
+      color: #0b0d19;
     }
-    .coin-badge {
-      background: rgba(251, 191, 36, 0.15);
-      padding: 6px 16px 6px 12px;
-      border-radius: 40px;
-      border: 1px solid rgba(251, 191, 36, 0.2);
+    .user-badge .user-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .user-badge .user-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #eef2ff;
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-weight: 600;
-      color: #fbbf24;
+      gap: 4px;
     }
-    .coin-badge i {
+    .user-badge .user-name .verified {
+      color: #3b82f6;
+      font-size: 0.65rem;
+    }
+    .user-badge .level-badge {
+      font-size: 0.6rem;
+      color: #fbbf24;
+      background: rgba(251, 191, 36, 0.15);
+      padding: 0 8px;
+      border-radius: 20px;
+      border: 1px solid rgba(251, 191, 36, 0.1);
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-right .notif {
+      color: #6b7aa8;
       font-size: 1.2rem;
     }
-    .wallet-indicator {
+    .coin-badge {
+      background: rgba(251, 191, 36, 0.12);
+      padding: 4px 12px 4px 8px;
+      border-radius: 40px;
+      border: 1px solid rgba(251, 191, 36, 0.15);
       display: flex;
       align-items: center;
       gap: 6px;
-      background: rgba(59, 130, 246, 0.12);
-      padding: 4px 12px 4px 8px;
-      border-radius: 40px;
-      border: 1px solid rgba(59, 130, 246, 0.2);
-      font-size: 0.7rem;
-      color: #b9c6f0;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #fbbf24;
     }
-    .wallet-indicator i {
+    .coin-badge i {
       font-size: 1rem;
+    }
+
+    /* ----- XP BAR ----- */
+    .xp-bar-wrap {
+      padding: 2px 16px 6px;
+    }
+    .xp-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .xp-track {
+      flex: 1;
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .xp-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      border-radius: 20px;
+      transition: width 0.3s ease;
+    }
+    .xp-text {
+      font-size: 0.6rem;
+      color: #9ca3cf;
+      white-space: nowrap;
     }
 
     /* ----- MAIN TAP AREA (Earn) ----- */
@@ -261,57 +224,87 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0 12px;
+      padding: 0 16px;
       position: relative;
     }
-    .energy-bar {
-      width: 80%;
-      max-width: 340px;
-      height: 10px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      margin-bottom: 8px;
-      overflow: hidden;
-      box-shadow: inset 0 1px 4px rgba(0,0,0,0.5);
+
+    .balance-section {
+      text-align: center;
+      margin-bottom: 4px;
     }
-    .energy-fill {
-      height: 100%;
-      width: 100%;
-      background: linear-gradient(90deg, #3b82f6, #60a5fa);
-      border-radius: 20px;
-      transition: width 0.2s ease;
-      box-shadow: 0 0 12px #3b82f6;
+    .balance-label {
+      font-size: 0.7rem;
+      color: #6b7aa8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
-    .energy-text {
-      font-size: 0.8rem;
-      color: #a5b4e0;
-      margin-bottom: 12px;
-      letter-spacing: 0.5px;
+    .balance-amount {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.5px;
     }
-    .energy-text i {
-      margin-right: 6px;
+    .balance-amount .etc-symbol {
+      font-size: 1.8rem;
       color: #fbbf24;
+      margin-right: 4px;
+    }
+    .balance-usd {
+      font-size: 0.85rem;
+      color: #6b7aa8;
+    }
+    .pre-list-note {
+      font-size: 0.6rem;
+      color: #fbbf24;
+      background: rgba(251, 191, 36, 0.1);
+      padding: 2px 12px;
+      border-radius: 40px;
+      display: inline-block;
+      margin-top: 2px;
+      border: 1px solid rgba(251, 191, 36, 0.1);
     }
 
+    .profit-box {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 40px;
+      padding: 4px 16px;
+      margin: 6px 0 10px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.8rem;
+      color: #b9c6f0;
+    }
+    .profit-box span {
+      color: #fbbf24;
+      font-weight: 700;
+    }
+
+    .tap-hint {
+      font-size: 0.7rem;
+      color: #6b7aa8;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    /* central coin */
     .tap-coin {
-      width: 170px;
-      height: 170px;
+      width: 160px;
+      height: 160px;
       border-radius: 50%;
       background: radial-gradient(circle at 35% 35%, #2a2f4f, #12162b);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 5.5rem;
+      font-size: 5rem;
       font-weight: 800;
       color: #fbbf24;
       text-shadow: 0 0 30px #3b82f6, 0 0 80px #1d4ed8;
       box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.2);
       border: 2px solid rgba(59, 130, 246, 0.6);
-      transition: transform 0.12s ease;
+      transition: transform 0.1s ease;
       touch-action: manipulation;
       cursor: pointer;
       position: relative;
-      letter-spacing: 6px;
+      letter-spacing: 4px;
       font-family: 'Inter', sans-serif;
     }
     .tap-coin:active {
@@ -343,33 +336,67 @@
       opacity: 0.4;
     }
 
-    .tap-info {
-      margin-top: 16px;
-      font-size: 0.95rem;
-      color: #b9c6f0;
-      background: rgba(0,0,0,0.3);
-      padding: 6px 18px;
-      border-radius: 40px;
-      backdrop-filter: blur(4px);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    /* ----- ENERGY BAR (below coin) ----- */
+    .energy-section {
+      width: 85%;
+      max-width: 340px;
+      margin-top: 14px;
     }
-    .tap-info strong {
+    .energy-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: #9ca3cf;
+      margin-bottom: 2px;
+    }
+    .energy-row .energy-label i {
       color: #fbbf24;
-      font-size: 1.1rem;
+      margin-right: 4px;
+    }
+    .energy-bar {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .energy-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+      border-radius: 20px;
+      transition: width 0.2s ease;
+      box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
+    }
+    .energy-timer {
+      font-size: 0.65rem;
+      color: #6b7aa8;
+      text-align: right;
+      margin-top: 2px;
+    }
+    .energy-recharge-note {
+      font-size: 0.6rem;
+      color: #5a6a92;
+      text-align: center;
+      margin-top: 4px;
     }
 
     /* ----- WALLET SUBMIT CARD ----- */
     .wallet-submit-card {
       background: rgba(255, 255, 255, 0.04);
-      border-radius: 24px;
+      border-radius: 20px;
       padding: 14px 16px;
-      margin-top: 16px;
-      width: 85%;
+      margin-top: 14px;
+      width: 88%;
       max-width: 360px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(4px);
+    }
+    .wallet-submit-card .card-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #b9c6f0;
+      margin-bottom: 6px;
     }
     .wallet-submit-card .input-group {
       display: flex;
@@ -383,7 +410,7 @@
       border-radius: 40px;
       padding: 10px 16px;
       color: white;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       outline: none;
       transition: border 0.2s;
     }
@@ -393,10 +420,10 @@
     .wallet-submit-card input::placeholder {
       color: #6b7aa8;
     }
-    .wallet-submit-card .btn-small {
-      background: #2563eb;
+    .wallet-submit-card .btn-submit {
+      background: linear-gradient(145deg, #2563eb, #1d4ed8);
       border: none;
-      padding: 8px 16px;
+      padding: 10px 20px;
       border-radius: 40px;
       color: white;
       font-weight: 600;
@@ -404,32 +431,39 @@
       white-space: nowrap;
       cursor: pointer;
       transition: 0.15s;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
     }
-    .wallet-submit-card .btn-small:active { transform: scale(0.95); }
+    .wallet-submit-card .btn-submit:active { transform: scale(0.95); }
+    .wallet-submit-card .security-note {
+      font-size: 0.55rem;
+      color: #5a6a92;
+      margin-top: 6px;
+      text-align: center;
+    }
+    .wallet-submit-card .security-note i {
+      margin-right: 4px;
+    }
 
-    /* ----- BOTTOM NAVIGATION ----- */
+    /* ----- BOTTOM NAVIGATION (4 tabs) ----- */
     #bottom-nav {
       display: flex;
       justify-content: space-around;
       align-items: center;
-      background: rgba(10, 12, 26, 0.85);
+      background: rgba(10, 12, 26, 0.9);
       backdrop-filter: blur(16px);
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      padding: 8px 0 env(safe-area-inset-bottom);
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 6px 0 env(safe-area-inset-bottom);
       flex-shrink: 0;
     }
     .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
-      font-size: 0.6rem;
+      gap: 1px;
+      font-size: 0.55rem;
       color: #6b7aa8;
       transition: 0.2s;
-      padding: 6px 12px;
+      padding: 4px 12px;
       border-radius: 20px;
       background: transparent;
       border: none;
@@ -441,11 +475,27 @@
       background: rgba(251, 191, 36, 0.08);
     }
     .nav-item i {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       line-height: 1;
     }
 
-    /* ----- PANELS ----- */
+    /* ----- FLOATING TAP NUMBERS (multi-touch) ----- */
+    .float-number {
+      position: absolute;
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: #fbbf24;
+      text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+      pointer-events: none;
+      animation: floatUp 0.9s ease-out forwards;
+      z-index: 50;
+    }
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-80px) scale(1.2); }
+    }
+
+    /* ----- PANELS (Friends, Boost, Wallet) ----- */
     .panel {
       flex: 1;
       display: none;
@@ -459,7 +509,7 @@
       display: flex;
     }
     .panel-title {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: 700;
       margin-bottom: 14px;
       background: linear-gradient(135deg, #fbbf24, #3b82f6);
@@ -467,7 +517,7 @@
       -webkit-text-fill-color: transparent;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
     .panel-title i {
       -webkit-text-fill-color: initial;
@@ -476,10 +526,10 @@
 
     .card {
       background: rgba(255, 255, 255, 0.04);
-      border-radius: 24px;
-      padding: 18px 16px;
-      margin-bottom: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(4px);
     }
     .card-row {
@@ -491,26 +541,20 @@
     .btn-small {
       background: #2563eb;
       border: none;
-      padding: 8px 20px;
+      padding: 6px 16px;
       border-radius: 40px;
       color: white;
       font-weight: 600;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
       touch-action: manipulation;
       cursor: pointer;
       transition: 0.15s;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
     .btn-small:active { transform: scale(0.95); }
-    .btn-danger {
-      background: #dc2626;
-    }
-    .btn-success {
-      background: #16a34a;
-    }
     .btn-outline {
       background: transparent;
       border: 1px solid #3b82f6;
@@ -518,41 +562,7 @@
       box-shadow: none;
     }
 
-    .social-icons {
-      display: flex;
-      gap: 24px;
-      justify-content: center;
-      font-size: 2.6rem;
-      margin: 12px 0;
-    }
-    .social-icons i {
-      filter: drop-shadow(0 0 10px rgba(59,130,246,0.15));
-      transition: 0.2s;
-      cursor: default;
-    }
-    .social-icons i:active { transform: scale(0.9); }
-
-    .feedback-area textarea {
-      width: 100%;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid #2a3045;
-      border-radius: 16px;
-      padding: 14px;
-      color: white;
-      font-size: 0.95rem;
-      resize: vertical;
-      min-height: 80px;
-      outline: none;
-      transition: border 0.2s;
-    }
-    .feedback-area textarea:focus {
-      border-color: #3b82f6;
-    }
-    .feedback-area textarea::placeholder {
-      color: #6b7aa8;
-    }
-
-    /* ----- ADMIN PANEL ----- */
+    /* ----- ADMIN PANEL (hidden) ----- */
     #admin-panel {
       display: none;
       position: absolute;
@@ -600,7 +610,7 @@
       padding: 4px 16px;
       border-radius: 40px;
       font-weight: 600;
-      cursor: pointer; 
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -608,35 +618,13 @@
     .unban-btn {
       background: #16a34a;
     }
-    .translated-feedback {
-      background: #14182b;
-      padding: 6px 12px;
-      border-radius: 12px;
-      margin-top: 6px;
-      font-size: 0.85rem;
-      color: #b9c6f0;
-      border-left: 2px solid #fbbf24;
-    }
-    .appeal-badge {
-      background: #1e293b;
-      padding: 2px 12px;
-      border-radius: 40px;
-      font-size: 0.65rem;
-      color: #fbbf24;
-      border: 1px solid #fbbf24;
-      display: inline-block;
-    }
 
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
-
-    .flex-1 { flex:1; }
-    .mt-2 { margin-top: 12px; }
-    .text-center { text-align: center; }
     .text-muted { color: #7b8ab8; }
+    .text-center { text-align: center; }
+    .mt-2 { margin-top: 12px; }
     .gap-2 { gap: 8px; }
-    .fw-600 { font-weight: 600; }
-    .mb-1 { margin-bottom: 6px; }
   </style>
 </head>
 <body>
@@ -645,57 +633,81 @@
   <!-- ONBOARDING -->
   <div id="onboarding">
     <div class="onboard-icon"><i class="fa-solid fa-bolt"></i></div>
-    <div class="onboard-title">ECoin</div>
-    <div class="onboard-sub">Welcome to the ECoin tap‑to‑earn universe.<br>Claim your 30 ECoin airdrop & start earning.</div>
-    <button class="btn-primary" id="startBtn"><i class="fa-regular fa-circle-play"></i> START / LET'S BEGIN</button>
+    <div class="onboard-title">ECoin Master</div>
+    <div class="onboard-sub">Welcome to ECoin Master.<br>Start mining and earn rewards.</div>
+    <button class="btn-primary" id="startBtn"><i class="fa-regular fa-circle-play"></i> START MINING</button>
   </div>
 
-  <!-- BANNED OVERLAY (with AI auto-forgiveness) -->
-  <div id="banned-overlay">
-    <div class="ban-icon"><i class="fa-solid fa-ban"></i></div>
-    <h2>Account Banned</h2>
-    <div class="ban-reason" id="banReasonDisplay">Reason: Suspicious activity detected</div>
-    <div class="appeal-box">
-      <p style="color:#b9c6f0; font-size:0.9rem; margin-bottom:10px;">Submit an appeal or explanation (AI will review automatically)</p>
-      <textarea id="appealInput" placeholder="Write your apology or explanation..."></textarea>
-      <button class="btn-appeal" id="submitAppealBtn"><i class="fa-regular fa-paper-plane"></i> Submit Appeal</button>
-      <div id="appealStatus" class="appeal-status"></div>
-    </div>
-  </div>
-
-  <!-- MAIN HEADER -->
+  <!-- HEADER -->
   <div id="header">
     <div class="user-badge">
       <div class="avatar" id="avatarLetter">E</div>
-      <span id="tgUsername">user</span>
+      <div class="user-info">
+        <div class="user-name">
+          <span id="tgUsername">User</span>
+          <span class="verified"><i class="fa-solid fa-circle-check"></i></span>
+        </div>
+        <div class="level-badge">Lv. <span id="levelDisplay">1</span></div>
+      </div>
     </div>
-    <div style="display:flex; align-items:center; gap:8px;">
-      <div class="wallet-indicator" id="walletIndicator">
-        <i class="fa-solid fa-wallet"></i> <span id="walletLabel">BSC</span>
-      </div>
+    <div class="header-right">
+      <span class="notif"><i class="fa-regular fa-bell"></i></span>
       <div class="coin-badge">
-        <i class="fa-solid fa-coins"></i> <span id="balanceDisplay">0</span>
+        <i class="fa-solid fa-coins"></i> <span id="balanceDisplay">0.00</span>
       </div>
+    </div>
+  </div>
+
+  <!-- XP BAR -->
+  <div class="xp-bar-wrap">
+    <div class="xp-bar">
+      <div class="xp-track">
+        <div class="xp-fill" id="xpFill" style="width:0%"></div>
+      </div>
+      <span class="xp-text" id="xpText">0 / 100 XP</span>
     </div>
   </div>
 
   <!-- TAP AREA (Earn) -->
   <div id="tap-area" class="panel active">
-    <div class="energy-bar">
-      <div class="energy-fill" id="energyFill" style="width:100%"></div>
-    </div>
-    <div class="energy-text" id="energyText"><i class="fa-solid fa-bolt"></i> 1000 / 1000</div>
-    <div class="tap-coin" id="tapCoin">E</div>
-    <div class="tap-info"><i class="fa-solid fa-bolt" style="color:#fbbf24;"></i> <strong id="tapPowerDisplay">1</strong> per tap · level <span id="levelDisplay">1</span></div>
-    <div style="margin-top: 8px; font-size:0.75rem; color:#6b7aa8; display:flex; align-items:center; gap:6px;"><i class="fa-regular fa-calendar-check"></i> daily streak: <span id="streakDisplay">0</span> days</div>
-
-    <!-- WALLET SUBMIT CARD -->
-    <div class="wallet-submit-card">
-      <div class="input-group">
-        <input type="text" id="walletInput" placeholder="0x... (BSC/ETH wallet)">
-        <button class="btn-small" id="submitWalletBtn"><i class="fa-regular fa-paper-plane"></i> Submit</button>
+    <div class="balance-section">
+      <div class="balance-label">Your Balance</div>
+      <div class="balance-amount">
+        <span class="etc-symbol">⧫</span><span id="balanceDisplayLarge">0.00</span> ETC
       </div>
-      <div style="font-size:0.65rem; color:#5a6a92; margin-top:6px; text-align:center;"><i class="fa-regular fa-circle-check"></i> Connect your wallet for future rewards</div>
+      <div class="balance-usd">≈ $0.00 USD</div>
+      <div class="pre-list-note"><i class="fa-regular fa-clock"></i> Pre-Listing / Pre-TGE Phase</div>
+    </div>
+
+    <div class="profit-box">
+      <i class="fa-regular fa-hand-peace"></i> Profit per Tap: <span id="profitPerTap">+1</span>
+    </div>
+
+    <div class="tap-hint">••• Tap to Earn •••</div>
+
+    <div class="tap-coin" id="tapCoin">E</div>
+
+    <!-- Energy Section -->
+    <div class="energy-section">
+      <div class="energy-row">
+        <span class="energy-label"><i class="fa-solid fa-bolt"></i> Energy</span>
+        <span><span id="energyCurrent">1000</span> / <span id="energyMax">1000</span></span>
+      </div>
+      <div class="energy-bar">
+        <div class="energy-fill" id="energyFill" style="width:100%"></div>
+      </div>
+      <div class="energy-timer" id="energyTimer">02:45</div>
+      <div class="energy-recharge-note"><i class="fa-regular fa-clock"></i> Recharge energy to keep earning!</div>
+    </div>
+
+    <!-- Wallet Submit Card -->
+    <div class="wallet-submit-card">
+      <div class="card-title"><i class="fa-regular fa-wallet"></i> Submit Your Wallet</div>
+      <div class="input-group">
+        <input type="text" id="walletInput" placeholder="0x... (EVM wallet address)">
+        <button class="btn-submit" id="submitWalletBtn"><i class="fa-regular fa-paper-plane"></i> Submit</button>
+      </div>
+      <div class="security-note"><i class="fa-regular fa-shield-halved"></i> We never store your private keys.</div>
     </div>
   </div>
 
@@ -707,16 +719,16 @@
         <span><i class="fa-solid fa-link"></i> Invite link</span>
         <button class="btn-small" id="copyInviteBtn"><i class="fa-regular fa-copy"></i> Copy</button>
       </div>
-      <div style="font-size:0.75rem; color:#7b8ab8; word-break:break-all; margin-top:8px;" id="inviteLinkDisplay">loading...</div>
+      <div style="font-size:0.7rem; color:#7b8ab8; word-break:break-all; margin-top:8px;" id="inviteLinkDisplay">loading...</div>
     </div>
     <div class="card">
       <div class="card-row">
-        <span><i class="fa-regular fa-user"></i> Successful invites</span>
+        <span><i class="fa-regular fa-user"></i> Invites</span>
         <span id="inviteCount">0</span>
       </div>
       <div class="card-row">
         <span><i class="fa-solid fa-gift"></i> Bonus per invite</span>
-        <span>+1000 ECoin</span>
+        <span>+100 ETC</span>
       </div>
     </div>
   </div>
@@ -726,41 +738,14 @@
     <div class="panel-title"><i class="fa-solid fa-rocket"></i> Boost</div>
     <div class="card">
       <div class="card-row">
-        <span><i class="fa-regular fa-star"></i> Tap power level</span>
-        <span id="boostLevelDisplay">1</span>
+        <span><i class="fa-regular fa-star"></i> Tap power</span>
+        <span>Level <span id="boostLevelDisplay">1</span></span>
       </div>
       <div class="card-row">
-        <span><i class="fa-solid fa-hand-pointer"></i> Current tap</span>
-        <span>+<span id="boostTapDisplay">1</span> ECoin</span>
+        <span><i class="fa-solid fa-hand-pointer"></i> Per tap</span>
+        <span>+<span id="boostTapDisplay">1</span> ETC</span>
       </div>
-      <button class="btn-small" id="upgradeBoostBtn" style="width:100%; margin-top:12px; justify-content:center;"><i class="fa-solid fa-arrow-up"></i> Upgrade (cost: <span id="upgradeCost">50</span> ECoin)</button>
-    </div>
-  </div>
-
-  <!-- TASKS PANEL -->
-  <div id="tasks-panel" class="panel">
-    <div class="panel-title"><i class="fa-regular fa-list-check"></i> Tasks & Promo</div>
-    <div class="card">
-      <div class="social-icons">
-        <i class="fa-brands fa-facebook" style="color: #1877F2;"></i>
-        <i class="fa-brands fa-tiktok"></i>
-        <i class="fa-brands fa-instagram" style="color: #E4405F;"></i>
-        <i class="fa-brands fa-youtube" style="color: #FF0000;"></i>
-      </div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center;">
-        <button class="btn-small btn-outline" id="taskFb"><i class="fa-brands fa-facebook" style="color:#1877F2;"></i> Facebook</button>
-        <button class="btn-small btn-outline" id="taskTt"><i class="fa-brands fa-tiktok"></i> TikTok</button>
-        <button class="btn-small btn-outline" id="taskIg"><i class="fa-brands fa-instagram" style="color:#E4405F;"></i> Instagram</button>
-        <button class="btn-small btn-outline" id="taskYt"><i class="fa-brands fa-youtube" style="color:#FF0000;"></i> YouTube</button>
-      </div>
-      <div style="margin-top:12px; text-align:center; color:#7b8ab8; font-size:0.85rem;"><i class="fa-regular fa-clock"></i> claim daily tasks for bonus</div>
-    </div>
-    <!-- Feedback / Report section -->
-    <div class="card feedback-area">
-      <div style="font-weight:600; margin-bottom:8px;"><i class="fa-regular fa-message"></i> Feedback / Report</div>
-      <textarea id="feedbackInput" placeholder="Write your feedback or issue (any language)"></textarea>
-      <button class="btn-small" id="submitFeedbackBtn" style="margin-top:10px;"><i class="fa-regular fa-paper-plane"></i> Submit</button>
-      <div style="font-size:0.7rem; margin-top:6px; color:#5a6a92;">Your feedback will be translated for admin</div>
+      <button class="btn-small" id="upgradeBoostBtn" style="width:100%; margin-top:10px; justify-content:center;"><i class="fa-solid fa-arrow-up"></i> Upgrade (cost: <span id="upgradeCost">50</span> ETC)</button>
     </div>
   </div>
 
@@ -771,86 +756,77 @@
       <div style="font-size:3rem; color:#fbbf24;"><i class="fa-regular fa-credit-card"></i></div>
       <h2 style="color:#fbbf24; margin-top:6px;">Connect Wallet</h2>
       <p class="text-muted">Select your EVM-compatible wallet</p>
-      <div style="display:flex; gap:16px; justify-content:center; margin:20px 0; flex-wrap:wrap;">
+      <div style="display:flex; gap:12px; justify-content:center; margin:16px 0; flex-wrap:wrap;">
         <button class="btn-small wallet-connect" data-wallet="metamask"><i class="fa-brands fa-ethereum"></i> MetaMask</button>
         <button class="btn-small wallet-connect" data-wallet="bsc"><i class="fa-solid fa-cube"></i> BSC</button>
         <button class="btn-small wallet-connect" data-wallet="coinbase"><i class="fa-regular fa-circle-dot"></i> Coinbase</button>
       </div>
-      <div id="connectedWalletDisplay" style="color:#b9c6f0; font-size:0.9rem; margin-top:8px;">
+      <div id="connectedWalletDisplay" style="color:#b9c6f0; font-size:0.85rem;">
         <i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> No wallet connected
       </div>
     </div>
   </div>
 
-  <!-- BOTTOM NAV -->
+  <!-- BOTTOM NAV (4 tabs) -->
   <div id="bottom-nav">
     <button class="nav-item active" data-tab="tap-area"><i class="fa-solid fa-coins"></i><span>Earn</span></button>
     <button class="nav-item" data-tab="friends-panel"><i class="fa-solid fa-users"></i><span>Friends</span></button>
     <button class="nav-item" data-tab="boost-panel"><i class="fa-solid fa-rocket"></i><span>Boost</span></button>
-    <button class="nav-item" data-tab="tasks-panel"><i class="fa-regular fa-list-check"></i><span>Tasks</span></button>
     <button class="nav-item" data-tab="wallet-panel"><i class="fa-solid fa-wallet"></i><span>Wallet</span></button>
   </div>
 
-  <!-- ADMIN PANEL -->
+  <!-- ADMIN PANEL (hidden, double-tap coin) -->
   <div id="admin-panel">
     <button class="admin-close" id="adminCloseBtn"><i class="fa-regular fa-circle-xmark"></i> Close Admin</button>
-    <h2 style="color:#fbbf24; margin-bottom:8px;"><i class="fa-solid fa-crown"></i> Mother App</h2>
+    <h2 style="color:#fbbf24; margin-bottom:8px;"><i class="fa-solid fa-crown"></i> Admin Panel</h2>
     <div id="adminUserList"></div>
   </div>
 
-  <div style="position:absolute; bottom:80px; right:16px; opacity:0.12; font-size:10px; z-index:1; pointer-events:none; letter-spacing:2px;">⏺ ADMIN</div>
+  <div style="position:absolute; bottom:80px; right:16px; opacity:0.05; font-size:8px; z-index:1; pointer-events:none;">ADMIN</div>
 </div>
 
 <script>
   (function(){
     "use strict";
 
-    // ============================================================
-    // MASTER ADMIN CONFIG – NEVER BANNED
-    // ============================================================
-    const MASTER_ADMIN_ID = 'admin_master';   // change to actual admin ID
-    const MASTER_ADMIN_USERNAME = 'admin';
-
-    // ============================================================
-    // STATE
-    // ============================================================
+    // ----- STATE (clean slate: 0 balance, level 1, 0 XP) -----
     let state = {
       balance: 0,
       energy: 1000,
       maxEnergy: 1000,
       tapPower: 1,
       level: 1,
-      boostLevel: 1,
+      xp: 0,
+      xpToNext: 100,
       streak: 0,
       lastVisit: null,
       invites: 0,
       banned: false,
       banReason: '',
       tgId: 'anon',
-      tgUsername: 'user',
-      walletIntent: false,
+      tgUsername: 'User',
       connectedWallet: null,
       walletAddress: '',
       tasksClaimed: { fb:false, tt:false, ig:false, yt:false },
-      clickCount: 0,
-      lastClickTime: 0,
-      appealSubmitted: false,
-      appealPending: false  // AI pending review
+      isAdmin: false   // first user becomes admin
     };
 
     let usersDB = [];
+    let isMasterAdmin = false;
 
-    // ============================================================
-    // DOM REFS
-    // ============================================================
+    // ----- DOM REFS -----
     const $ = id => document.getElementById(id);
-    const balanceSpan = $('balanceDisplay');
+    const balanceDisplay = $('balanceDisplay');
+    const balanceDisplayLarge = $('balanceDisplayLarge');
     const energyFill = $('energyFill');
-    const energyText = $('energyText');
+    const energyCurrent = $('energyCurrent');
+    const energyMax = $('energyMax');
+    const energyTimer = $('energyTimer');
     const tapCoin = $('tapCoin');
-    const tapPowerDisplay = $('tapPowerDisplay');
     const levelDisplay = $('levelDisplay');
-    const streakDisplay = $('streakDisplay');
+    const xpFill = $('xpFill');
+    const xpText = $('xpText');
+    const profitPerTap = $('profitPerTap');
     const startBtn = $('startBtn');
     const onboarding = $('onboarding');
     const inviteLinkDisplay = $('inviteLinkDisplay');
@@ -860,29 +836,14 @@
     const boostTapDisplay = $('boostTapDisplay');
     const upgradeBoostBtn = $('upgradeBoostBtn');
     const upgradeCost = $('upgradeCost');
-    const feedbackInput = $('feedbackInput');
-    const submitFeedbackBtn = $('submitFeedbackBtn');
     const adminPanel = $('admin-panel');
     const adminUserList = $('adminUserList');
     const adminCloseBtn = $('adminCloseBtn');
     const walletInput = $('walletInput');
     const submitWalletBtn = $('submitWalletBtn');
-    const walletIndicator = $('walletIndicator');
-    const walletLabel = $('walletLabel');
     const connectedWalletDisplay = $('connectedWalletDisplay');
-    const bannedOverlay = $('banned-overlay');
-    const banReasonDisplay = $('banReasonDisplay');
-    const appealInput = $('appealInput');
-    const submitAppealBtn = $('submitAppealBtn');
-    const appealStatus = $('appealStatus');
 
-    // ============================================================
-    // HELPERS
-    // ============================================================
-    function isMasterAdmin() {
-      return state.tgId === MASTER_ADMIN_ID || state.tgUsername === MASTER_ADMIN_USERNAME;
-    }
-
+    // ----- HELPERS -----
     function saveState() {
       try {
         localStorage.setItem('ecoin_state', JSON.stringify(state));
@@ -897,247 +858,143 @@
           Object.assign(state, parsed);
         }
       } catch(e){}
+      // Telegram auto-login
       if (window.Telegram?.WebApp?.initDataUnsafe) {
         const user = window.Telegram.WebApp.initDataUnsafe.user;
         if (user) {
           state.tgId = String(user.id) || 'anon';
-          state.tgUsername = user.username || user.first_name || 'user';
+          state.tgUsername = user.username || user.first_name || 'User';
         }
       }
-      // Force admin protection
-      if (isMasterAdmin()) {
-        state.banned = false;
-        state.banReason = '';
+      // First user becomes admin
+      const adminKey = 'ecoin_admin_set';
+      if (!localStorage.getItem(adminKey)) {
+        isMasterAdmin = true;
+        state.isAdmin = true;
+        localStorage.setItem(adminKey, 'true');
+        localStorage.setItem('ecoin_admin_id', state.tgId);
+      } else {
+        const storedAdminId = localStorage.getItem('ecoin_admin_id');
+        if (storedAdminId === state.tgId) {
+          isMasterAdmin = true;
+          state.isAdmin = true;
+        }
       }
       $('avatarLetter').textContent = state.tgUsername.charAt(0).toUpperCase() || 'E';
       $('tgUsername').textContent = state.tgUsername;
       return true;
     }
 
-    function checkBan() {
-      // Admin is immune
-      if (isMasterAdmin()) {
-        state.banned = false;
-        state.banReason = '';
-        saveState();
-        bannedOverlay.classList.remove('visible');
-        return false;
-      }
-      if (state.banned) {
-        bannedOverlay.classList.add('visible');
-        banReasonDisplay.textContent = 'Reason: ' + (state.banReason || 'Suspicious activity detected');
-        onboarding.classList.add('hidden');
-        return true;
-      }
-      bannedOverlay.classList.remove('visible');
-      return false;
-    }
-
-    // ============================================================
-    // AI AUTO-FORGIVENESS ENGINE (autonomous, no admin required)
-    // ============================================================
-    function aiEvaluateAppeal(appealText) {
-      // Simple but effective rule-based AI
-      const lower = appealText.toLowerCase();
-      let score = 0;
-      // Positive keywords (acknowledgment, apology, explanation)
-      if (lower.includes('sorry') || lower.includes('apolog') || lower.includes('mistake') || lower.includes('error')) score += 2;
-      if (lower.includes('test') || lower.includes('testing') || lower.includes('learn') || lower.includes('new')) score += 1;
-      if (lower.includes('auto') || lower.includes('bot') || lower.includes('script')) score += 1; // honesty
-      if (lower.includes('please') || lower.includes('kind') || lower.includes('allow')) score += 1;
-      if (lower.includes('understand') || lower.includes('accept') || lower.includes('rules')) score += 1;
-      if (lower.includes('wrong') || lower.includes('bad') || lower.includes('fix')) score += 1;
-      // Negative filters (aggressive or manipulative)
-      if (lower.includes('stupid') || lower.includes('idiot') || lower.includes('hate') || lower.includes('terrible')) score -= 3;
-      if (lower.length < 10) score -= 1; // too short
-
-      // Decision: score >= 3 → auto-unban (forgiveness)
-      if (score >= 3) {
-        return { decision: 'unban', score: score };
-      } else {
-        return { decision: 'pending', score: score };
+    function updateUI() {
+      // Balance
+      const balStr = state.balance.toFixed(2);
+      balanceDisplay.textContent = balStr;
+      balanceDisplayLarge.textContent = balStr;
+      // Level & XP
+      levelDisplay.textContent = state.level;
+      const xpPercent = Math.min((state.xp / state.xpToNext) * 100, 100);
+      xpFill.style.width = xpPercent + '%';
+      xpText.textContent = `${state.xp} / ${state.xpToNext} XP`;
+      // Energy
+      energyCurrent.textContent = Math.floor(state.energy);
+      energyMax.textContent = state.maxEnergy;
+      const pct = Math.floor((state.energy / state.maxEnergy) * 100);
+      energyFill.style.width = pct + '%';
+      // Profit per tap
+      profitPerTap.textContent = `+${state.tapPower}`;
+      // Boost
+      boostLevelDisplay.textContent = state.boostLevel || 1;
+      boostTapDisplay.textContent = state.tapPower;
+      const cost = 20 + (state.boostLevel || 1) * 30;
+      upgradeCost.textContent = cost;
+      inviteCount.textContent = state.invites;
+      // Wallet
+      if (state.connectedWallet) {
+        const label = state.connectedWallet.charAt(0).toUpperCase() + state.connectedWallet.slice(1);
+        connectedWalletDisplay.innerHTML = `<i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> Connected: ${label}`;
       }
     }
 
-    function processAppeal(appealText) {
-      if (isMasterAdmin()) {
-        alert('Admin accounts cannot be banned.');
-        return;
-      }
-      const result = aiEvaluateAppeal(appealText);
-      if (result.decision === 'unban') {
-        // AI forgives: auto-unban
-        state.banned = false;
-        state.banReason = '';
-        state.appealSubmitted = false;
-        state.appealPending = false;
-        saveState();
-        appealStatus.textContent = '✅ Appeal accepted! Account restored.';
-        appealStatus.style.color = '#16a34a';
-        setTimeout(() => {
-          checkBan();
-          location.reload();
-        }, 1500);
-      } else {
-        // Pending: keep banned, store appeal for admin review
-        state.appealPending = true;
-        state.appealSubmitted = true;
-        // Store appeal in DB for admin visibility
-        const entry = {
-          user: state.tgUsername,
-          id: state.tgId,
-          feedback: appealText,
-          translated: '[AI Pending] ' + appealText.substring(0, 60) + '... (score: ' + result.score + ')',
-          timestamp: new Date().toISOString(),
-          isAppeal: true,
-          appealFor: state.banReason,
-          aiScore: result.score
-        };
-        usersDB.push(entry);
-        // update user record
-        let userRecord = usersDB.find(u => u.id === state.tgId);
-        if (!userRecord) {
-          userRecord = { id: state.tgId, username: state.tgUsername, balance: state.balance, wallet: state.walletAddress || 'not set' };
-          usersDB.push(userRecord);
-        }
-        userRecord.appeal = appealText;
-        userRecord.appealTranslated = '[AI Pending] ' + appealText.substring(0, 60) + '...';
-        userRecord.aiScore = result.score;
-        localStorage.setItem('ecoin_admin_db', JSON.stringify(usersDB));
-        appealStatus.textContent = '⏳ Appeal submitted. Admin will review. (AI score: ' + result.score + '/5)';
-        appealStatus.style.color = '#fbbf24';
-        saveState();
-      }
-    }
-
-    // ============================================================
-    // STREAK & ENERGY
-    // ============================================================
-    function updateStreak() {
-      const today = new Date().toDateString();
-      if (state.lastVisit !== today) {
-        if (state.lastVisit) {
-          const diff = (Date.now() - new Date(state.lastVisit).getTime()) / (1000*60*60*24);
-          if (diff <= 1.5) {
-            state.streak += 1;
-          } else {
-            state.streak = 1;
-          }
-        } else {
-          state.streak = 1;
-        }
-        state.lastVisit = today;
-        const bonus = Math.min(10 + state.streak * 2, 50);
-        if (!state.banned || isMasterAdmin()) {
-          state.balance += bonus;
-        }
-        saveState();
-      }
-      streakDisplay.textContent = state.streak;
-    }
-
+    // Energy regen
     function regenEnergy() {
       if (state.energy < state.maxEnergy) {
-        state.energy = Math.min(state.maxEnergy, state.energy + 5);
-        updateEnergyUI();
+        state.energy = Math.min(state.maxEnergy, state.energy + 3);
+        updateUI();
         saveState();
       }
     }
     setInterval(regenEnergy, 1000);
 
-    function updateEnergyUI() {
-      const pct = Math.floor((state.energy / state.maxEnergy) * 100);
-      energyFill.style.width = pct + '%';
-      energyText.innerHTML = `<i class="fa-solid fa-bolt"></i> ${Math.floor(state.energy)} / ${state.maxEnergy}`;
+    // Timer display
+    function updateEnergyTimer() {
+      const missing = state.maxEnergy - state.energy;
+      if (missing <= 0) { energyTimer.textContent = 'Full'; return; }
+      const seconds = Math.ceil(missing / 3);
+      const min = Math.floor(seconds / 60);
+      const sec = seconds % 60;
+      energyTimer.textContent = `${String(min).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
     }
+    setInterval(updateEnergyTimer, 1000);
 
-    function updateUI() {
-      balanceSpan.textContent = state.balance;
-      tapPowerDisplay.textContent = state.tapPower;
-      levelDisplay.textContent = state.level;
-      updateEnergyUI();
-      boostLevelDisplay.textContent = state.boostLevel;
-      boostTapDisplay.textContent = state.tapPower;
-      const cost = 20 + state.boostLevel * 30;
-      upgradeCost.textContent = cost;
-      inviteCount.textContent = state.invites;
-      streakDisplay.textContent = state.streak;
-      if (state.connectedWallet) {
-        const label = state.connectedWallet.charAt(0).toUpperCase() + state.connectedWallet.slice(1);
-        walletLabel.textContent = label;
-        walletIndicator.style.display = 'flex';
-      } else {
-        walletLabel.textContent = 'BSC';
-        walletIndicator.style.display = 'flex';
-      }
-      checkBan();
-    }
-
-    // ============================================================
-    // TAP LOGIC with ANTI-CHEAT (admin immune)
-    // ============================================================
+    // ----- TAP LOGIC (no auto-ban, floating numbers) -----
     function handleTap(e) {
-      // Admin is immune to ban
-      if (isMasterAdmin()) {
-        // Allow tapping even if banned flag is set (but it shouldn't be)
-        if (state.banned) {
-          state.banned = false;
-          state.banReason = '';
-          saveState();
-        }
-      }
-      if (state.banned) {
-        checkBan();
-        return;
-      }
       if (state.energy < 1) { 
         if (navigator.vibrate) navigator.vibrate(20);
         return; 
       }
-      const now = Date.now();
-      if (now - state.lastClickTime < 50) {
-        state.clickCount++;
-        // Auto-ban logic: exempt admin
-        if (state.clickCount > 8 && !isMasterAdmin()) {
-          state.banned = true;
-          state.banReason = 'Auto-clicker / bot activity detected';
-          saveState();
-          checkBan();
-          alert('⚠️ Suspicious activity detected. Account banned.');
-          return;
-        }
-      } else {
-        state.clickCount = 0;
-      }
-      state.lastClickTime = now;
-
       state.energy = Math.max(0, state.energy - 1);
       state.balance += state.tapPower;
-      state.level = Math.floor(state.balance / 500) + 1;
+      // XP: 1 XP per tap
+      state.xp += 1;
+      if (state.xp >= state.xpToNext) {
+        state.xp = 0;
+        state.level += 1;
+        state.xpToNext = Math.floor(state.xpToNext * 1.4);
+      }
       saveState();
       updateUI();
-      if (navigator.vibrate) navigator.vibrate(10);
+      if (navigator.vibrate) navigator.vibrate(8);
       tapCoin.style.transform = 'scale(0.88)';
-      setTimeout(() => tapCoin.style.transform = '', 120);
+      setTimeout(() => tapCoin.style.transform = '', 100);
+
+      // Floating number
+      spawnFloatNumber(e, state.tapPower);
     }
 
-    // ============================================================
-    // BOOST
-    // ============================================================
+    function spawnFloatNumber(e, value) {
+      const container = document.getElementById('tap-area');
+      const rect = container.getBoundingClientRect();
+      let clientX, clientY;
+      if (e.touches) {
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
+      } else {
+        clientX = e.clientX;
+        clientY = e.clientY;
+      }
+      const el = document.createElement('div');
+      el.className = 'float-number';
+      el.textContent = `+${value}`;
+      const x = clientX - rect.left - 20;
+      const y = clientY - rect.top - 20;
+      el.style.left = x + 'px';
+      el.style.top = y + 'px';
+      container.appendChild(el);
+      setTimeout(() => el.remove(), 900);
+    }
+
+    // ----- BOOST -----
     function upgradeBoost() {
-      if (state.banned && !isMasterAdmin()) { checkBan(); return; }
-      const cost = 20 + state.boostLevel * 30;
-      if (state.balance < cost) { alert('Not enough ECoin'); return; }
+      const cost = 20 + (state.boostLevel || 1) * 30;
+      if (state.balance < cost) { alert('Not enough ETC'); return; }
       state.balance -= cost;
-      state.boostLevel += 1;
+      state.boostLevel = (state.boostLevel || 1) + 1;
       state.tapPower = state.boostLevel;
       saveState();
       updateUI();
     }
 
-    // ============================================================
-    // INVITE
-    // ============================================================
+    // ----- INVITE -----
     function generateInviteLink() {
       const base = 'https://t.me/ECoinBot?start=ref_';
       const code = state.tgId + '_' + Date.now().toString(36);
@@ -1155,33 +1012,16 @@
 
     function addInvite() {
       state.invites += 1;
-      state.balance += 1000;
+      state.balance += 100;
       saveState();
       updateUI();
     }
 
-    // ============================================================
-    // TASKS
-    // ============================================================
-    function claimTask(task) {
-      if (state.banned && !isMasterAdmin()) { checkBan(); return; }
-      if (state.tasksClaimed[task]) { alert('Already claimed today'); return; }
-      state.tasksClaimed[task] = true;
-      state.balance += 25;
-      saveState();
-      updateUI();
-      alert('+25 ECoin');
-    }
-
-    // ============================================================
-    // WALLET
-    // ============================================================
+    // ----- WALLET -----
     function connectWallet(walletType) {
-      if (state.banned && !isMasterAdmin()) { checkBan(); return; }
       state.connectedWallet = walletType;
       const label = walletType.charAt(0).toUpperCase() + walletType.slice(1);
       connectedWalletDisplay.innerHTML = `<i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> Connected: ${label}`;
-      walletLabel.textContent = label;
       saveState();
       updateUI();
       alert(`Connected to ${label}`);
@@ -1189,7 +1029,6 @@
     }
 
     function submitWalletAddress() {
-      if (state.banned && !isMasterAdmin()) { checkBan(); return; }
       const addr = walletInput.value.trim();
       if (!addr) { alert('Please enter a wallet address'); return; }
       if (!addr.startsWith('0x') || addr.length < 40) {
@@ -1197,7 +1036,8 @@
         return;
       }
       state.walletAddress = addr;
-      const existing = usersDB.find(u => u.id === state.tgId);
+      // store in DB
+      let existing = usersDB.find(u => u.id === state.tgId);
       if (existing) {
         existing.wallet = addr;
       } else {
@@ -1209,49 +1049,21 @@
       walletInput.value = '';
     }
 
-    // ============================================================
-    // FEEDBACK
-    // ============================================================
-    function submitFeedback() {
-      if (state.banned && !isMasterAdmin()) { checkBan(); return; }
-      const raw = feedbackInput.value.trim();
-      if (!raw) return alert('Please write something');
-      let translated = raw;
-      const hasNonEng = /[\u0600-\u06FF\u4e00-\u9fff\u0400-\u04FF\u00C0-\u00FF]/.test(raw);
-      if (hasNonEng) {
-        translated = '[Translated to English] ' + raw.substring(0, 60) + '...';
-      } else {
-        translated = '[EN] ' + raw + ' | [SW] Mwisho wa maoni.';
-      }
-      const entry = {
-        user: state.tgUsername,
-        id: state.tgId,
-        feedback: raw,
-        translated: translated,
-        timestamp: new Date().toISOString(),
-        isAppeal: false
-      };
-      usersDB.push(entry);
+    // ----- ADMIN PANEL -----
+    function loadAdminDB() {
+      try {
+        const raw = localStorage.getItem('ecoin_admin_db');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) usersDB = parsed;
+        }
+      } catch(e){}
       if (!usersDB.find(u => u.id === state.tgId)) {
         usersDB.push({ id: state.tgId, username: state.tgUsername, balance: state.balance, wallet: state.walletAddress || 'not set' });
+        localStorage.setItem('ecoin_admin_db', JSON.stringify(usersDB));
       }
-      localStorage.setItem('ecoin_admin_db', JSON.stringify(usersDB));
-      alert('Feedback submitted! Thank you.');
-      feedbackInput.value = '';
     }
 
-    // ============================================================
-    // APPEAL (with AI auto-forgiveness)
-    // ============================================================
-    function submitAppeal() {
-      const raw = appealInput.value.trim();
-      if (!raw) return alert('Please write your appeal');
-      processAppeal(raw);
-    }
-
-    // ============================================================
-    // ADMIN PANEL
-    // ============================================================
     function renderAdmin() {
       const list = usersDB.length ? usersDB : [{ id: 'system', username: 'admin', balance: 0, wallet: '—' }];
       adminUserList.innerHTML = list.map((u, idx) => {
@@ -1259,28 +1071,24 @@
         const banAction = isBanned ? 
           `<button class="ban-btn unban-btn" data-action="unban" data-idx="${idx}"><i class="fa-regular fa-circle-check"></i> UNBAN</button>` :
           `<button class="ban-btn" data-action="ban" data-idx="${idx}"><i class="fa-solid fa-ban"></i> BAN</button>`;
-        const fb = u.feedback ? `<div class="translated-feedback"><i class="fa-regular fa-message"></i> ${u.translated || u.feedback}</div>` : '';
-        const appealBadge = u.isAppeal ? `<span class="appeal-badge"><i class="fa-regular fa-clock"></i> APPEAL (AI score: ${u.aiScore || '?'})</span>` : '';
-        const appealText = u.appeal ? `<div class="translated-feedback" style="border-left-color:#fbbf24;"><i class="fa-regular fa-comment"></i> Appeal: ${u.appealTranslated || u.appeal}</div>` : '';
         return `<div class="admin-user-item">
           <div class="row">
-            <span><i class="fa-regular fa-user"></i> <strong>${u.username || 'anon'}</strong> (${u.id}) ${appealBadge}</span>
+            <span><i class="fa-regular fa-user"></i> <strong>${u.username || 'anon'}</strong> (${u.id}) ${u.id === state.tgId && state.isAdmin ? '👑' : ''}</span>
             <span><i class="fa-solid fa-coins"></i> ${u.balance || 0}</span>
           </div>
           <div class="row">
             <span><i class="fa-solid fa-wallet"></i> ${u.wallet || 'not set'}</span>
             ${banAction}
           </div>
-          ${fb}
-          ${appealText}
         </div>`;
       }).join('');
+      // Ban/Unban handlers
       document.querySelectorAll('[data-action="ban"]').forEach(btn => {
-        btn.addEventListener('click', function(e) {
+        btn.addEventListener('click', function() {
           const idx = parseInt(this.dataset.idx);
           const target = usersDB[idx];
           if (!target) return;
-          if (target.id === state.tgId && isMasterAdmin()) {
+          if (target.id === state.tgId && state.isAdmin) {
             alert('You are the Master Admin. You cannot ban yourself.');
             return;
           }
@@ -1298,14 +1106,14 @@
         });
       });
       document.querySelectorAll('[data-action="unban"]').forEach(btn => {
-        btn.addEventListener('click', function(e) {
+        btn.addEventListener('click', function() {
           const idx = parseInt(this.dataset.idx);
           const target = usersDB[idx];
           if (target && target.id === state.tgId) {
             state.banned = false;
             state.banReason = '';
             saveState();
-            alert('Unbanned. You can now use the app.');
+            alert('Unbanned.');
             location.reload();
           } else if (target) {
             alert(`Unbanned ${target.username}`);
@@ -1316,28 +1124,16 @@
       });
     }
 
-    function loadAdminDB() {
-      try {
-        const raw = localStorage.getItem('ecoin_admin_db');
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          if (Array.isArray(parsed)) usersDB = parsed;
-        }
-      } catch(e){}
-      if (!usersDB.find(u => u.id === state.tgId)) {
-        usersDB.push({ id: state.tgId, username: state.tgUsername, balance: state.balance, wallet: state.walletAddress || 'not set' });
-        localStorage.setItem('ecoin_admin_db', JSON.stringify(usersDB));
-      }
-    }
-
     function toggleAdmin() {
+      if (!state.isAdmin && !isMasterAdmin) {
+        alert('Admin access restricted.');
+        return;
+      }
       adminPanel.classList.toggle('visible');
       renderAdmin();
     }
 
-    // ============================================================
-    // NAVIGATION
-    // ============================================================
+    // ----- NAVIGATION -----
     function switchTab(tabId) {
       document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
       const target = document.getElementById(tabId);
@@ -1347,54 +1143,51 @@
       adminPanel.classList.remove('visible');
     }
 
-    // ============================================================
-    // INIT
-    // ============================================================
+    // ----- INIT -----
     function init() {
       if (!loadState()) return;
-      updateStreak();
       updateUI();
       loadAdminDB();
 
+      // Onboarding
       const onboarded = localStorage.getItem('ecoin_onboarded');
       if (onboarded === 'true') {
         onboarding.classList.add('hidden');
       } else {
-        state.balance += 30;
+        // Fresh start: 0 balance, level 1, 0 XP
+        state.balance = 0;
+        state.level = 1;
+        state.xp = 0;
+        state.xpToNext = 100;
+        state.tapPower = 1;
+        state.boostLevel = 1;
         saveState();
         updateUI();
-      }
-
-      if (state.banned) {
-        checkBan();
       }
 
       startBtn.addEventListener('click', function() {
         localStorage.setItem('ecoin_onboarded', 'true');
         onboarding.classList.add('hidden');
-        state.balance += 30;
+        // No welcome bonus - clean start
         saveState();
         updateUI();
       });
 
+      // Tap events (mouse + touch)
       tapCoin.addEventListener('click', handleTap);
       tapCoin.addEventListener('touchstart', (e) => { e.preventDefault(); handleTap(e); });
 
+      // Boost
       upgradeBoostBtn.addEventListener('click', upgradeBoost);
 
+      // Invite
       inviteLinkDisplay.textContent = generateInviteLink();
       copyInviteBtn.addEventListener('click', copyInvite);
       inviteCount.parentElement?.addEventListener('dblclick', function() {
         addInvite();
       });
 
-      $('taskFb').addEventListener('click', ()=>claimTask('fb'));
-      $('taskTt').addEventListener('click', ()=>claimTask('tt'));
-      $('taskIg').addEventListener('click', ()=>claimTask('ig'));
-      $('taskYt').addEventListener('click', ()=>claimTask('yt'));
-
-      submitFeedbackBtn.addEventListener('click', submitFeedback);
-
+      // Wallet
       submitWalletBtn.addEventListener('click', submitWalletAddress);
       walletInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitWalletAddress(); });
 
@@ -1405,8 +1198,7 @@
         });
       });
 
-      submitAppealBtn.addEventListener('click', submitAppeal);
-
+      // Navigation
       document.querySelectorAll('.nav-item').forEach(item => {
         item.addEventListener('click', function() {
           const tab = this.dataset.tab;
@@ -1414,6 +1206,7 @@
         });
       });
 
+      // Admin: double-tap coin
       let tapCount = 0;
       tapCoin.addEventListener('dblclick', function(e) {
         tapCount++;
@@ -1427,12 +1220,6 @@
       adminCloseBtn.addEventListener('click', ()=>adminPanel.classList.remove('visible'));
 
       setInterval(() => saveState(), 15000);
-
-      if (state.connectedWallet) {
-        const label = state.connectedWallet.charAt(0).toUpperCase() + state.connectedWallet.slice(1);
-        walletLabel.textContent = label;
-        connectedWalletDisplay.innerHTML = `<i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> Connected: ${label}`;
-      }
     }
 
     document.addEventListener('DOMContentLoaded', init);
