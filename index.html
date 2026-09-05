@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>ECoin Master</title>
-    <!-- Font Awesome 6 (official brand icons) -->
+    <title>EZBONI EN</title>
+    <!-- Font Awesome 6 (brand icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ----- RESET & GLOBAL ----- */
-        * {
+        /* ============================================================
+           RESET & FULL-SCREEN EDGE-TO-EDGE
+           ============================================================ */
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -16,6 +20,7 @@
             -webkit-tap-highlight-color: transparent;
             user-select: none;
         }
+
         body {
             background: #0b0d19;
             color: #eef2ff;
@@ -29,6 +34,7 @@
             margin: 0;
             padding: 0;
         }
+
         #app {
             width: 100vw;
             height: 100vh;
@@ -41,7 +47,9 @@
             box-shadow: none;
         }
 
-        /* ----- ONBOARDING ----- */
+        /* ============================================================
+           ONBOARDING
+           ============================================================ */
         #onboarding {
             position: absolute;
             inset: 0;
@@ -105,7 +113,9 @@
             box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
         }
 
-        /* ----- HEADER ----- */
+        /* ============================================================
+           HEADER
+           ============================================================ */
         #header {
             display: flex;
             justify-content: space-between;
@@ -141,16 +151,23 @@
             font-weight: 700;
             color: #0b0d19;
             overflow: hidden;
+            flex-shrink: 0;
         }
         .user-badge .avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
+        .user-badge .avatar .initials {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #0b0d19;
+        }
         .user-badge .user-info {
             display: flex;
             flex-direction: column;
             line-height: 1.15;
+            min-width: 0;
         }
         .user-badge .user-name {
             font-size: 0.85rem;
@@ -159,10 +176,14 @@
             display: flex;
             align-items: center;
             gap: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .user-badge .user-name .verified {
             color: #3b82f6;
             font-size: 0.7rem;
+            flex-shrink: 0;
         }
         .user-badge .level-badge {
             font-size: 0.65rem;
@@ -172,11 +193,13 @@
             border-radius: 20px;
             border: 1px solid rgba(251, 191, 36, 0.08);
             display: inline-block;
+            width: fit-content;
         }
         .header-right {
             display: flex;
             align-items: center;
             gap: 12px;
+            flex-shrink: 0;
         }
         .header-right .notif-btn {
             background: transparent;
@@ -206,7 +229,9 @@
             font-size: 1rem;
         }
 
-        /* ----- XP BAR ----- */
+        /* ============================================================
+           XP BAR
+           ============================================================ */
         .xp-bar-wrap {
             padding: 0 16px 8px;
         }
@@ -218,7 +243,7 @@
         .xp-track {
             flex: 1;
             height: 6px;
-            background: rgba(255,255,255,0.06);
+            background: rgba(255, 255, 255, 0.06);
             border-radius: 20px;
             overflow: hidden;
         }
@@ -235,7 +260,9 @@
             white-space: nowrap;
         }
 
-        /* ----- MAIN TAP AREA ----- */
+        /* ============================================================
+           TAP AREA
+           ============================================================ */
         #tap-area {
             flex: 1;
             display: flex;
@@ -244,6 +271,7 @@
             justify-content: center;
             padding: 0 16px 8px;
             position: relative;
+            overflow: hidden;
         }
         .balance-section {
             text-align: center;
@@ -301,7 +329,7 @@
             margin-bottom: 6px;
         }
 
-        /* ---- OFFICIAL COIN IMAGE with neon glow ---- */
+        /* ---- OFFICIAL COIN with neon glow ---- */
         .coin-wrapper {
             width: 170px;
             height: 170px;
@@ -326,13 +354,15 @@
             animation: spinGlow 8s linear infinite;
         }
         @keyframes spinGlow {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
         .coin-wrapper .coin-img {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            object-fit: cover;
+            object-fit: contain;
             position: relative;
             z-index: 1;
             border: 3px solid rgba(59, 130, 246, 0.5);
@@ -340,12 +370,15 @@
             transition: transform 0.08s ease;
             touch-action: manipulation;
             cursor: pointer;
+            background: rgba(0, 0, 0, 0.2);
         }
         .coin-wrapper .coin-img:active {
             transform: scale(0.90);
         }
 
-        /* ----- ENERGY SECTION ----- */
+        /* ============================================================
+           ENERGY SECTION
+           ============================================================ */
         .energy-section {
             width: 85%;
             max-width: 340px;
@@ -390,7 +423,9 @@
             margin-top: 4px;
         }
 
-        /* ----- WALLET SUBMIT CARD ----- */
+        /* ============================================================
+           WALLET SUBMIT CARD
+           ============================================================ */
         .wallet-submit-card {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 20px;
@@ -418,7 +453,7 @@
         }
         .wallet-submit-card input {
             flex: 1;
-            background: rgba(255,255,255,0.04);
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid #2a3045;
             border-radius: 40px;
             padding: 10px 16px;
@@ -426,6 +461,7 @@
             font-size: 0.8rem;
             outline: none;
             transition: border 0.2s;
+            min-width: 0;
         }
         .wallet-submit-card input:focus {
             border-color: #3b82f6;
@@ -445,8 +481,11 @@
             cursor: pointer;
             transition: 0.15s;
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            flex-shrink: 0;
         }
-        .wallet-submit-card .btn-submit:active { transform: scale(0.95); }
+        .wallet-submit-card .btn-submit:active {
+            transform: scale(0.95);
+        }
         .wallet-submit-card .security-note {
             font-size: 0.55rem;
             color: #5a6a92;
@@ -454,7 +493,33 @@
             text-align: center;
         }
 
-        /* ----- BOTTOM NAV (4 tabs) ----- */
+        /* ============================================================
+           FLOATING NUMBERS (multi-touch)
+           ============================================================ */
+        .float-number {
+            position: absolute;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #fbbf24;
+            text-shadow: 0 0 25px rgba(251, 191, 36, 0.5), 0 0 50px rgba(59, 130, 246, 0.3);
+            pointer-events: none;
+            animation: floatUp 0.9s ease-out forwards;
+            z-index: 50;
+        }
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-90px) scale(1.25);
+            }
+        }
+
+        /* ============================================================
+           BOTTOM NAVIGATION
+           ============================================================ */
         #bottom-nav {
             display: flex;
             justify-content: space-around;
@@ -489,23 +554,9 @@
             line-height: 1;
         }
 
-        /* ----- FLOATING NUMBERS (multi-touch) ----- */
-        .float-number {
-            position: absolute;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: #fbbf24;
-            text-shadow: 0 0 25px rgba(251, 191, 36, 0.5), 0 0 50px rgba(59, 130, 246, 0.3);
-            pointer-events: none;
-            animation: floatUp 0.9s ease-out forwards;
-            z-index: 50;
-        }
-        @keyframes floatUp {
-            0% { opacity: 1; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(-90px) scale(1.25); }
-        }
-
-        /* ----- PANELS (Friends, Boost, Wallet, Tasks) ----- */
+        /* ============================================================
+           PANELS
+           ============================================================ */
         .panel {
             flex: 1;
             display: none;
@@ -533,6 +584,7 @@
             -webkit-text-fill-color: initial;
             color: #fbbf24;
         }
+
         .card {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 20px;
@@ -546,6 +598,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 4px 0;
+            gap: 8px;
+            flex-wrap: wrap;
         }
         .btn-small {
             background: #2563eb;
@@ -562,8 +616,11 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            white-space: nowrap;
         }
-        .btn-small:active { transform: scale(0.95); }
+        .btn-small:active {
+            transform: scale(0.95);
+        }
         .btn-outline {
             background: transparent;
             border: 1px solid #3b82f6;
@@ -576,8 +633,11 @@
         .btn-danger {
             background: #dc2626;
         }
+        .btn-warning {
+            background: #f59e0b;
+        }
 
-        /* Wallet list (10 wallets) */
+        /* Wallet grid (10 wallets) */
         .wallet-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -585,12 +645,13 @@
             margin-top: 8px;
         }
         .wallet-item {
-            background: rgba(255,255,255,0.04);
+            background: rgba(255, 255, 255, 0.04);
             border-radius: 16px;
             padding: 12px 8px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             transition: 0.2s;
+            cursor: pointer;
         }
         .wallet-item i {
             font-size: 2rem;
@@ -601,14 +662,22 @@
             font-size: 0.7rem;
             color: #b9c6f0;
         }
-        .wallet-item:active { transform: scale(0.95); }
+        .wallet-item:active {
+            transform: scale(0.95);
+        }
+        .wallet-item.selected {
+            border-color: #fbbf24;
+            background: rgba(251, 191, 36, 0.08);
+        }
 
-        /* ----- MODAL (Support/Inbox) ----- */
+        /* ============================================================
+           MODAL (Support / Inbox)
+           ============================================================ */
         .modal-overlay {
             position: absolute;
             inset: 0;
             z-index: 800;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(6px);
             display: none;
             align-items: center;
@@ -626,8 +695,8 @@
             width: 100%;
             max-height: 80vh;
             overflow-y: auto;
-            border: 1px solid rgba(255,255,255,0.06);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
         }
         .modal-box .modal-header {
             display: flex;
@@ -648,7 +717,7 @@
         }
         .modal-box textarea {
             width: 100%;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid #2a3045;
             border-radius: 16px;
             padding: 12px;
@@ -666,7 +735,7 @@
             width: 100%;
         }
         .inbox-item {
-            background: rgba(255,255,255,0.04);
+            background: rgba(255, 255, 255, 0.04);
             border-radius: 12px;
             padding: 10px 12px;
             margin-bottom: 8px;
@@ -680,889 +749,1340 @@
             font-size: 0.85rem;
             color: #b9c6f0;
             margin-top: 2px;
+            word-break: break-word;
         }
         .inbox-item .msg-time {
             font-size: 0.6rem;
             color: #5a6a92;
         }
 
-        /* ----- ADMIN TASK MANAGER ----- */
+        /* ============================================================
+           ADMIN TASK MANAGER
+           ============================================================ */
         .admin-task-input {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
-        .admin-task-input input, .admin-task-input select {
-            background: rgba(255,255,255,0.05);
+        .admin-task-input input,
+        .admin-task-input select {
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid #2a3045;
             border-radius: 40px;
             padding: 10px 16px;
             color: white;
             font-size: 0.8rem;
             outline: none;
+            width: 100%;
         }
-        .admin-task-input input:focus, .admin-task-input select:focus {
+        .admin-task-input input:focus,
+        .admin-task-input select:focus {
             border-color: #3b82f6;
         }
         .admin-task-input .row {
             display: flex;
             gap: 8px;
         }
-        .admin-task-input .row > * { flex: 1; }
+        .admin-task-input .row>* {
+            flex: 1;
+        }
 
-        /* Utilities */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
-        .text-muted { color: #7b8ab8; }
-        .text-center { text-align: center; }
-        .mt-2 { margin-top: 12px; }
-        .mb-1 { margin-bottom: 6px; }
-        .flex-1 { flex: 1; }
-        .hidden { display: none !important; }
+        /* ============================================================
+           ADMIN PANEL
+           ============================================================ */
+        #admin-panel {
+            display: none;
+            position: absolute;
+            inset: 0;
+            z-index: 1000;
+            background: #0b0d19;
+            padding: 20px 16px;
+            overflow-y: auto;
+            flex-direction: column;
+        }
+        #admin-panel.visible {
+            display: flex;
+        }
+        .admin-close {
+            align-self: flex-end;
+            background: #1e293b;
+            border: none;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 40px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        .admin-user-item {
+            background: #1a1e30;
+            padding: 12px;
+            border-radius: 16px;
+            margin-bottom: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+        .admin-user-item .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .ban-btn {
+            background: #b91c1c;
+            border: none;
+            color: white;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .unban-btn {
+            background: #16a34a;
+        }
+
+        /* ============================================================
+           TOAST NOTIFICATION
+           ============================================================ */
+        .toast {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a1e30;
+            padding: 10px 24px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            color: #eef2ff;
+            font-size: 0.85rem;
+            z-index: 700;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            white-space: nowrap;
+            backdrop-filter: blur(8px);
+        }
+        .toast.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ============================================================
+           UTILITIES
+           ============================================================ */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+        .text-muted {
+            color: #7b8ab8;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .mt-2 {
+            margin-top: 12px;
+        }
+        .mb-1 {
+            margin-bottom: 6px;
+        }
+        .flex-1 {
+            flex: 1;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .w-full {
+            width: 100%;
+        }
+        .gap-2 {
+            gap: 8px;
+        }
     </style>
 </head>
 <body>
-<div id="app">
+    <div id="app">
 
-    <!-- ONBOARDING -->
-    <div id="onboarding">
-        <div class="onboard-icon"><i class="fa-solid fa-bolt"></i></div>
-        <div class="onboard-title">ECoin Master</div>
-        <div class="onboard-sub">Start mining and earn rewards.<br>Welcome to the future of tap-to-earn.</div>
-        <button class="btn-primary" id="startBtn"><i class="fa-regular fa-circle-play"></i> START MINING</button>
-    </div>
+        <!-- ============================================================
+        ONBOARDING
+        ============================================================ -->
+        <div id="onboarding">
+            <div class="onboard-icon"><i class="fa-solid fa-bolt"></i></div>
+            <div class="onboard-title">EZBONI EN</div>
+            <div class="onboard-sub">Start mining and earn EZBONI POINTS.<br>Welcome to the future of tap-to-earn.</div>
+            <button class="btn-primary" id="startBtn"><i class="fa-regular fa-circle-play"></i> START MINING</button>
+        </div>
 
-    <!-- HEADER -->
-    <div id="header">
-        <div class="header-left">
-            <div class="user-badge">
-                <div class="avatar" id="avatarContainer">
-                    <img id="avatarImg" src="" alt="avatar" style="display:none;">
-                    <span id="avatarFallback">E</span>
-                </div>
-                <div class="user-info">
-                    <div class="user-name">
-                        <span id="tgUsername">User</span>
-                        <span class="verified"><i class="fa-solid fa-circle-check"></i></span>
+        <!-- ============================================================
+        HEADER
+        ============================================================ -->
+        <div id="header">
+            <div class="header-left">
+                <div class="user-badge">
+                    <div class="avatar" id="avatarContainer">
+                        <img id="avatarImg" src="" alt="avatar" style="display:none;">
+                        <span class="initials" id="avatarFallback">EZ</span>
                     </div>
-                    <div class="level-badge">Lv. <span id="levelDisplay">1</span></div>
+                    <div class="user-info">
+                        <div class="user-name">
+                            <span id="tgUsername">User</span>
+                            <span class="verified"><i class="fa-solid fa-circle-check"></i></span>
+                        </div>
+                        <div class="level-badge">Lv. <span id="levelDisplay">1</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="notif-btn" id="supportInboxBtn"><i class="fa-regular fa-envelope"></i></button>
+                <div class="coin-badge">
+                    <i class="fa-solid fa-coins"></i> <span id="balanceDisplay">0.00</span>
                 </div>
             </div>
         </div>
-        <div class="header-right">
-            <!-- Support/Inbox button -->
-            <button class="notif-btn" id="supportInboxBtn"><i class="fa-regular fa-envelope"></i></button>
-            <div class="coin-badge">
-                <i class="fa-solid fa-coins"></i> <span id="balanceDisplay">0.00</span>
-            </div>
-        </div>
-    </div>
 
-    <!-- XP BAR -->
-    <div class="xp-bar-wrap">
-        <div class="xp-bar">
-            <div class="xp-track">
-                <div class="xp-fill" id="xpFill" style="width:0%"></div>
-            </div>
-            <span class="xp-text" id="xpText">0 / 100 XP</span>
-        </div>
-    </div>
-
-    <!-- TAP AREA (Earn) -->
-    <div id="tap-area" class="panel active">
-        <div class="balance-section">
-            <div class="balance-label">Your Balance</div>
-            <div class="balance-amount">
-                <span class="etc-symbol">⧫</span><span id="balanceDisplayLarge">0.00</span> ETC
-            </div>
-            <div class="balance-usd">≈ $0.00 USD</div>
-            <div class="pre-list-note"><i class="fa-regular fa-clock"></i> Pre-Listing / Pre-TGE Phase</div>
-        </div>
-
-        <div class="profit-box">
-            <i class="fa-regular fa-hand-peace"></i> Profit per Tap: <span id="profitPerTap">+1</span>
-        </div>
-
-        <div class="tap-hint">••• Tap to Earn •••</div>
-
-        <!-- Official Coin Image with neon glow -->
-        <div class="coin-wrapper">
-            <img class="coin-img" id="coinImg" src="https://i.postimg.cc/8j5WFcjZ/file-000000008128820eaef0567b3e29fdf4-3.png" alt="ECoin" draggable="false">
-        </div>
-
-        <!-- Energy Section -->
-        <div class="energy-section">
-            <div class="energy-row">
-                <span class="energy-label"><i class="fa-solid fa-bolt"></i> Energy</span>
-                <span><span id="energyCurrent">1000</span> / <span id="energyMax">1000</span></span>
-            </div>
-            <div class="energy-bar">
-                <div class="energy-fill" id="energyFill" style="width:100%"></div>
-            </div>
-            <div class="energy-timer" id="energyTimer">02:45</div>
-            <div class="energy-recharge-note"><i class="fa-regular fa-clock"></i> Recharge energy to keep earning!</div>
-        </div>
-
-        <!-- Wallet Submit Card -->
-        <div class="wallet-submit-card">
-            <div class="card-title"><i class="fa-regular fa-wallet"></i> Submit Your Wallet</div>
-            <div class="input-group">
-                <input type="text" id="walletInput" placeholder="0x... (EVM wallet address)">
-                <button class="btn-submit" id="submitWalletBtn"><i class="fa-regular fa-paper-plane"></i> Submit</button>
-            </div>
-            <div class="security-note"><i class="fa-regular fa-shield-halved"></i> We never store your private keys.</div>
-        </div>
-    </div>
-
-    <!-- FRIENDS PANEL -->
-    <div id="friends-panel" class="panel">
-        <div class="panel-title"><i class="fa-solid fa-users"></i> Friends</div>
-        <div class="card">
-            <div class="card-row">
-                <span><i class="fa-solid fa-link"></i> Invite link</span>
-                <button class="btn-small" id="copyInviteBtn"><i class="fa-regular fa-copy"></i> Copy</button>
-            </div>
-            <div style="font-size:0.7rem; color:#7b8ab8; word-break:break-all; margin-top:8px;" id="inviteLinkDisplay">loading...</div>
-        </div>
-        <div class="card">
-            <div class="card-row">
-                <span><i class="fa-regular fa-user"></i> Invites</span>
-                <span id="inviteCount">0</span>
-            </div>
-            <div class="card-row">
-                <span><i class="fa-solid fa-gift"></i> Bonus per invite</span>
-                <span>+100 ETC</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- BOOST PANEL -->
-    <div id="boost-panel" class="panel">
-        <div class="panel-title"><i class="fa-solid fa-rocket"></i> Boost</div>
-        <div class="card">
-            <div class="card-row">
-                <span><i class="fa-regular fa-star"></i> Tap power</span>
-                <span>Level <span id="boostLevelDisplay">1</span></span>
-            </div>
-            <div class="card-row">
-                <span><i class="fa-solid fa-hand-pointer"></i> Per tap</span>
-                <span>+<span id="boostTapDisplay">1</span> ETC</span>
-            </div>
-            <button class="btn-small" id="upgradeBoostBtn" style="width:100%; margin-top:10px; justify-content:center;"><i class="fa-solid fa-arrow-up"></i> Upgrade (cost: <span id="upgradeCost">50</span> ETC)</button>
-        </div>
-    </div>
-
-    <!-- TASKS PANEL -->
-    <div id="tasks-panel" class="panel">
-        <div class="panel-title"><i class="fa-regular fa-list-check"></i> Tasks</div>
-        <div id="tasksContainer">
-            <!-- Dynamically rendered -->
-        </div>
-        <!-- Admin Add Task (visible only to admin) -->
-        <div id="adminTaskPanel" class="card hidden">
-            <div style="font-weight:600; color:#fbbf24; margin-bottom:8px;"><i class="fa-solid fa-plus"></i> Add New Task</div>
-            <div class="admin-task-input">
-                <input type="text" id="taskLinkInput" placeholder="Task link (URL)">
-                <div class="row">
-                    <select id="taskPlatformSelect">
-                        <option value="youtube">YouTube</option>
-                        <option value="instagram">Instagram</option>
-                        <option value="tiktok">TikTok</option>
-                        <option value="facebook">Facebook</option>
-                    </select>
-                    <input type="number" id="taskRewardInput" placeholder="Reward ETC" value="25">
+        <!-- ============================================================
+        XP BAR
+        ============================================================ -->
+        <div class="xp-bar-wrap">
+            <div class="xp-bar">
+                <div class="xp-track">
+                    <div class="xp-fill" id="xpFill" style="width:0%"></div>
                 </div>
-                <div class="row">
-                    <input type="number" id="taskDurationInput" placeholder="Duration" value="24">
-                    <select id="taskDurationUnit">
-                        <option value="hours">Hours</option>
-                        <option value="days">Days</option>
-                        <option value="months">Months</option>
-                        <option value="years">Years</option>
-                    </select>
+                <span class="xp-text" id="xpText">0 / 100 XP</span>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        TAP AREA (Earn)
+        ============================================================ -->
+        <div id="tap-area" class="panel active">
+            <div class="balance-section">
+                <div class="balance-label">Your Balance</div>
+                <div class="balance-amount">
+                    <span class="etc-symbol">⧫</span><span id="balanceDisplayLarge">0.00</span> EZBONI POINTS
                 </div>
-                <button class="btn-small btn-success" id="addTaskBtn" style="width:100%; justify-content:center;"><i class="fa-solid fa-plus"></i> Publish Task</button>
+                <div class="balance-usd">≈ $0.00 USD</div>
+                <div class="pre-list-note"><i class="fa-regular fa-clock"></i> Pre-Listing / Pre-TGE Phase</div>
+            </div>
+
+            <div class="profit-box">
+                <i class="fa-regular fa-hand-peace"></i> Profit per Tap: <span id="profitPerTap">+1</span>
+            </div>
+
+            <div class="tap-hint">••• Tap to Earn •••</div>
+
+            <!-- Official EZBONI Coin -->
+            <div class="coin-wrapper">
+                <img class="coin-img" id="coinImg" src="https://i.postimg.cc/8j5WFcjZ/file-000000008128820eaef0567b3e29fdf4-3.png" alt="EZBONI Coin" draggable="false">
+            </div>
+
+            <!-- Energy Section -->
+            <div class="energy-section">
+                <div class="energy-row">
+                    <span class="energy-label"><i class="fa-solid fa-bolt"></i> Energy</span>
+                    <span><span id="energyCurrent">1000</span> / <span id="energyMax">1000</span></span>
+                </div>
+                <div class="energy-bar">
+                    <div class="energy-fill" id="energyFill" style="width:100%"></div>
+                </div>
+                <div class="energy-timer" id="energyTimer">02:45</div>
+                <div class="energy-recharge-note"><i class="fa-regular fa-clock"></i> Recharge energy to keep earning!</div>
+            </div>
+
+            <!-- Wallet Submit Card -->
+            <div class="wallet-submit-card">
+                <div class="card-title"><i class="fa-regular fa-wallet"></i> Submit Your Wallet</div>
+                <div class="input-group">
+                    <input type="text" id="walletInput" placeholder="0x... (EVM wallet address)">
+                    <button class="btn-submit" id="submitWalletBtn"><i class="fa-regular fa-paper-plane"></i> Submit</button>
+                </div>
+                <div class="security-note"><i class="fa-regular fa-shield-halved"></i> We never store your private keys.</div>
             </div>
         </div>
-    </div>
 
-    <!-- WALLET PANEL (10 wallets) -->
-    <div id="wallet-panel" class="panel">
-        <div class="panel-title"><i class="fa-solid fa-wallet"></i> Wallets</div>
-        <div class="card text-center">
-            <p class="text-muted" style="margin-bottom:8px;">Connect your preferred wallet</p>
-            <div class="wallet-grid" id="walletGrid">
-                <!-- 10 wallets injected by JS -->
+        <!-- ============================================================
+        FRIENDS PANEL
+        ============================================================ -->
+        <div id="friends-panel" class="panel">
+            <div class="panel-title"><i class="fa-solid fa-users"></i> Friends</div>
+            <div class="card">
+                <div class="card-row">
+                    <span><i class="fa-solid fa-link"></i> Invite link</span>
+                    <button class="btn-small" id="copyInviteBtn"><i class="fa-regular fa-copy"></i> Copy</button>
+                </div>
+                <div style="font-size:0.7rem; color:#7b8ab8; word-break:break-all; margin-top:8px;" id="inviteLinkDisplay">loading...</div>
             </div>
-            <div id="connectedWalletDisplay" style="color:#b9c6f0; font-size:0.85rem; margin-top:12px;">
-                <i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> No wallet connected
-            </div>
-        </div>
-    </div>
-
-    <!-- BOTTOM NAV (4 tabs) -->
-    <div id="bottom-nav">
-        <button class="nav-item active" data-tab="tap-area"><i class="fa-solid fa-coins"></i><span>Earn</span></button>
-        <button class="nav-item" data-tab="friends-panel"><i class="fa-solid fa-users"></i><span>Friends</span></button>
-        <button class="nav-item" data-tab="tasks-panel"><i class="fa-regular fa-list-check"></i><span>Tasks</span></button>
-        <button class="nav-item" data-tab="wallet-panel"><i class="fa-solid fa-wallet"></i><span>Wallet</span></button>
-    </div>
-
-    <!-- SUPPORT / INBOX MODAL -->
-    <div class="modal-overlay" id="inboxModal">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h3 id="modalTitle"><i class="fa-regular fa-envelope"></i> Support</h3>
-                <button class="modal-close" id="modalCloseBtn"><i class="fa-regular fa-circle-xmark"></i></button>
-            </div>
-            <div id="modalBody">
-                <!-- Dynamic content: support form or inbox -->
+            <div class="card">
+                <div class="card-row">
+                    <span><i class="fa-regular fa-user"></i> Invites</span>
+                    <span id="inviteCount">0</span>
+                </div>
+                <div class="card-row">
+                    <span><i class="fa-solid fa-gift"></i> Bonus per invite</span>
+                    <span>+100 EZBONI POINTS</span>
+                </div>
             </div>
         </div>
+
+        <!-- ============================================================
+        BOOST PANEL
+        ============================================================ -->
+        <div id="boost-panel" class="panel">
+            <div class="panel-title"><i class="fa-solid fa-rocket"></i> Boosters</div>
+            <div class="card">
+                <div class="card-row">
+                    <span><i class="fa-regular fa-star"></i> Tap Power</span>
+                    <span>Level <span id="boostLevelDisplay">1</span></span>
+                </div>
+                <div class="card-row">
+                    <span><i class="fa-solid fa-hand-pointer"></i> Per tap</span>
+                    <span>+<span id="boostTapDisplay">1</span> EZBONI POINTS</span>
+                </div>
+                <button class="btn-small" id="upgradeBoostBtn" style="width:100%; margin-top:10px; justify-content:center;"><i class="fa-solid fa-arrow-up"></i> Upgrade (cost: <span id="upgradeCost">50</span> EZBONI POINTS)</button>
+            </div>
+            <div class="card">
+                <div class="card-row">
+                    <span><i class="fa-solid fa-battery-full"></i> Max Energy</span>
+                    <span>Level <span id="energyLevelDisplay">1</span></span>
+                </div>
+                <button class="btn-small" id="upgradeEnergyBtn" style="width:100%; justify-content:center;"><i class="fa-solid fa-arrow-up"></i> Upgrade (cost: <span id="energyUpgradeCost">100</span> EZBONI POINTS)</button>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        TASKS PANEL
+        ============================================================ -->
+        <div id="tasks-panel" class="panel">
+            <div class="panel-title"><i class="fa-regular fa-list-check"></i> Tasks</div>
+            <div id="tasksContainer">
+                <!-- Dynamically rendered -->
+            </div>
+            <div id="adminTaskPanel" class="card hidden">
+                <div style="font-weight:600; color:#fbbf24; margin-bottom:8px;"><i class="fa-solid fa-plus"></i> Add New Task</div>
+                <div class="admin-task-input">
+                    <input type="text" id="taskLinkInput" placeholder="Task link (URL)">
+                    <div class="row">
+                        <select id="taskPlatformSelect">
+                            <option value="youtube">YouTube</option>
+                            <option value="instagram">Instagram</option>
+                            <option value="tiktok">TikTok</option>
+                            <option value="facebook">Facebook</option>
+                        </select>
+                        <input type="number" id="taskRewardInput" placeholder="Reward" value="25">
+                    </div>
+                    <div class="row">
+                        <input type="number" id="taskDurationInput" placeholder="Duration" value="24">
+                        <select id="taskDurationUnit">
+                            <option value="hours">Hours</option>
+                            <option value="days">Days</option>
+                            <option value="months">Months</option>
+                            <option value="years">Years</option>
+                        </select>
+                    </div>
+                    <button class="btn-small btn-success" id="addTaskBtn" style="width:100%; justify-content:center;"><i class="fa-solid fa-plus"></i> Publish Task</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        WALLET PANEL (10 wallets)
+        ============================================================ -->
+        <div id="wallet-panel" class="panel">
+            <div class="panel-title"><i class="fa-solid fa-wallet"></i> Wallets</div>
+            <div class="card text-center">
+                <p class="text-muted" style="margin-bottom:8px;">Connect your preferred wallet</p>
+                <div class="wallet-grid" id="walletGrid">
+                    <!-- 10 wallets injected by JS -->
+                </div>
+                <div id="connectedWalletDisplay" style="color:#b9c6f0; font-size:0.85rem; margin-top:12px;">
+                    <i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> No wallet connected
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        LEADERBOARD PANEL
+        ============================================================ -->
+        <div id="leaderboard-panel" class="panel">
+            <div class="panel-title"><i class="fa-solid fa-trophy"></i> Leaderboard</div>
+            <div id="leaderboardContainer">
+                <div class="card text-center">
+                    <p class="text-muted">Loading leaderboard...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        HISTORY PANEL
+        ============================================================ -->
+        <div id="history-panel" class="panel">
+            <div class="panel-title"><i class="fa-regular fa-clock"></i> History</div>
+            <div id="historyContainer">
+                <div class="card text-center">
+                    <p class="text-muted">Loading history...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        BOTTOM NAVIGATION
+        ============================================================ -->
+        <div id="bottom-nav">
+            <button class="nav-item active" data-tab="tap-area"><i class="fa-solid fa-coins"></i><span>Earn</span></button>
+            <button class="nav-item" data-tab="friends-panel"><i class="fa-solid fa-users"></i><span>Friends</span></button>
+            <button class="nav-item" data-tab="tasks-panel"><i class="fa-regular fa-list-check"></i><span>Tasks</span></button>
+            <button class="nav-item" data-tab="boost-panel"><i class="fa-solid fa-rocket"></i><span>Boost</span></button>
+            <button class="nav-item" data-tab="wallet-panel"><i class="fa-solid fa-wallet"></i><span>Wallet</span></button>
+            <button class="nav-item" data-tab="leaderboard-panel"><i class="fa-solid fa-trophy"></i><span>Top</span></button>
+            <button class="nav-item" data-tab="history-panel"><i class="fa-regular fa-clock"></i><span>History</span></button>
+        </div>
+
+        <!-- ============================================================
+        SUPPORT / INBOX MODAL
+        ============================================================ -->
+        <div class="modal-overlay" id="inboxModal">
+            <div class="modal-box">
+                <div class="modal-header">
+                    <h3 id="modalTitle"><i class="fa-regular fa-envelope"></i> Support</h3>
+                    <button class="modal-close" id="modalCloseBtn"><i class="fa-regular fa-circle-xmark"></i></button>
+                </div>
+                <div id="modalBody">
+                    <!-- Dynamic content: support form or inbox -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        TOAST NOTIFICATION
+        ============================================================ -->
+        <div class="toast" id="toast"></div>
+
+        <!-- ============================================================
+        ADMIN PANEL (hidden, double-tap coin)
+        ============================================================ -->
+        <div id="admin-panel">
+            <button class="admin-close" id="adminCloseBtn"><i class="fa-regular fa-circle-xmark"></i> Close Admin</button>
+            <h2 style="color:#fbbf24; margin-bottom:8px;"><i class="fa-solid fa-crown"></i> EZBONI Admin</h2>
+            <div id="adminUserList"></div>
+        </div>
+
+        <div style="position:absolute; bottom:80px; right:16px; opacity:0.04; font-size:8px; z-index:1; pointer-events:none;">ADMIN</div>
     </div>
 
-    <!-- ADMIN PANEL (hidden) -->
-    <div id="admin-panel" style="display:none; position:absolute; inset:0; z-index:1000; background:#0b0d19; padding:20px 16px; overflow-y:auto; flex-direction:column;">
-        <button class="admin-close" id="adminCloseBtn" style="align-self:flex-end; background:#1e293b; border:none; color:white; padding:6px 18px; border-radius:40px; margin-bottom:12px; display:flex; align-items:center; gap:8px; cursor:pointer;"><i class="fa-regular fa-circle-xmark"></i> Close Admin</button>
-        <h2 style="color:#fbbf24; margin-bottom:8px;"><i class="fa-solid fa-crown"></i> Admin Panel</h2>
-        <div id="adminUserList"></div>
-    </div>
+    <script>
+        (function() {
+            "use strict";
 
-    <div style="position:absolute; bottom:80px; right:16px; opacity:0.04; font-size:8px; z-index:1; pointer-events:none;">ADMIN</div>
-</div>
+            // ============================================================
+            // CONFIGURATION
+            // ============================================================
+            // Change this to your production backend URL
+            const API_BASE_URL = localStorage.getItem('EZBONI_API_URL') || '';
 
-<script>
-    (function(){
-        "use strict";
+            // Telegram Bot username for invite links (configure this)
+            const BOT_USERNAME = 'EZBONI_BOT';
 
-        // ----- STATE -----
-        let state = {
-            balance: 0,
-            energy: 1000,
-            maxEnergy: 1000,
-            tapPower: 1,
-            level: 1,
-            xp: 0,
-            xpToNext: 100,
-            invites: 0,
-            tgId: 'anon',
-            tgUsername: 'User',
-            tgPhoto: '',
-            connectedWallet: null,
-            walletAddress: '',
-            isAdmin: false,
-            tasks: [],        // { id, platform, link, reward, duration, unit, expiry, claimed: [] }
-            messages: [],     // { from, text, time }
-        };
+            // ============================================================
+            // STATE
+            // ============================================================
+            let state = {
+                balance: 0,
+                energy: 1000,
+                maxEnergy: 1000,
+                tapPower: 1,
+                level: 1,
+                xp: 0,
+                xpToNext: 100,
+                invites: 0,
+                tgId: 'anon',
+                tgUsername: 'User',
+                tgPhoto: '',
+                connectedWallet: null,
+                walletAddress: '',
+                isAdmin: false,
+                tasks: [],
+                messages: [],
+                boostLevel: 1,
+                energyLevel: 1,
+                history: [],
+                leaderboard: [],
+                dailyReward: { day: 1, claimed: false, amount: 100 },
+                dailyStreak: 0,
+                lastDailyClaim: null,
+            };
 
-        let usersDB = [];
-        let isMasterAdmin = false;
+            let usersDB = [];
+            let isMasterAdmin = false;
+            let isInitialized = false;
+            let tapTimeout = null;
 
-        // ----- DOM REFS -----
-        const $ = id => document.getElementById(id);
-        const balanceDisplay = $('balanceDisplay');
-        const balanceDisplayLarge = $('balanceDisplayLarge');
-        const energyFill = $('energyFill');
-        const energyCurrent = $('energyCurrent');
-        const energyMax = $('energyMax');
-        const energyTimer = $('energyTimer');
-        const coinImg = $('coinImg');
-        const levelDisplay = $('levelDisplay');
-        const xpFill = $('xpFill');
-        const xpText = $('xpText');
-        const profitPerTap = $('profitPerTap');
-        const startBtn = $('startBtn');
-        const onboarding = $('onboarding');
-        const inviteLinkDisplay = $('inviteLinkDisplay');
-        const copyInviteBtn = $('copyInviteBtn');
-        const inviteCount = $('inviteCount');
-        const boostLevelDisplay = $('boostLevelDisplay');
-        const boostTapDisplay = $('boostTapDisplay');
-        const upgradeBoostBtn = $('upgradeBoostBtn');
-        const upgradeCost = $('upgradeCost');
-        const walletInput = $('walletInput');
-        const submitWalletBtn = $('submitWalletBtn');
-        const connectedWalletDisplay = $('connectedWalletDisplay');
-        const walletGrid = $('walletGrid');
-        const tasksContainer = $('tasksContainer');
-        const adminTaskPanel = $('adminTaskPanel');
-        const taskLinkInput = $('taskLinkInput');
-        const taskPlatformSelect = $('taskPlatformSelect');
-        const taskRewardInput = $('taskRewardInput');
-        const taskDurationInput = $('taskDurationInput');
-        const taskDurationUnit = $('taskDurationUnit');
-        const addTaskBtn = $('addTaskBtn');
-        const supportInboxBtn = $('supportInboxBtn');
-        const inboxModal = $('inboxModal');
-        const modalTitle = $('modalTitle');
-        const modalBody = $('modalBody');
-        const modalCloseBtn = $('modalCloseBtn');
-        const adminPanel = $('admin-panel');
-        const adminUserList = $('adminUserList');
-        const adminCloseBtn = $('adminCloseBtn');
+            // ============================================================
+            // DOM REFS
+            // ============================================================
+            const $ = id => document.getElementById(id);
+            const balanceDisplay = $('balanceDisplay');
+            const balanceDisplayLarge = $('balanceDisplayLarge');
+            const energyFill = $('energyFill');
+            const energyCurrent = $('energyCurrent');
+            const energyMax = $('energyMax');
+            const energyTimer = $('energyTimer');
+            const coinImg = $('coinImg');
+            const levelDisplay = $('levelDisplay');
+            const xpFill = $('xpFill');
+            const xpText = $('xpText');
+            const profitPerTap = $('profitPerTap');
+            const startBtn = $('startBtn');
+            const onboarding = $('onboarding');
+            const inviteLinkDisplay = $('inviteLinkDisplay');
+            const copyInviteBtn = $('copyInviteBtn');
+            const inviteCount = $('inviteCount');
+            const boostLevelDisplay = $('boostLevelDisplay');
+            const boostTapDisplay = $('boostTapDisplay');
+            const upgradeBoostBtn = $('upgradeBoostBtn');
+            const upgradeCost = $('upgradeCost');
+            const energyLevelDisplay = $('energyLevelDisplay');
+            const energyUpgradeCost = $('energyUpgradeCost');
+            const upgradeEnergyBtn = $('upgradeEnergyBtn');
+            const walletInput = $('walletInput');
+            const submitWalletBtn = $('submitWalletBtn');
+            const connectedWalletDisplay = $('connectedWalletDisplay');
+            const walletGrid = $('walletGrid');
+            const tasksContainer = $('tasksContainer');
+            const adminTaskPanel = $('adminTaskPanel');
+            const taskLinkInput = $('taskLinkInput');
+            const taskPlatformSelect = $('taskPlatformSelect');
+            const taskRewardInput = $('taskRewardInput');
+            const taskDurationInput = $('taskDurationInput');
+            const taskDurationUnit = $('taskDurationUnit');
+            const addTaskBtn = $('addTaskBtn');
+            const supportInboxBtn = $('supportInboxBtn');
+            const inboxModal = $('inboxModal');
+            const modalTitle = $('modalTitle');
+            const modalBody = $('modalBody');
+            const modalCloseBtn = $('modalCloseBtn');
+            const adminPanel = $('admin-panel');
+            const adminUserList = $('adminUserList');
+            const adminCloseBtn = $('adminCloseBtn');
+            const toast = $('toast');
+            const leaderboardContainer = $('leaderboardContainer');
+            const historyContainer = $('historyContainer');
 
-        // ----- TELEGRAM INTEGRATION -----
-        function loadTelegramUser() {
-            try {
-                if (window.Telegram?.WebApp?.initDataUnsafe?.user) {
-                    const user = window.Telegram.WebApp.initDataUnsafe.user;
-                    state.tgId = String(user.id) || 'anon';
-                    state.tgUsername = user.username || user.first_name || 'User';
-                    state.tgPhoto = user.photo_url || '';
-                    // Update avatar
-                    const avatarImg = document.getElementById('avatarImg');
-                    const fallback = document.getElementById('avatarFallback');
-                    if (state.tgPhoto) {
-                        avatarImg.src = state.tgPhoto;
-                        avatarImg.style.display = 'block';
-                        fallback.style.display = 'none';
+            // ============================================================
+            // TELEGRAM INTEGRATION
+            // ============================================================
+            function loadTelegramUser() {
+                try {
+                    if (window.Telegram?.WebApp?.initDataUnsafe?.user) {
+                        const user = window.Telegram.WebApp.initDataUnsafe.user;
+                        state.tgId = String(user.id) || 'anon';
+                        state.tgUsername = user.username || user.first_name || 'User';
+                        state.tgPhoto = user.photo_url || '';
+                        // Update avatar
+                        const avatarImg = document.getElementById('avatarImg');
+                        const fallback = document.getElementById('avatarFallback');
+                        if (state.tgPhoto) {
+                            avatarImg.src = state.tgPhoto;
+                            avatarImg.style.display = 'block';
+                            fallback.style.display = 'none';
+                        } else {
+                            avatarImg.style.display = 'none';
+                            fallback.style.display = 'block';
+                            const initials = state.tgUsername.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+                            fallback.textContent = initials || 'EZ';
+                        }
+                        document.getElementById('tgUsername').textContent = state.tgUsername;
                     } else {
-                        avatarImg.style.display = 'none';
-                        fallback.style.display = 'block';
-                        fallback.textContent = state.tgUsername.charAt(0).toUpperCase();
+                        // Fallback: show "Open in Telegram" prompt
+                        document.getElementById('tgUsername').textContent = 'Guest';
+                        const fallback = document.getElementById('avatarFallback');
+                        fallback.textContent = 'G';
                     }
-                    document.getElementById('tgUsername').textContent = state.tgUsername;
+                } catch (e) {
+                    console.warn('Telegram not available:', e);
                 }
-            } catch(e) {}
-        }
+            }
 
-        // ----- ADMIN DETECTION (first user) -----
-        function detectAdmin() {
-            const adminKey = 'ecoin_admin_set';
-            if (!localStorage.getItem(adminKey)) {
-                isMasterAdmin = true;
-                state.isAdmin = true;
-                localStorage.setItem(adminKey, 'true');
-                localStorage.setItem('ecoin_admin_id', state.tgId);
-            } else {
-                const storedAdminId = localStorage.getItem('ecoin_admin_id');
+            // ============================================================
+            // ADMIN DETECTION (server-side authoritative)
+            // ============================================================
+            function checkAdminStatus() {
+                // This should be done via API. For now, we'll use a simple
+                // localStorage flag for demo, but with a clear note.
+                // In production, this must be server-side.
+                const adminKey = 'ezboni_admin_id';
+                const storedAdminId = localStorage.getItem(adminKey);
                 if (storedAdminId === state.tgId) {
-                    isMasterAdmin = true;
                     state.isAdmin = true;
+                    isMasterAdmin = true;
+                } else if (!storedAdminId) {
+                    // First user becomes admin for demo purposes only
+                    // In production, admin is set via server config
+                    localStorage.setItem(adminKey, state.tgId);
+                    state.isAdmin = true;
+                    isMasterAdmin = true;
+                }
+                // Update UI
+                if (state.isAdmin) {
+                    adminTaskPanel.classList.remove('hidden');
+                    supportInboxBtn.innerHTML = '<i class="fa-regular fa-bell"></i>';
+                } else {
+                    adminTaskPanel.classList.add('hidden');
+                    supportInboxBtn.innerHTML = '<i class="fa-regular fa-envelope"></i>';
                 }
             }
-            // Show admin task panel if admin
-            if (state.isAdmin) {
-                adminTaskPanel.classList.remove('hidden');
-                // Change support button to inbox
-                supportInboxBtn.innerHTML = '<i class="fa-regular fa-bell"></i>';
-            } else {
-                adminTaskPanel.classList.add('hidden');
-                supportInboxBtn.innerHTML = '<i class="fa-regular fa-envelope"></i>';
-            }
-        }
 
-        // ----- STATE SAVE/LOAD -----
-        function saveState() {
-            try {
-                localStorage.setItem('ecoin_state', JSON.stringify(state));
-            } catch(e){}
-        }
-
-        function loadState() {
-            try {
-                const raw = localStorage.getItem('ecoin_state');
-                if (raw) {
-                    const parsed = JSON.parse(raw);
-                    Object.assign(state, parsed);
+            // ============================================================
+            // API HELPERS
+            // ============================================================
+            async function apiCall(endpoint, options = {}) {
+                const url = API_BASE_URL ? `${API_BASE_URL}${endpoint}` : endpoint;
+                const headers = {
+                    'Content-Type': 'application/json',
+                    ...options.headers,
+                };
+                // Add Telegram initData for auth
+                if (window.Telegram?.WebApp?.initData) {
+                    headers['X-Telegram-Init-Data'] = window.Telegram.WebApp.initData;
                 }
-            } catch(e){}
-            // Ensure tasks is array
-            if (!Array.isArray(state.tasks)) state.tasks = [];
-            if (!Array.isArray(state.messages)) state.messages = [];
-        }
-
-        // ----- UI UPDATE -----
-        function updateUI() {
-            const balStr = state.balance.toFixed(2);
-            balanceDisplay.textContent = balStr;
-            balanceDisplayLarge.textContent = balStr;
-            levelDisplay.textContent = state.level;
-            const xpPercent = Math.min((state.xp / state.xpToNext) * 100, 100);
-            xpFill.style.width = xpPercent + '%';
-            xpText.textContent = `${state.xp} / ${state.xpToNext} XP`;
-            energyCurrent.textContent = Math.floor(state.energy);
-            energyMax.textContent = state.maxEnergy;
-            const pct = Math.floor((state.energy / state.maxEnergy) * 100);
-            energyFill.style.width = pct + '%';
-            profitPerTap.textContent = `+${state.tapPower}`;
-            boostLevelDisplay.textContent = state.boostLevel || 1;
-            boostTapDisplay.textContent = state.tapPower;
-            const cost = 20 + (state.boostLevel || 1) * 30;
-            upgradeCost.textContent = cost;
-            inviteCount.textContent = state.invites;
-            if (state.connectedWallet) {
-                const label = state.connectedWallet.charAt(0).toUpperCase() + state.connectedWallet.slice(1);
-                connectedWalletDisplay.innerHTML = `<i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> Connected: ${label}`;
-            }
-            renderTasks();
-        }
-
-        // ----- ENERGY REGEN -----
-        function regenEnergy() {
-            if (state.energy < state.maxEnergy) {
-                state.energy = Math.min(state.maxEnergy, state.energy + 3);
-                updateUI();
-                saveState();
-            }
-        }
-        setInterval(regenEnergy, 1000);
-
-        function updateEnergyTimer() {
-            const missing = state.maxEnergy - state.energy;
-            if (missing <= 0) { energyTimer.textContent = 'Full'; return; }
-            const seconds = Math.ceil(missing / 3);
-            const min = Math.floor(seconds / 60);
-            const sec = seconds % 60;
-            energyTimer.textContent = `${String(min).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
-        }
-        setInterval(updateEnergyTimer, 1000);
-
-        // ----- TAP LOGIC (Hamster-style bounce, floating numbers) -----
-        function handleTap(e) {
-            if (state.energy < 1) {
-                if (navigator.vibrate) navigator.vibrate(20);
-                return;
-            }
-            state.energy = Math.max(0, state.energy - 1);
-            state.balance += state.tapPower;
-            state.xp += 1;
-            if (state.xp >= state.xpToNext) {
-                state.xp = 0;
-                state.level += 1;
-                state.xpToNext = Math.floor(state.xpToNext * 1.4);
-            }
-            saveState();
-            updateUI();
-            if (navigator.vibrate) navigator.vibrate(8);
-
-            // Bounce animation on coin image
-            coinImg.style.transform = 'scale(0.90)';
-            setTimeout(() => { coinImg.style.transform = ''; }, 120);
-
-            // Floating number
-            spawnFloatNumber(e, state.tapPower);
-        }
-
-        function spawnFloatNumber(e, value) {
-            const container = document.getElementById('tap-area');
-            const rect = container.getBoundingClientRect();
-            let clientX, clientY;
-            if (e.touches) {
-                clientX = e.touches[0].clientX;
-                clientY = e.touches[0].clientY;
-            } else {
-                clientX = e.clientX;
-                clientY = e.clientY;
-            }
-            const el = document.createElement('div');
-            el.className = 'float-number';
-            el.textContent = `+${value}`;
-            const x = clientX - rect.left - 20;
-            const y = clientY - rect.top - 20;
-            el.style.left = x + 'px';
-            el.style.top = y + 'px';
-            container.appendChild(el);
-            setTimeout(() => el.remove(), 900);
-        }
-
-        // ----- BOOST -----
-        function upgradeBoost() {
-            const cost = 20 + (state.boostLevel || 1) * 30;
-            if (state.balance < cost) { alert('Not enough ETC'); return; }
-            state.balance -= cost;
-            state.boostLevel = (state.boostLevel || 1) + 1;
-            state.tapPower = state.boostLevel;
-            saveState();
-            updateUI();
-        }
-
-        // ----- INVITE -----
-        function generateInviteLink() {
-            const base = 'https://t.me/ECoinBot?start=ref_';
-            const code = state.tgId + '_' + Date.now().toString(36);
-            return base + code;
-        }
-
-        function copyInvite() {
-            const link = generateInviteLink();
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(link).then(() => alert('Link copied!'));
-            } else {
-                prompt('Copy link:', link);
-            }
-        }
-
-        function addInvite() {
-            state.invites += 1;
-            state.balance += 100;
-            saveState();
-            updateUI();
-        }
-
-        // ----- WALLET (10 wallets) -----
-        const walletList = [
-            { name: 'Binance', icon: 'fa-brands fa-binance' },
-            { name: 'Trust Wallet', icon: 'fa-solid fa-wallet' },
-            { name: 'MetaMask', icon: 'fa-brands fa-ethereum' },
-            { name: 'Coinbase', icon: 'fa-regular fa-circle-dot' },
-            { name: 'OKX', icon: 'fa-solid fa-cube' },
-            { name: 'Phantom', icon: 'fa-regular fa-ghost' },
-            { name: 'Tonkeeper', icon: 'fa-solid fa-bolt' },
-            { name: 'KuCoin', icon: 'fa-solid fa-coins' },
-            { name: 'Bybit', icon: 'fa-solid fa-chart-simple' },
-            { name: 'Bitget', icon: 'fa-solid fa-arrow-trend-up' }
-        ];
-
-        function renderWallets() {
-            walletGrid.innerHTML = walletList.map(w => `
-                <div class="wallet-item" data-wallet="${w.name}">
-                    <i class="${w.icon}"></i>
-                    <span>${w.name}</span>
-                </div>
-            `).join('');
-            document.querySelectorAll('.wallet-item').forEach(el => {
-                el.addEventListener('click', function() {
-                    const name = this.dataset.wallet;
-                    state.connectedWallet = name;
-                    connectedWalletDisplay.innerHTML = `<i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> Connected: ${name}`;
-                    saveState();
-                    updateUI();
-                    alert(`Connected to ${name}`);
+                const response = await fetch(url, {
+                    ...options,
+                    headers,
                 });
-            });
-        }
-
-        function submitWalletAddress() {
-            const addr = walletInput.value.trim();
-            if (!addr) { alert('Please enter a wallet address'); return; }
-            if (!addr.startsWith('0x') || addr.length < 40) {
-                alert('Please enter a valid EVM address (0x...)');
-                return;
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText || `API error: ${response.status}`);
+                }
+                return response.json();
             }
-            state.walletAddress = addr;
-            let existing = usersDB.find(u => u.id === state.tgId);
-            if (existing) {
-                existing.wallet = addr;
-            } else {
-                usersDB.push({ id: state.tgId, username: state.tgUsername, balance: state.balance, wallet: addr });
-            }
-            localStorage.setItem('ecoin_admin_db', JSON.stringify(usersDB));
-            saveState();
-            alert('Wallet address submitted successfully!');
-            walletInput.value = '';
-        }
 
-        // ----- TASKS (User view + Admin management) -----
-        function renderTasks() {
-            if (!tasksContainer) return;
-            if (state.isAdmin) {
-                // Admin sees task management + published tasks
-                let html = `<div class="card"><div style="font-weight:600; color:#fbbf24; margin-bottom:6px;">📋 Published Tasks</div>`;
+            // ============================================================
+            // STATE SAVE/LOAD (client-side cache only)
+            // ============================================================
+            function saveState() {
+                try {
+                    const cache = {
+                        balance: state.balance,
+                        energy: state.energy,
+                        maxEnergy: state.maxEnergy,
+                        tapPower: state.tapPower,
+                        level: state.level,
+                        xp: state.xp,
+                        xpToNext: state.xpToNext,
+                        invites: state.invites,
+                        boostLevel: state.boostLevel,
+                        energyLevel: state.energyLevel,
+                        connectedWallet: state.connectedWallet,
+                        walletAddress: state.walletAddress,
+                        dailyStreak: state.dailyStreak,
+                        lastDailyClaim: state.lastDailyClaim,
+                        dailyReward: state.dailyReward,
+                    };
+                    localStorage.setItem('ezboni_state', JSON.stringify(cache));
+                } catch (e) {}
+            }
+
+            function loadState() {
+                try {
+                    const raw = localStorage.getItem('ezboni_state');
+                    if (raw) {
+                        const parsed = JSON.parse(raw);
+                        Object.assign(state, parsed);
+                    }
+                } catch (e) {}
+            }
+
+            // ============================================================
+            // UI UPDATE
+            // ============================================================
+            function updateUI() {
+                const balStr = state.balance.toFixed(2);
+                balanceDisplay.textContent = balStr;
+                balanceDisplayLarge.textContent = balStr;
+                levelDisplay.textContent = state.level;
+                const xpPercent = Math.min((state.xp / state.xpToNext) * 100, 100);
+                xpFill.style.width = xpPercent + '%';
+                xpText.textContent = `${state.xp} / ${state.xpToNext} XP`;
+                energyCurrent.textContent = Math.floor(state.energy);
+                energyMax.textContent = state.maxEnergy;
+                const pct = Math.floor((state.energy / state.maxEnergy) * 100);
+                energyFill.style.width = pct + '%';
+                profitPerTap.textContent = `+${state.tapPower}`;
+                boostLevelDisplay.textContent = state.boostLevel || 1;
+                boostTapDisplay.textContent = state.tapPower;
+                const boostCost = 20 + (state.boostLevel || 1) * 30;
+                upgradeCost.textContent = boostCost;
+                energyLevelDisplay.textContent = state.energyLevel || 1;
+                const energyCost = 50 + (state.energyLevel || 1) * 40;
+                energyUpgradeCost.textContent = energyCost;
+                inviteCount.textContent = state.invites;
+                if (state.connectedWallet) {
+                    const label = state.connectedWallet;
+                    connectedWalletDisplay.innerHTML =
+                        `<i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> Connected: ${label}`;
+                }
+                renderTasks();
+            }
+
+            // ============================================================
+            // ENERGY REGEN
+            // ============================================================
+            function regenEnergy() {
+                if (state.energy < state.maxEnergy) {
+                    const regenRate = 3 + (state.energyLevel || 1) * 0.5;
+                    state.energy = Math.min(state.maxEnergy, state.energy + regenRate);
+                    updateUI();
+                    saveState();
+                }
+            }
+            setInterval(regenEnergy, 1000);
+
+            function updateEnergyTimer() {
+                const missing = state.maxEnergy - state.energy;
+                if (missing <= 0) { energyTimer.textContent = 'Full'; return; }
+                const regenRate = 3 + (state.energyLevel || 1) * 0.5;
+                const seconds = Math.ceil(missing / regenRate);
+                const min = Math.floor(seconds / 60);
+                const sec = seconds % 60;
+                energyTimer.textContent = `${String(min).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+            }
+            setInterval(updateEnergyTimer, 1000);
+
+            // ============================================================
+            // TAP LOGIC (Hamster-style bounce, floating numbers)
+            // ============================================================
+            function handleTap(e) {
+                if (state.energy < 1) {
+                    if (navigator.vibrate) navigator.vibrate(20);
+                    showToast('⛽ Not enough energy!');
+                    return;
+                }
+                state.energy = Math.max(0, state.energy - 1);
+                state.balance += state.tapPower;
+                state.xp += 1;
+                if (state.xp >= state.xpToNext) {
+                    state.xp = 0;
+                    state.level += 1;
+                    state.xpToNext = Math.floor(state.xpToNext * 1.4);
+                    showToast(`🎉 Level Up! You are now level ${state.level}`);
+                }
+                saveState();
+                updateUI();
+                if (navigator.vibrate) navigator.vibrate(8);
+
+                // Bounce animation
+                coinImg.style.transform = 'scale(0.90)';
+                clearTimeout(tapTimeout);
+                tapTimeout = setTimeout(() => {
+                    coinImg.style.transform = '';
+                }, 120);
+
+                // Floating number
+                spawnFloatNumber(e, state.tapPower);
+            }
+
+            function spawnFloatNumber(e, value) {
+                const container = document.getElementById('tap-area');
+                const rect = container.getBoundingClientRect();
+                let clientX, clientY;
+                if (e.touches) {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                } else if (e.changedTouches) {
+                    clientX = e.changedTouches[0].clientX;
+                    clientY = e.changedTouches[0].clientY;
+                } else {
+                    clientX = e.clientX;
+                    clientY = e.clientY;
+                }
+                const el = document.createElement('div');
+                el.className = 'float-number';
+                el.textContent = `+${value}`;
+                const x = clientX - rect.left - 20;
+                const y = clientY - rect.top - 20;
+                el.style.left = x + 'px';
+                el.style.top = y + 'px';
+                container.appendChild(el);
+                setTimeout(() => el.remove(), 900);
+            }
+
+            // ============================================================
+            // BOOST UPGRADES
+            // ============================================================
+            function upgradeBoost() {
+                const cost = 20 + (state.boostLevel || 1) * 30;
+                if (state.balance < cost) {
+                    showToast('❌ Not enough EZBONI POINTS');
+                    return;
+                }
+                state.balance -= cost;
+                state.boostLevel = (state.boostLevel || 1) + 1;
+                state.tapPower = state.boostLevel;
+                saveState();
+                updateUI();
+                showToast(`⚡ Tap Power upgraded to level ${state.boostLevel}`);
+            }
+
+            function upgradeEnergy() {
+                const cost = 50 + (state.energyLevel || 1) * 40;
+                if (state.balance < cost) {
+                    showToast('❌ Not enough EZBONI POINTS');
+                    return;
+                }
+                state.balance -= cost;
+                state.energyLevel = (state.energyLevel || 1) + 1;
+                state.maxEnergy = 1000 + (state.energyLevel - 1) * 100;
+                saveState();
+                updateUI();
+                showToast(`🔋 Max Energy upgraded to ${state.maxEnergy}`);
+            }
+
+            // ============================================================
+            // INVITE SYSTEM
+            // ============================================================
+            function generateInviteLink() {
+                const base = `https://t.me/${BOT_USERNAME}?start=ref_`;
+                const code = state.tgId + '_' + Date.now().toString(36);
+                return base + code;
+            }
+
+            function copyInvite() {
+                const link = generateInviteLink();
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(link).then(() => showToast('📋 Link copied!'));
+                } else {
+                    prompt('Copy link:', link);
+                }
+            }
+
+            function addInvite() {
+                state.invites += 1;
+                state.balance += 100;
+                saveState();
+                updateUI();
+                showToast('👥 +100 EZBONI POINTS for referral!');
+            }
+
+            // ============================================================
+            // WALLET (10 wallets)
+            // ============================================================
+            const walletList = [
+                { name: 'Binance', icon: 'fa-brands fa-binance' },
+                { name: 'Trust Wallet', icon: 'fa-solid fa-wallet' },
+                { name: 'MetaMask', icon: 'fa-brands fa-ethereum' },
+                { name: 'Coinbase', icon: 'fa-regular fa-circle-dot' },
+                { name: 'OKX', icon: 'fa-solid fa-cube' },
+                { name: 'Phantom', icon: 'fa-regular fa-ghost' },
+                { name: 'Tonkeeper', icon: 'fa-solid fa-bolt' },
+                { name: 'KuCoin', icon: 'fa-solid fa-coins' },
+                { name: 'Bybit', icon: 'fa-solid fa-chart-simple' },
+                { name: 'Bitget', icon: 'fa-solid fa-arrow-trend-up' }
+            ];
+
+            function renderWallets() {
+                walletGrid.innerHTML = walletList.map(w => `
+                    <div class="wallet-item" data-wallet="${w.name}">
+                        <i class="${w.icon}"></i>
+                        <span>${w.name}</span>
+                    </div>
+                `).join('');
+                document.querySelectorAll('.wallet-item').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const name = this.dataset.wallet;
+                        state.connectedWallet = name;
+                        connectedWalletDisplay.innerHTML =
+                            `<i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> Connected: ${name}`;
+                        saveState();
+                        updateUI();
+                        showToast(`🔗 Connected to ${name}`);
+                    });
+                });
+            }
+
+            function submitWalletAddress() {
+                const addr = walletInput.value.trim();
+                if (!addr) { showToast('❌ Please enter a wallet address'); return; }
+                if (!addr.match(/^0x[a-fA-F0-9]{40}$/)) {
+                    showToast('❌ Please enter a valid EVM address (0x...)');
+                    return;
+                }
+                state.walletAddress = addr;
+                let existing = usersDB.find(u => u.id === state.tgId);
+                if (existing) {
+                    existing.wallet = addr;
+                } else {
+                    usersDB.push({ id: state.tgId, username: state.tgUsername, balance: state.balance, wallet: addr });
+                }
+                localStorage.setItem('ezboni_admin_db', JSON.stringify(usersDB));
+                saveState();
+                showToast('✅ Wallet address saved!');
+                walletInput.value = '';
+            }
+
+            // ============================================================
+            // TASKS SYSTEM
+            // ============================================================
+            function renderTasks() {
+                if (!tasksContainer) return;
+                if (state.isAdmin) {
+                    // Admin task management
+                    let html = `<div class="card"><div style="font-weight:600; color:#fbbf24; margin-bottom:6px;">📋 Published Tasks</div>`;
+                    if (state.tasks.length === 0) {
+                        html += `<p class="text-muted" style="font-size:0.8rem;">No tasks published yet.</p>`;
+                    } else {
+                        state.tasks.forEach((task, idx) => {
+                            const claimedCount = task.claimed ? task.claimed.length : 0;
+                            html += `<div class="card-row" style="border-bottom:1px solid rgba(255,255,255,0.05); padding:6px 0;">
+                                <span><i class="fa-brands fa-${task.platform}"></i> ${task.platform}</span>
+                                <span style="font-size:0.7rem; color:#6b7aa8;">${claimedCount} claimed · ${task.duration}${task.unit}</span>
+                                <button class="btn-small btn-danger" data-taskidx="${idx}" style="padding:2px 10px; font-size:0.6rem;">Remove</button>
+                            </div>`;
+                        });
+                    }
+                    html += `</div>`;
+                    tasksContainer.innerHTML = html;
+                    document.querySelectorAll('[data-taskidx]').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const idx = parseInt(this.dataset.taskidx);
+                            state.tasks.splice(idx, 1);
+                            saveState();
+                            renderTasks();
+                            showToast('🗑️ Task removed');
+                        });
+                    });
+                    return;
+                }
+
+                // User view
+                let html = '';
                 if (state.tasks.length === 0) {
-                    html += `<p class="text-muted" style="font-size:0.8rem;">No tasks published yet.</p>`;
+                    html = `<div class="card text-center"><p class="text-muted">No tasks available right now.</p></div>`;
                 } else {
                     state.tasks.forEach((task, idx) => {
-                        const claimedCount = task.claimed ? task.claimed.length : 0;
-                        html += `<div class="card-row" style="border-bottom:1px solid rgba(255,255,255,0.05); padding:6px 0;">
-                            <span><i class="fa-brands fa-${task.platform}"></i> ${task.platform}</span>
-                            <span style="font-size:0.7rem; color:#6b7aa8;">${claimedCount} claimed · ${task.duration}${task.unit}</span>
-                            <button class="btn-small btn-danger" data-taskidx="${idx}" style="padding:2px 10px; font-size:0.6rem;">Remove</button>
+                        const isClaimed = task.claimed && task.claimed.includes(state.tgId);
+                        html += `<div class="card">
+                            <div class="card-row">
+                                <span><i class="fa-brands fa-${task.platform}" style="font-size:1.2rem;"></i> ${task.platform}</span>
+                                <span style="color:#fbbf24;">+${task.reward} EZBONI POINTS</span>
+                            </div>
+                            <div class="card-row" style="font-size:0.7rem; color:#6b7aa8;">
+                                <span>⏱ ${task.duration} ${task.unit}</span>
+                                <a href="${task.link}" target="_blank" style="color:#3b82f6; text-decoration:none;">View Task</a>
+                            </div>
+                            <button class="btn-small ${isClaimed ? 'btn-success' : ''}" data-taskidx="${idx}" style="width:100%; margin-top:6px; justify-content:center;" ${isClaimed ? 'disabled' : ''}>
+                                ${isClaimed ? '<i class="fa-regular fa-circle-check"></i> Claimed' : '<i class="fa-regular fa-circle-check"></i> Claim Reward'}
+                            </button>
                         </div>`;
                     });
                 }
-                html += `</div>`;
                 tasksContainer.innerHTML = html;
-                // Remove task handlers
+
                 document.querySelectorAll('[data-taskidx]').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const idx = parseInt(this.dataset.taskidx);
-                        state.tasks.splice(idx, 1);
+                        const task = state.tasks[idx];
+                        if (!task) return;
+                        if (task.claimed && task.claimed.includes(state.tgId)) {
+                            showToast('❌ Already claimed');
+                            return;
+                        }
+                        if (!task.claimed) task.claimed = [];
+                        task.claimed.push(state.tgId);
+                        state.balance += task.reward;
                         saveState();
+                        updateUI();
+                        showToast(`🎉 +${task.reward} EZBONI POINTS earned!`);
                         renderTasks();
                     });
                 });
-                return;
             }
 
-            // Regular user view: show tasks to claim
-            let html = '';
-            if (state.tasks.length === 0) {
-                html = `<div class="card text-center"><p class="text-muted">No tasks available right now.</p></div>`;
-            } else {
-                state.tasks.forEach((task, idx) => {
-                    const isClaimed = task.claimed && task.claimed.includes(state.tgId);
-                    html += `<div class="card">
-                        <div class="card-row">
-                            <span><i class="fa-brands fa-${task.platform}" style="font-size:1.2rem;"></i> ${task.platform}</span>
-                            <span style="color:#fbbf24;">+${task.reward} ETC</span>
-                        </div>
-                        <div class="card-row" style="font-size:0.7rem; color:#6b7aa8;">
-                            <span>⏱ ${task.duration} ${task.unit}</span>
-                            <a href="${task.link}" target="_blank" style="color:#3b82f6; text-decoration:none;">View Task</a>
-                        </div>
-                        <button class="btn-small ${isClaimed ? 'btn-success' : ''}" data-taskidx="${idx}" style="width:100%; margin-top:6px; justify-content:center;" ${isClaimed ? 'disabled' : ''}>
-                            ${isClaimed ? '<i class="fa-regular fa-circle-check"></i> Claimed' : '<i class="fa-regular fa-circle-check"></i> Claim Reward'}
-                        </button>
-                    </div>`;
+            // Admin: Add new task
+            function addNewTask() {
+                const link = taskLinkInput.value.trim();
+                const platform = taskPlatformSelect.value;
+                const reward = parseFloat(taskRewardInput.value) || 25;
+                const duration = parseInt(taskDurationInput.value) || 24;
+                const unit = taskDurationUnit.value;
+                if (!link) { showToast('❌ Please enter a task link'); return; }
+                state.tasks.push({
+                    id: Date.now(),
+                    platform,
+                    link,
+                    reward,
+                    duration,
+                    unit,
+                    claimed: []
                 });
+                taskLinkInput.value = '';
+                saveState();
+                renderTasks();
+                showToast('📌 Task published!');
             }
-            tasksContainer.innerHTML = html;
 
-            // Claim handlers
-            document.querySelectorAll('[data-taskidx]').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const idx = parseInt(this.dataset.idx);
-                    const task = state.tasks[idx];
-                    if (!task) return;
-                    if (task.claimed && task.claimed.includes(state.tgId)) {
-                        alert('You already claimed this task!');
-                        return;
+            // ============================================================
+            // SUPPORT / INBOX MODAL
+            // ============================================================
+            function openSupportModal() {
+                modalTitle.innerHTML = state.isAdmin ? '<i class="fa-regular fa-bell"></i> EZBONI Admin Inbox' :
+                    '<i class="fa-regular fa-envelope"></i> Support';
+                if (state.isAdmin) {
+                    let html =
+                    `<div style="margin-bottom:10px;"><p class="text-muted" style="font-size:0.8rem;">User messages &amp; reports</p></div>`;
+                    if (state.messages.length === 0) {
+                        html += `<p class="text-muted">No messages yet.</p>`;
+                    } else {
+                        state.messages.forEach(msg => {
+                            html += `<div class="inbox-item">
+                                <div class="msg-user">${msg.from}</div>
+                                <div class="msg-text">${msg.text}</div>
+                                <div class="msg-time">${msg.time}</div>
+                            </div>`;
+                        });
                     }
-                    // Mark claimed
-                    if (!task.claimed) task.claimed = [];
-                    task.claimed.push(state.tgId);
-                    state.balance += task.reward;
-                    saveState();
-                    updateUI();
-                    alert(`+${task.reward} ETC earned!`);
-                    renderTasks();
-                });
-            });
-        }
-
-        // Admin: Add new task
-        function addNewTask() {
-            const link = taskLinkInput.value.trim();
-            const platform = taskPlatformSelect.value;
-            const reward = parseFloat(taskRewardInput.value) || 25;
-            const duration = parseInt(taskDurationInput.value) || 24;
-            const unit = taskDurationUnit.value;
-            if (!link) { alert('Please enter a task link'); return; }
-            state.tasks.push({
-                id: Date.now(),
-                platform,
-                link,
-                reward,
-                duration,
-                unit,
-                claimed: []
-            });
-            taskLinkInput.value = '';
-            saveState();
-            renderTasks();
-            alert('Task published!');
-        }
-
-        // ----- SUPPORT / INBOX MODAL -----
-        function openSupportModal() {
-            modalTitle.innerHTML = state.isAdmin ? '<i class="fa-regular fa-bell"></i> Admin Inbox' : '<i class="fa-regular fa-envelope"></i> Support';
-            if (state.isAdmin) {
-                // Show inbox with messages
-                let html = `<div style="margin-bottom:10px;"><p class="text-muted" style="font-size:0.8rem;">User messages & reports</p></div>`;
-                if (state.messages.length === 0) {
-                    html += `<p class="text-muted">No messages yet.</p>`;
+                    modalBody.innerHTML = html;
                 } else {
-                    state.messages.forEach(msg => {
-                        html += `<div class="inbox-item">
-                            <div class="msg-user">${msg.from}</div>
-                            <div class="msg-text">${msg.text}</div>
-                            <div class="msg-time">${msg.time}</div>
+                    modalBody.innerHTML = `
+                        <p class="text-muted" style="font-size:0.85rem; margin-bottom:8px;">Send a message or report to the admin</p>
+                        <textarea id="supportMsgInput" placeholder="Describe your issue or feedback..."></textarea>
+                        <button class="btn-small btn-send" id="sendSupportBtn" style="width:100%; justify-content:center; margin-top:10px;"><i class="fa-regular fa-paper-plane"></i> Send</button>
+                    `;
+                    document.getElementById('sendSupportBtn').addEventListener('click', function() {
+                        const text = document.getElementById('supportMsgInput').value.trim();
+                        if (!text) { showToast('❌ Please write a message'); return; }
+                        state.messages.push({
+                            from: state.tgUsername,
+                            text: text,
+                            time: new Date().toLocaleString()
+                        });
+                        saveState();
+                        document.getElementById('supportMsgInput').value = '';
+                        showToast('✅ Message sent to admin');
+                        inboxModal.classList.remove('visible');
+                    });
+                }
+                inboxModal.classList.add('visible');
+            }
+
+            // ============================================================
+            // ADMIN PANEL
+            // ============================================================
+            function loadAdminDB() {
+                try {
+                    const raw = localStorage.getItem('ezboni_admin_db');
+                    if (raw) {
+                        const parsed = JSON.parse(raw);
+                        if (Array.isArray(parsed)) usersDB = parsed;
+                    }
+                } catch (e) {}
+                if (!usersDB.find(u => u.id === state.tgId)) {
+                    usersDB.push({ id: state.tgId, username: state.tgUsername, balance: state.balance,
+                        wallet: state.walletAddress || 'not set' });
+                    localStorage.setItem('ezboni_admin_db', JSON.stringify(usersDB));
+                }
+            }
+
+            function renderAdminPanel() {
+                const list = usersDB.length ? usersDB : [{ id: 'system', username: 'admin', balance: 0, wallet: '—' }];
+                adminUserList.innerHTML = list.map((u, idx) => {
+                    const isBanned = u.banned || false;
+                    const banAction = isBanned ?
+                        `<button class="ban-btn unban-btn" data-action="unban" data-idx="${idx}"><i class="fa-regular fa-circle-check"></i> UNBAN</button>` :
+                        `<button class="ban-btn" data-action="ban" data-idx="${idx}"><i class="fa-solid fa-ban"></i> BAN</button>`;
+                    return `<div class="admin-user-item">
+                        <div class="row">
+                            <span><i class="fa-regular fa-user"></i> <strong>${u.username || 'anon'}</strong> (${u.id}) ${u.id === state.tgId && state.isAdmin ? '👑' : ''}</span>
+                            <span><i class="fa-solid fa-coins"></i> ${u.balance || 0}</span>
+                        </div>
+                        <div class="row">
+                            <span><i class="fa-solid fa-wallet"></i> ${u.wallet || 'not set'}</span>
+                            ${banAction}
+                        </div>
+                    </div>`;
+                }).join('');
+                document.querySelectorAll('[data-action="ban"]').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const idx = parseInt(this.dataset.idx);
+                        const target = usersDB[idx];
+                        if (!target) return;
+                        if (target.id === state.tgId && state.isAdmin) {
+                            showToast('❌ You cannot ban yourself');
+                            return;
+                        }
+                        target.banned = true;
+                        localStorage.setItem('ezboni_admin_db', JSON.stringify(usersDB));
+                        showToast(`🚫 Banned ${target.username}`);
+                        renderAdminPanel();
+                    });
+                });
+                document.querySelectorAll('[data-action="unban"]').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const idx = parseInt(this.dataset.idx);
+                        const target = usersDB[idx];
+                        if (target) {
+                            target.banned = false;
+                            localStorage.setItem('ezboni_admin_db', JSON.stringify(usersDB));
+                            showToast(`✅ Unbanned ${target.username}`);
+                            renderAdminPanel();
+                        }
+                    });
+                });
+            }
+
+            function toggleAdminPanel() {
+                if (!state.isAdmin) {
+                    showToast('🔒 Admin access restricted');
+                    return;
+                }
+                adminPanel.style.display = adminPanel.style.display === 'flex' ? 'none' : 'flex';
+                renderAdminPanel();
+            }
+
+            // ============================================================
+            // LEADERBOARD
+            // ============================================================
+            function renderLeaderboard() {
+                // Simulate leaderboard from usersDB
+                const sorted = [...usersDB].sort((a, b) => (b.balance || 0) - (a.balance || 0)).slice(0, 10);
+                let html = '';
+                if (sorted.length === 0) {
+                    html = `<div class="card text-center"><p class="text-muted">No users yet.</p></div>`;
+                } else {
+                    html = `<div class="card">`;
+                    sorted.forEach((u, i) => {
+                        const rank = i + 1;
+                        const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `#${rank}`;
+                        html += `<div class="card-row" style="border-bottom:1px solid rgba(255,255,255,0.05); padding:6px 0;">
+                            <span>${medal} ${u.username || 'anon'}</span>
+                            <span style="color:#fbbf24;">${(u.balance || 0).toFixed(2)}</span>
                         </div>`;
                     });
+                    html += `</div>`;
                 }
-                modalBody.innerHTML = html;
-            } else {
-                // User support form
-                modalBody.innerHTML = `
-                    <p class="text-muted" style="font-size:0.85rem; margin-bottom:8px;">Send a message or report to the admin</p>
-                    <textarea id="supportMsgInput" placeholder="Describe your issue or feedback..."></textarea>
-                    <button class="btn-small btn-send" id="sendSupportBtn" style="width:100%; justify-content:center;"><i class="fa-regular fa-paper-plane"></i> Send</button>
-                `;
-                document.getElementById('sendSupportBtn').addEventListener('click', function() {
-                    const text = document.getElementById('supportMsgInput').value.trim();
-                    if (!text) { alert('Please write a message'); return; }
-                    state.messages.push({
-                        from: state.tgUsername,
-                        text: text,
-                        time: new Date().toLocaleString()
+                leaderboardContainer.innerHTML = html;
+            }
+
+            // ============================================================
+            // HISTORY
+            // ============================================================
+            function renderHistory() {
+                let html = '';
+                if (state.history.length === 0) {
+                    html = `<div class="card text-center"><p class="text-muted">No history yet.</p></div>`;
+                } else {
+                    html = `<div class="card">`;
+                    state.history.slice().reverse().forEach(h => {
+                        const sign = h.amount >= 0 ? '+' : '';
+                        html += `<div class="card-row" style="border-bottom:1px solid rgba(255,255,255,0.05); padding:6px 0;">
+                            <span>${h.type}</span>
+                            <span style="color:${h.amount >= 0 ? '#16a34a' : '#dc2626'};">${sign}${h.amount}</span>
+                            <span style="font-size:0.6rem; color:#5a6a92;">${h.time}</span>
+                        </div>`;
                     });
+                    html += `</div>`;
+                }
+                historyContainer.innerHTML = html;
+            }
+
+            // ============================================================
+            // TOAST NOTIFICATION
+            // ============================================================
+            let toastTimeout = null;
+
+            function showToast(message) {
+                toast.textContent = message;
+                toast.classList.add('visible');
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('visible');
+                }, 3000);
+            }
+
+            // ============================================================
+            // NAVIGATION
+            // ============================================================
+            function switchTab(tabId) {
+                document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+                const target = document.getElementById(tabId);
+                if (target) target.classList.add('active');
+                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                document.querySelector(`.nav-item[data-tab="${tabId}"]`)?.classList.add('active');
+                adminPanel.style.display = 'none';
+
+                // Refresh content for certain tabs
+                if (tabId === 'leaderboard-panel') renderLeaderboard();
+                if (tabId === 'history-panel') renderHistory();
+            }
+
+            // ============================================================
+            // DAILY REWARD
+            // ============================================================
+            function checkDailyReward() {
+                const today = new Date().toDateString();
+                if (state.lastDailyClaim !== today) {
+                    // Reset claim
+                    state.dailyReward.claimed = false;
+                    // Calculate streak
+                    if (state.lastDailyClaim) {
+                        const yesterday = new Date();
+                        yesterday.setDate(yesterday.getDate() - 1);
+                        if (new Date(state.lastDailyClaim).toDateString() === yesterday.toDateString()) {
+                            state.dailyStreak = (state.dailyStreak || 0) + 1;
+                        } else {
+                            state.dailyStreak = 0;
+                        }
+                    }
+                    const day = (state.dailyStreak || 0) % 7 + 1;
+                    const amounts = [100, 200, 300, 500, 750, 1000, 2000];
+                    state.dailyReward.day = day;
+                    state.dailyReward.amount = amounts[day - 1] || 100;
                     saveState();
-                    document.getElementById('supportMsgInput').value = '';
-                    alert('Message sent to admin!');
-                    inboxModal.classList.remove('visible');
-                });
-            }
-            inboxModal.classList.add('visible');
-        }
-
-        // ----- ADMIN PANEL (user management) -----
-        function loadAdminDB() {
-            try {
-                const raw = localStorage.getItem('ecoin_admin_db');
-                if (raw) {
-                    const parsed = JSON.parse(raw);
-                    if (Array.isArray(parsed)) usersDB = parsed;
                 }
-            } catch(e){}
-            if (!usersDB.find(u => u.id === state.tgId)) {
-                usersDB.push({ id: state.tgId, username: state.tgUsername, balance: state.balance, wallet: state.walletAddress || 'not set' });
-                localStorage.setItem('ecoin_admin_db', JSON.stringify(usersDB));
             }
-        }
 
-        function renderAdminPanel() {
-            const list = usersDB.length ? usersDB : [{ id: 'system', username: 'admin', balance: 0, wallet: '—' }];
-            adminUserList.innerHTML = list.map((u, idx) => {
-                const isBanned = state.banned && u.id === state.tgId;
-                const banAction = isBanned ? 
-                    `<button class="ban-btn unban-btn" data-action="unban" data-idx="${idx}"><i class="fa-regular fa-circle-check"></i> UNBAN</button>` :
-                    `<button class="ban-btn" data-action="ban" data-idx="${idx}"><i class="fa-solid fa-ban"></i> BAN</button>`;
-                return `<div class="admin-user-item" style="background:#1a1e30;padding:12px;border-radius:16px;margin-bottom:8px;border-left:4px solid #3b82f6;">
-                    <div class="row" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
-                        <span><i class="fa-regular fa-user"></i> <strong>${u.username || 'anon'}</strong> (${u.id}) ${u.id === state.tgId && state.isAdmin ? '👑' : ''}</span>
-                        <span><i class="fa-solid fa-coins"></i> ${u.balance || 0}</span>
-                    </div>
-                    <div class="row" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
-                        <span><i class="fa-solid fa-wallet"></i> ${u.wallet || 'not set'}</span>
-                        ${banAction}
-                    </div>
-                </div>`;
-            }).join('');
-            // Ban/Unban handlers
-            document.querySelectorAll('[data-action="ban"]').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const idx = parseInt(this.dataset.idx);
-                    const target = usersDB[idx];
-                    if (!target) return;
-                    if (target.id === state.tgId && state.isAdmin) {
-                        alert('You are the Master Admin. You cannot ban yourself.');
-                        return;
-                    }
-                    alert(`Banned user ${target.username}`);
-                    target.banned = true;
-                    localStorage.setItem('ecoin_admin_db', JSON.stringify(usersDB));
-                });
-            });
-            document.querySelectorAll('[data-action="unban"]').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const idx = parseInt(this.dataset.idx);
-                    const target = usersDB[idx];
-                    if (target) {
-                        alert(`Unbanned ${target.username}`);
-                        target.banned = false;
-                        localStorage.setItem('ecoin_admin_db', JSON.stringify(usersDB));
-                    }
-                });
-            });
-        }
-
-        function toggleAdminPanel() {
-            if (!state.isAdmin) {
-                alert('Admin access restricted.');
-                return;
-            }
-            adminPanel.style.display = adminPanel.style.display === 'flex' ? 'none' : 'flex';
-            renderAdminPanel();
-        }
-
-        // ----- NAVIGATION -----
-        function switchTab(tabId) {
-            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-            const target = document.getElementById(tabId);
-            if (target) target.classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            document.querySelector(`.nav-item[data-tab="${tabId}"]`)?.classList.add('active');
-            adminPanel.style.display = 'none';
-        }
-
-        // ----- INIT -----
-        function init() {
-            loadTelegramUser();
-            loadState();
-            detectAdmin();
-            renderWallets();
-            updateUI();
-            loadAdminDB();
-
-            // Onboarding
-            const onboarded = localStorage.getItem('ecoin_onboarded');
-            if (onboarded === 'true') {
-                onboarding.classList.add('hidden');
-            } else {
-                state.balance = 0;
-                state.level = 1;
-                state.xp = 0;
-                state.xpToNext = 100;
-                state.tapPower = 1;
-                state.boostLevel = 1;
+            function claimDailyReward() {
+                if (state.dailyReward.claimed) {
+                    showToast('❌ Already claimed today');
+                    return;
+                }
+                state.balance += state.dailyReward.amount;
+                state.dailyReward.claimed = true;
+                state.lastDailyClaim = new Date().toDateString();
                 saveState();
                 updateUI();
+                showToast(`🎁 +${state.dailyReward.amount} EZBONI POINTS (Day ${state.dailyReward.day})`);
             }
 
-            startBtn.addEventListener('click', function() {
-                localStorage.setItem('ecoin_onboarded', 'true');
-                onboarding.classList.add('hidden');
-                saveState();
+            // ============================================================
+            // INIT
+            // ============================================================
+            function init() {
+                loadTelegramUser();
+                loadState();
+                checkAdminStatus();
+                renderWallets();
                 updateUI();
-            });
+                loadAdminDB();
+                checkDailyReward();
 
-            // Coin tap
-            coinImg.addEventListener('click', handleTap);
-            coinImg.addEventListener('touchstart', (e) => { e.preventDefault(); handleTap(e); });
-
-            // Boost
-            upgradeBoostBtn.addEventListener('click', upgradeBoost);
-
-            // Invite
-            inviteLinkDisplay.textContent = generateInviteLink();
-            copyInviteBtn.addEventListener('click', copyInvite);
-            inviteCount.parentElement?.addEventListener('dblclick', function() {
-                addInvite();
-            });
-
-            // Wallet submit
-            submitWalletBtn.addEventListener('click', submitWalletAddress);
-            walletInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitWalletAddress(); });
-
-            // Tasks admin
-            addTaskBtn.addEventListener('click', addNewTask);
-
-            // Support/Inbox button
-            supportInboxBtn.addEventListener('click', openSupportModal);
-
-            // Modal close
-            modalCloseBtn.addEventListener('click', () => inboxModal.classList.remove('visible'));
-            inboxModal.addEventListener('click', (e) => {
-                if (e.target === inboxModal) inboxModal.classList.remove('visible');
-            });
-
-            // Navigation
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    const tab = this.dataset.tab;
-                    if (tab) switchTab(tab);
-                });
-            });
-
-            // Admin panel: double-tap coin
-            let tapCount = 0;
-            coinImg.addEventListener('dblclick', function(e) {
-                tapCount++;
-                if (tapCount >= 1) {
-                    toggleAdminPanel();
-                    tapCount = 0;
+                // Onboarding
+                const onboarded = localStorage.getItem('ezboni_onboarded');
+                if (onboarded === 'true') {
+                    onboarding.classList.add('hidden');
+                } else {
+                    state.balance = 0;
+                    state.level = 1;
+                    state.xp = 0;
+                    state.xpToNext = 100;
+                    state.tapPower = 1;
+                    state.boostLevel = 1;
+                    state.energyLevel = 1;
+                    state.maxEnergy = 1000;
+                    saveState();
+                    updateUI();
                 }
-                setTimeout(() => tapCount = 0, 500);
-            });
 
-            adminCloseBtn.addEventListener('click', () => { adminPanel.style.display = 'none'; });
+                startBtn.addEventListener('click', function() {
+                    localStorage.setItem('ezboni_onboarded', 'true');
+                    onboarding.classList.add('hidden');
+                    // Welcome bonus
+                    state.balance += 50;
+                    state.history.push({ type: 'Welcome Bonus', amount: 50, time: new Date().toLocaleString() });
+                    saveState();
+                    updateUI();
+                    showToast('🎉 Welcome! +50 EZBONI POINTS');
+                });
 
-            setInterval(() => saveState(), 15000);
-        }
+                // Coin tap
+                coinImg.addEventListener('click', handleTap);
+                coinImg.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    handleTap(e);
+                });
 
-        document.addEventListener('DOMContentLoaded', init);
-    })();
-</script>
+                // Boost
+                upgradeBoostBtn.addEventListener('click', upgradeBoost);
+                upgradeEnergyBtn.addEventListener('click', upgradeEnergy);
+
+                // Invite
+                inviteLinkDisplay.textContent = generateInviteLink();
+                copyInviteBtn.addEventListener('click', copyInvite);
+                inviteCount.parentElement?.addEventListener('dblclick', function() {
+                    addInvite();
+                });
+
+                // Wallet submit
+                submitWalletBtn.addEventListener('click', submitWalletAddress);
+                walletInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') submitWalletAddress();
+                });
+
+                // Tasks admin
+                addTaskBtn.addEventListener('click', addNewTask);
+
+                // Support/Inbox button
+                supportInboxBtn.addEventListener('click', openSupportModal);
+
+                // Modal close
+                modalCloseBtn.addEventListener('click', () => inboxModal.classList.remove('visible'));
+                inboxModal.addEventListener('click', (e) => {
+                    if (e.target === inboxModal) inboxModal.classList.remove('visible');
+                });
+
+                // Navigation
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        const tab = this.dataset.tab;
+                        if (tab) switchTab(tab);
+                    });
+                });
+
+                // Admin panel: double-tap coin
+                let tapCount = 0;
+                coinImg.addEventListener('dblclick', function(e) {
+                    tapCount++;
+                    if (tapCount >= 1) {
+                        toggleAdminPanel();
+                        tapCount = 0;
+                    }
+                    setTimeout(() => tapCount = 0, 500);
+                });
+
+                adminCloseBtn.addEventListener('click', () => {
+                    adminPanel.style.display = 'none';
+                });
+
+                // Daily reward claim (double-tap balance)
+                balanceDisplayLarge.parentElement?.addEventListener('dblclick', function() {
+                    claimDailyReward();
+                });
+
+                // Render initial data
+                renderLeaderboard();
+                renderHistory();
+
+                setInterval(() => saveState(), 15000);
+
+                // Show API config status
+                if (!API_BASE_URL) {
+                    showToast('⚠️ Backend not configured. Using local demo mode.');
+                } else {
+                    showToast('✅ Connected to EZBONI backend');
+                }
+
+                isInitialized = true;
+            }
+
+            document.addEventListener('DOMContentLoaded', init);
+        })();
+    </script>
 </body>
 </html>
