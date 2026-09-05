@@ -29,7 +29,6 @@
       touch-action: manipulation;
     }
 
-    /* MAIN APP SHELL – full screen, edge‑to‑edge */
     #app {
       width: 100vw;
       height: 100vh;
@@ -109,6 +108,82 @@
       box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
     }
 
+    /* ----- BANNED OVERLAY (with appeal) ----- */
+    #banned-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(7, 9, 18, 0.98);
+      backdrop-filter: blur(12px);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.8rem;
+      text-align: center;
+    }
+    #banned-overlay.visible {
+      display: flex;
+    }
+    #banned-overlay .ban-icon {
+      font-size: 4rem;
+      color: #dc2626;
+      margin-bottom: 1rem;
+    }
+    #banned-overlay h2 {
+      color: #dc2626;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    #banned-overlay .ban-reason {
+      color: #fca5a5;
+      background: rgba(220, 38, 38, 0.12);
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid rgba(220, 38, 38, 0.2);
+    }
+    #banned-overlay .appeal-box {
+      width: 100%;
+      max-width: 320px;
+    }
+    #banned-overlay textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid #2a3045;
+      border-radius: 16px;
+      padding: 14px;
+      color: white;
+      font-size: 0.95rem;
+      resize: vertical;
+      min-height: 100px;
+      outline: none;
+      transition: border 0.2s;
+    }
+    #banned-overlay textarea:focus {
+      border-color: #3b82f6;
+    }
+    #banned-overlay textarea::placeholder {
+      color: #6b7aa8;
+    }
+    #banned-overlay .btn-appeal {
+      background: #2563eb;
+      border: none;
+      padding: 10px 28px;
+      border-radius: 40px;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-top: 12px;
+      cursor: pointer;
+      transition: 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #banned-overlay .btn-appeal:active { transform: scale(0.95); }
+
     /* ----- HEADER / TOP BAR ----- */
     #header {
       display: flex;
@@ -159,6 +234,20 @@
     .coin-badge i {
       font-size: 1.2rem;
     }
+    .wallet-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(59, 130, 246, 0.12);
+      padding: 4px 12px 4px 8px;
+      border-radius: 40px;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      font-size: 0.7rem;
+      color: #b9c6f0;
+    }
+    .wallet-indicator i {
+      font-size: 1rem;
+    }
 
     /* ----- MAIN TAP AREA (Earn) ----- */
     #tap-area {
@@ -176,7 +265,7 @@
       height: 10px;
       background: rgba(255, 255, 255, 0.08);
       border-radius: 20px;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
       overflow: hidden;
       box-shadow: inset 0 1px 4px rgba(0,0,0,0.5);
     }
@@ -189,9 +278,9 @@
       box-shadow: 0 0 12px #3b82f6;
     }
     .energy-text {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: #a5b4e0;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       letter-spacing: 0.5px;
     }
     .energy-text i {
@@ -199,7 +288,6 @@
       color: #fbbf24;
     }
 
-    /* central tap E symbol – luxury glowing circuit style */
     .tap-coin {
       width: 160px;
       height: 160px;
@@ -239,7 +327,6 @@
     @keyframes spinGlow {
       to { transform: rotate(360deg); }
     }
-    /* circuit board detail: small dots around */
     .tap-coin::before {
       content: '';
       position: absolute;
@@ -252,11 +339,11 @@
     }
 
     .tap-info {
-      margin-top: 20px;
-      font-size: 1rem;
+      margin-top: 16px;
+      font-size: 0.95rem;
       color: #b9c6f0;
       background: rgba(0,0,0,0.3);
-      padding: 8px 20px;
+      padding: 6px 18px;
       border-radius: 40px;
       backdrop-filter: blur(4px);
       display: flex;
@@ -265,10 +352,60 @@
     }
     .tap-info strong {
       color: #fbbf24;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
 
-    /* ----- BOTTOM NAVIGATION (5 tabs) ----- */
+    /* ----- WALLET SUBMIT CARD ----- */
+    .wallet-submit-card {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 24px;
+      padding: 14px 16px;
+      margin-top: 16px;
+      width: 85%;
+      max-width: 320px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(4px);
+    }
+    .wallet-submit-card .input-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .wallet-submit-card input {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid #2a3045;
+      border-radius: 40px;
+      padding: 10px 16px;
+      color: white;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .wallet-submit-card input:focus {
+      border-color: #3b82f6;
+    }
+    .wallet-submit-card input::placeholder {
+      color: #6b7aa8;
+    }
+    .wallet-submit-card .btn-small {
+      background: #2563eb;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 40px;
+      color: white;
+      font-weight: 600;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .wallet-submit-card .btn-small:active { transform: scale(0.95); }
+
+    /* ----- BOTTOM NAVIGATION ----- */
     #bottom-nav {
       display: flex;
       justify-content: space-around;
@@ -303,7 +440,7 @@
       line-height: 1;
     }
 
-    /* ----- PANELS (friends, boost, tasks, wallet) ----- */
+    /* ----- PANELS ----- */
     .panel {
       flex: 1;
       display: none;
@@ -332,7 +469,6 @@
       color: #fbbf24;
     }
 
-    /* cards */
     .card {
       background: rgba(255, 255, 255, 0.04);
       border-radius: 24px;
@@ -409,7 +545,7 @@
     }
     .feedback-area textarea::placeholder { color: #6b7aa8; }
 
-    /* admin panel hidden by default */
+    /* ----- ADMIN PANEL ----- */
     #admin-panel {
       display: none;
       position: absolute;
@@ -474,13 +610,14 @@
       color: #b9c6f0;
       border-left: 2px solid #fbbf24;
     }
-    .badge-status {
+    .appeal-badge {
       background: #1e293b;
       padding: 2px 12px;
       border-radius: 40px;
-      font-size: 0.7rem;
-      color: #94a3b8;
-      border: 1px solid #334;
+      font-size: 0.65rem;
+      color: #fbbf24;
+      border: 1px solid #fbbf24;
+      display: inline-block;
     }
 
     /* scroll */
@@ -508,14 +645,31 @@
     <button class="btn-primary" id="startBtn"><i class="fa-regular fa-circle-play"></i> START / LET'S BEGIN</button>
   </div>
 
+  <!-- BANNED OVERLAY (with appeal) -->
+  <div id="banned-overlay">
+    <div class="ban-icon"><i class="fa-solid fa-ban"></i></div>
+    <h2>Account Banned</h2>
+    <div class="ban-reason" id="banReasonDisplay">Reason: Suspicious activity detected</div>
+    <div class="appeal-box">
+      <p style="color:#b9c6f0; font-size:0.9rem; margin-bottom:10px;">Submit an appeal or apology to the admin</p>
+      <textarea id="appealInput" placeholder="Write your apology or explanation..."></textarea>
+      <button class="btn-appeal" id="submitAppealBtn"><i class="fa-regular fa-paper-plane"></i> Submit Appeal</button>
+    </div>
+  </div>
+
   <!-- MAIN HEADER -->
   <div id="header">
     <div class="user-badge">
       <div class="avatar" id="avatarLetter">E</div>
       <span id="tgUsername">user</span>
     </div>
-    <div class="coin-badge">
-      <i class="fa-solid fa-coins"></i> <span id="balanceDisplay">0</span>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div class="wallet-indicator" id="walletIndicator">
+        <i class="fa-solid fa-wallet"></i> <span id="walletLabel">BSC</span>
+      </div>
+      <div class="coin-badge">
+        <i class="fa-solid fa-coins"></i> <span id="balanceDisplay">0</span>
+      </div>
     </div>
   </div>
 
@@ -527,7 +681,16 @@
     <div class="energy-text" id="energyText"><i class="fa-solid fa-bolt"></i> 1000 / 1000</div>
     <div class="tap-coin" id="tapCoin">E</div>
     <div class="tap-info"><i class="fa-solid fa-bolt" style="color:#fbbf24;"></i> <strong id="tapPowerDisplay">1</strong> per tap · level <span id="levelDisplay">1</span></div>
-    <div style="margin-top: 12px; font-size:0.8rem; color:#6b7aa8; display:flex; align-items:center; gap:6px;"><i class="fa-regular fa-calendar-check"></i> daily streak: <span id="streakDisplay">0</span> days</div>
+    <div style="margin-top: 8px; font-size:0.75rem; color:#6b7aa8; display:flex; align-items:center; gap:6px;"><i class="fa-regular fa-calendar-check"></i> daily streak: <span id="streakDisplay">0</span> days</div>
+
+    <!-- WALLET SUBMIT CARD -->
+    <div class="wallet-submit-card">
+      <div class="input-group">
+        <input type="text" id="walletInput" placeholder="0x... (BSC/ETH wallet)">
+        <button class="btn-small" id="submitWalletBtn"><i class="fa-regular fa-paper-plane"></i> Submit</button>
+      </div>
+      <div style="font-size:0.65rem; color:#5a6a92; margin-top:6px; text-align:center;"><i class="fa-regular fa-circle-check"></i> Connect your wallet for future rewards</div>
+    </div>
   </div>
 
   <!-- FRIENDS PANEL -->
@@ -600,9 +763,16 @@
     <div class="panel-title"><i class="fa-solid fa-wallet"></i> Wallet</div>
     <div class="card text-center" style="padding:30px 10px;">
       <div style="font-size:3rem; color:#fbbf24;"><i class="fa-regular fa-credit-card"></i></div>
-      <h2 style="color:#fbbf24; margin-top:6px;">Coming Soon</h2>
-      <p class="text-muted">Securely capture your wallet for future distribution</p>
-      <button class="btn-small" id="walletIntentBtn" style="margin-top:14px;"><i class="fa-regular fa-bell"></i> Notify me</button>
+      <h2 style="color:#fbbf24; margin-top:6px;">Connect Wallet</h2>
+      <p class="text-muted">Select your EVM-compatible wallet</p>
+      <div style="display:flex; gap:16px; justify-content:center; margin:20px 0; flex-wrap:wrap;">
+        <button class="btn-small wallet-connect" data-wallet="metamask"><i class="fa-brands fa-ethereum"></i> MetaMask</button>
+        <button class="btn-small wallet-connect" data-wallet="bsc"><i class="fa-solid fa-cube"></i> BSC</button>
+        <button class="btn-small wallet-connect" data-wallet="coinbase"><i class="fa-regular fa-circle-dot"></i> Coinbase</button>
+      </div>
+      <div id="connectedWalletDisplay" style="color:#b9c6f0; font-size:0.9rem; margin-top:8px;">
+        <i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> No wallet connected
+      </div>
     </div>
   </div>
 
@@ -615,15 +785,14 @@
     <button class="nav-item" data-tab="wallet-panel"><i class="fa-solid fa-wallet"></i><span>Wallet</span></button>
   </div>
 
-  <!-- ADMIN PANEL (hidden) -->
+  <!-- ADMIN PANEL -->
   <div id="admin-panel">
     <button class="admin-close" id="adminCloseBtn"><i class="fa-regular fa-circle-xmark"></i> Close Admin</button>
     <h2 style="color:#fbbf24; margin-bottom:8px;"><i class="fa-solid fa-crown"></i> Mother App</h2>
     <div id="adminUserList"></div>
   </div>
 
-  <!-- hidden admin trigger (double tap logo) -->
-  <div style="position:absolute; bottom:80px; right:16px; opacity:0.15; font-size:10px; z-index:1; pointer-events:none; letter-spacing:2px;">⏺ ADMIN</div>
+  <div style="position:absolute; bottom:80px; right:16px; opacity:0.12; font-size:10px; z-index:1; pointer-events:none; letter-spacing:2px;">⏺ ADMIN</div>
 </div>
 
 <script>
@@ -642,15 +811,18 @@
       lastVisit: null,
       invites: 0,
       banned: false,
+      banReason: '',
       tgId: 'anon',
       tgUsername: 'user',
       walletIntent: false,
+      connectedWallet: null,
+      walletAddress: '',
       tasksClaimed: { fb:false, tt:false, ig:false, yt:false },
       clickCount: 0,
-      lastClickTime: 0
+      lastClickTime: 0,
+      appealSubmitted: false
     };
 
-    // stored users for admin
     let usersDB = [];
 
     // ----- DOM refs -----
@@ -676,6 +848,15 @@
     const adminPanel = $('admin-panel');
     const adminUserList = $('adminUserList');
     const adminCloseBtn = $('adminCloseBtn');
+    const walletInput = $('walletInput');
+    const submitWalletBtn = $('submitWalletBtn');
+    const walletIndicator = $('walletIndicator');
+    const walletLabel = $('walletLabel');
+    const connectedWalletDisplay = $('connectedWalletDisplay');
+    const bannedOverlay = $('banned-overlay');
+    const banReasonDisplay = $('banReasonDisplay');
+    const appealInput = $('appealInput');
+    const submitAppealBtn = $('submitAppealBtn');
 
     // ----- helpers -----
     function saveState() {
@@ -692,7 +873,6 @@
           Object.assign(state, parsed);
         }
       } catch(e){}
-      // sync telegram
       if (window.Telegram?.WebApp?.initDataUnsafe) {
         const user = window.Telegram.WebApp.initDataUnsafe.user;
         if (user) {
@@ -700,19 +880,23 @@
           state.tgUsername = user.username || user.first_name || 'user';
         }
       }
-      // update avatar
       $('avatarLetter').textContent = state.tgUsername.charAt(0).toUpperCase() || 'E';
       $('tgUsername').textContent = state.tgUsername;
-      // if banned, block
-      if (state.banned) {
-        alert('⚠️ Your account has been banned. Contact support.');
-        document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0b0d19;color:white;font-size:1.8rem;padding:2rem;text-align:center;"><i class="fa-solid fa-ban" style="color:#dc2626;font-size:3rem;margin-right:16px;"></i> BANNED<br><span style="font-size:1rem;color:#7b8ab8;">violation of terms</span></div>';
-        return false;
-      }
       return true;
     }
 
-    // daily streak
+    function checkBan() {
+      if (state.banned) {
+        bannedOverlay.classList.add('visible');
+        banReasonDisplay.textContent = 'Reason: ' + (state.banReason || 'Suspicious activity detected');
+        // hide onboarding if visible
+        onboarding.classList.add('hidden');
+        return true;
+      }
+      bannedOverlay.classList.remove('visible');
+      return false;
+    }
+
     function updateStreak() {
       const today = new Date().toDateString();
       if (state.lastVisit !== today) {
@@ -727,7 +911,6 @@
           state.streak = 1;
         }
         state.lastVisit = today;
-        // reward
         const bonus = Math.min(10 + state.streak * 2, 50);
         state.balance += bonus;
         saveState();
@@ -735,7 +918,6 @@
       streakDisplay.textContent = state.streak;
     }
 
-    // energy regeneration
     function regenEnergy() {
       if (state.energy < state.maxEnergy) {
         state.energy = Math.min(state.maxEnergy, state.energy + 5);
@@ -762,29 +944,36 @@
       upgradeCost.textContent = cost;
       inviteCount.textContent = state.invites;
       streakDisplay.textContent = state.streak;
-      if (state.banned) {
-        alert('⚠️ Banned');
-        document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0b0d19;color:white;font-size:1.8rem;"><i class="fa-solid fa-ban" style="color:#dc2626;font-size:3rem;margin-right:16px;"></i> BANNED</div>';
+      if (state.connectedWallet) {
+        const label = state.connectedWallet.charAt(0).toUpperCase() + state.connectedWallet.slice(1);
+        walletLabel.textContent = label;
+        walletIndicator.style.display = 'flex';
+      } else {
+        walletLabel.textContent = 'BSC';
+        walletIndicator.style.display = 'flex';
       }
+      checkBan();
     }
 
     // tap logic with anti-cheat
     function handleTap(e) {
-      if (state.banned) return;
+      if (state.banned) {
+        checkBan();
+        return;
+      }
       if (state.energy < 1) { 
         if (navigator.vibrate) navigator.vibrate(20);
         return; 
       }
-      // basic anti-bot: detect rapid clicks
       const now = Date.now();
       if (now - state.lastClickTime < 50) {
         state.clickCount++;
         if (state.clickCount > 8) {
-          // auto-ban suspicion
           state.banned = true;
+          state.banReason = 'Auto-clicker / bot activity detected';
           saveState();
+          checkBan();
           alert('⚠️ Suspicious activity detected. Account banned.');
-          location.reload();
           return;
         }
       } else {
@@ -804,7 +993,7 @@
 
     // ----- BOOST upgrade -----
     function upgradeBoost() {
-      if (state.banned) return;
+      if (state.banned) { checkBan(); return; }
       const cost = 20 + state.boostLevel * 30;
       if (state.balance < cost) { alert('Not enough ECoin'); return; }
       state.balance -= cost;
@@ -830,7 +1019,6 @@
       }
     }
 
-    // simulate invite
     function addInvite() {
       state.invites += 1;
       state.balance += 1000;
@@ -840,6 +1028,7 @@
 
     // ----- TASKS -----
     function claimTask(task) {
+      if (state.banned) { checkBan(); return; }
       if (state.tasksClaimed[task]) { alert('Already claimed today'); return; }
       state.tasksClaimed[task] = true;
       state.balance += 25;
@@ -848,17 +1037,50 @@
       alert('+25 ECoin');
     }
 
-    // ----- FEEDBACK with "translation" (mock) -----
+    // ----- WALLET -----
+    function connectWallet(walletType) {
+      if (state.banned) { checkBan(); return; }
+      state.connectedWallet = walletType;
+      const label = walletType.charAt(0).toUpperCase() + walletType.slice(1);
+      connectedWalletDisplay.innerHTML = `<i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> Connected: ${label}`;
+      walletLabel.textContent = label;
+      saveState();
+      updateUI();
+      alert(`Connected to ${label}`);
+      switchTab('tap-area');
+    }
+
+    function submitWalletAddress() {
+      if (state.banned) { checkBan(); return; }
+      const addr = walletInput.value.trim();
+      if (!addr) { alert('Please enter a wallet address'); return; }
+      if (!addr.startsWith('0x') || addr.length < 40) {
+        alert('Please enter a valid EVM address (0x...)');
+        return;
+      }
+      state.walletAddress = addr;
+      const existing = usersDB.find(u => u.id === state.tgId);
+      if (existing) {
+        existing.wallet = addr;
+      } else {
+        usersDB.push({ id: state.tgId, username: state.tgUsername, balance: state.balance, wallet: addr });
+      }
+      localStorage.setItem('ecoin_admin_db', JSON.stringify(usersDB));
+      saveState();
+      alert('Wallet address submitted successfully!');
+      walletInput.value = '';
+    }
+
+    // ----- FEEDBACK with translation -----
     function submitFeedback() {
+      if (state.banned) { checkBan(); return; }
       const raw = feedbackInput.value.trim();
       if (!raw) return alert('Please write something');
       let translated = raw;
-      // detect non-latin scripts (Chinese, Arabic, Cyrillic, etc.)
       const hasNonEng = /[\u0600-\u06FF\u4e00-\u9fff\u0400-\u04FF\u00C0-\u00FF]/.test(raw);
       if (hasNonEng) {
         translated = '[Translated to English] ' + raw.substring(0, 60) + '...';
       } else {
-        // if english, also provide swahili mock
         translated = '[EN] ' + raw + ' | [SW] Mwisho wa maoni.';
       }
       const entry = {
@@ -866,16 +1088,52 @@
         id: state.tgId,
         feedback: raw,
         translated: translated,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        isAppeal: false
       };
       usersDB.push(entry);
-      // ensure user exists in DB
-      if (!usersDB.find(u => u.id === state.tgId && u.username === state.tgUsername)) {
-        usersDB.push({ id: state.tgId, username: state.tgUsername, balance: state.balance, wallet: 'not set' });
+      if (!usersDB.find(u => u.id === state.tgId)) {
+        usersDB.push({ id: state.tgId, username: state.tgUsername, balance: state.balance, wallet: state.walletAddress || 'not set' });
       }
       localStorage.setItem('ecoin_admin_db', JSON.stringify(usersDB));
       alert('Feedback submitted! Thank you.');
       feedbackInput.value = '';
+    }
+
+    // ----- APPEAL (from banned user) -----
+    function submitAppeal() {
+      const raw = appealInput.value.trim();
+      if (!raw) return alert('Please write your appeal');
+      let translated = raw;
+      const hasNonEng = /[\u0600-\u06FF\u4e00-\u9fff\u0400-\u04FF\u00C0-\u00FF]/.test(raw);
+      if (hasNonEng) {
+        translated = '[Translated to English] ' + raw.substring(0, 60) + '...';
+      } else {
+        translated = '[EN] ' + raw + ' | [SW] Rufaa imewasilishwa.';
+      }
+      const entry = {
+        user: state.tgUsername,
+        id: state.tgId,
+        feedback: raw,
+        translated: translated,
+        timestamp: new Date().toISOString(),
+        isAppeal: true,
+        appealFor: state.banReason
+      };
+      usersDB.push(entry);
+      // update user record
+      let userRecord = usersDB.find(u => u.id === state.tgId);
+      if (!userRecord) {
+        userRecord = { id: state.tgId, username: state.tgUsername, balance: state.balance, wallet: state.walletAddress || 'not set' };
+        usersDB.push(userRecord);
+      }
+      userRecord.appeal = raw;
+      userRecord.appealTranslated = translated;
+      localStorage.setItem('ecoin_admin_db', JSON.stringify(usersDB));
+      state.appealSubmitted = true;
+      saveState();
+      alert('Appeal submitted! Admin will review your case.');
+      appealInput.value = '';
     }
 
     // ----- ADMIN PANEL -----
@@ -887,9 +1145,11 @@
           `<button class="ban-btn unban-btn" data-action="unban" data-idx="${idx}"><i class="fa-regular fa-circle-check"></i> UNBAN</button>` :
           `<button class="ban-btn" data-action="ban" data-idx="${idx}"><i class="fa-solid fa-ban"></i> BAN</button>`;
         const fb = u.feedback ? `<div class="translated-feedback"><i class="fa-regular fa-message"></i> ${u.translated || u.feedback}</div>` : '';
+        const appealBadge = u.isAppeal ? `<span class="appeal-badge"><i class="fa-regular fa-clock"></i> APPEAL</span>` : '';
+        const appealText = u.appeal ? `<div class="translated-feedback" style="border-left-color:#fbbf24;"><i class="fa-regular fa-comment"></i> Appeal: ${u.appealTranslated || u.appeal}</div>` : '';
         return `<div class="admin-user-item">
           <div class="row">
-            <span><i class="fa-regular fa-user"></i> <strong>${u.username || 'anon'}</strong> (${u.id})</span>
+            <span><i class="fa-regular fa-user"></i> <strong>${u.username || 'anon'}</strong> (${u.id}) ${appealBadge}</span>
             <span><i class="fa-solid fa-coins"></i> ${u.balance || 0}</span>
           </div>
           <div class="row">
@@ -897,9 +1157,9 @@
             ${banAction}
           </div>
           ${fb}
+          ${appealText}
         </div>`;
       }).join('');
-      // attach ban events
       document.querySelectorAll('[data-action="ban"]').forEach(btn => {
         btn.addEventListener('click', function(e) {
           const idx = parseInt(this.dataset.idx);
@@ -907,12 +1167,12 @@
           if (!target) return;
           if (target.id === state.tgId) {
             state.banned = true;
+            state.banReason = 'Banned by admin';
             saveState();
             alert('You have been banned.');
             location.reload();
           } else {
             alert(`Banned user ${target.username}`);
-            // also update in DB
             target.banned = true;
             localStorage.setItem('ecoin_admin_db', JSON.stringify(usersDB));
           }
@@ -924,8 +1184,9 @@
           const target = usersDB[idx];
           if (target && target.id === state.tgId) {
             state.banned = false;
+            state.banReason = '';
             saveState();
-            alert('Unbanned.');
+            alert('Unbanned. You can now use the app.');
             location.reload();
           } else if (target) {
             alert(`Unbanned ${target.username}`);
@@ -936,7 +1197,6 @@
       });
     }
 
-    // load admin DB
     function loadAdminDB() {
       try {
         const raw = localStorage.getItem('ecoin_admin_db');
@@ -945,14 +1205,12 @@
           if (Array.isArray(parsed)) usersDB = parsed;
         }
       } catch(e){}
-      // ensure current user in DB
       if (!usersDB.find(u => u.id === state.tgId)) {
-        usersDB.push({ id: state.tgId, username: state.tgUsername, balance: state.balance, wallet: 'not set' });
-        localStorage.setItem('ecoin_admin_db', JSON.stringify(usersDB));
+        usersDB.push({ id: state.tgId, username: state.tgUsername, balance: state.balance, wallet: state.walletAddress || 'not set' });
+        localStorage.setItem('ecoin_admin_db', ESBONI.stringify(usersDB));
       }
     }
 
-    // show admin (double tap hidden)
     function toggleAdmin() {
       adminPanel.classList.toggle('visible');
       renderAdmin();
@@ -966,13 +1224,6 @@
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
       document.querySelector(`.nav-item[data-tab="${tabId}"]`)?.classList.add('active');
       adminPanel.classList.remove('visible');
-    }
-
-    // ----- WALLET INTENT -----
-    function walletIntent() {
-      state.walletIntent = true;
-      saveState();
-      alert('We will notify you when wallet is ready.');
     }
 
     // ----- INIT -----
@@ -990,6 +1241,12 @@
         state.balance += 30;
         saveState();
         updateUI();
+      }
+
+      // Check if banned on load
+      if (state.banned) {
+        checkBan();
+        // still allow appeal
       }
 
       startBtn.addEventListener('click', function() {
@@ -1010,7 +1267,6 @@
       // invite
       inviteLinkDisplay.textContent = generateInviteLink();
       copyInviteBtn.addEventListener('click', copyInvite);
-      // double click on invite count to simulate invite (for demo)
       inviteCount.parentElement?.addEventListener('dblclick', function() {
         addInvite();
       });
@@ -1024,8 +1280,20 @@
       // feedback
       submitFeedbackBtn.addEventListener('click', submitFeedback);
 
-      // wallet
-      $('walletIntentBtn').addEventListener('click', walletIntent);
+      // wallet submit
+      submitWalletBtn.addEventListener('click', submitWalletAddress);
+      walletInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitWalletAddress(); });
+
+      // wallet connect
+      document.querySelectorAll('.wallet-connect').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const wallet = this.dataset.wallet;
+          connectWallet(wallet);
+        });
+      });
+
+      // appeal
+      submitAppealBtn.addEventListener('click', submitAppeal);
 
       // navigation
       document.querySelectorAll('.nav-item').forEach(item => {
@@ -1035,7 +1303,7 @@
         });
       });
 
-      // admin toggle: double tap on logo area
+      // admin toggle
       let tapCount = 0;
       tapCoin.addEventListener('dblclick', function(e) {
         tapCount++;
@@ -1048,8 +1316,13 @@
 
       adminCloseBtn.addEventListener('click', ()=>adminPanel.classList.remove('visible'));
 
-      // periodic save
       setInterval(() => saveState(), 15000);
+
+      if (state.connectedWallet) {
+        const label = state.connectedWallet.charAt(0).toUpperCase() + state.connectedWallet.slice(1);
+        walletLabel.textContent = label;
+        connectedWalletDisplay.innerHTML = `<i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> Connected: ${label}`;
+      }
     }
 
     document.addEventListener('DOMContentLoaded', init);
