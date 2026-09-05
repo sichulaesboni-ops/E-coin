@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>ECoin (ETC) · Tap-to-Earn</title>
-  <!-- Font Awesome 6 (free) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* ----- RESET & GLOBAL ----- */
@@ -27,20 +26,21 @@
       justify-content: center;
       overflow: hidden;
       touch-action: manipulation;
+      margin: 0;
+      padding: 0;
     }
 
+    /* FULL SCREEN EDGE-TO-EDGE: no max-width, no centering padding */
     #app {
       width: 100vw;
       height: 100vh;
       height: 100dvh;
-      max-width: 500px;
-      margin: 0 auto;
       background: radial-gradient(circle at 20% 30%, #14182b, #070912);
       display: flex;
       flex-direction: column;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 0 40px rgba(0, 20, 80, 0.6);
+      box-shadow: none; /* remove card shadow */
     }
 
     /* ----- ONBOARDING OVERLAY ----- */
@@ -108,7 +108,7 @@
       box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
     }
 
-    /* ----- BANNED OVERLAY (with appeal) ----- */
+    /* ----- BANNED OVERLAY (with appeal & AI auto-forgiveness) ----- */
     #banned-overlay {
       position: absolute;
       inset: 0;
@@ -146,7 +146,7 @@
     }
     #banned-overlay .appeal-box {
       width: 100%;
-      max-width: 320px;
+      max-width: 360px;
     }
     #banned-overlay textarea {
       width: 100%;
@@ -183,13 +183,18 @@
       gap: 8px;
     }
     #banned-overlay .btn-appeal:active { transform: scale(0.95); }
+    #banned-overlay .appeal-status {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #fbbf24;
+    }
 
     /* ----- HEADER / TOP BAR ----- */
     #header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 18px 6px;
+      padding: 12px 16px 6px;
       background: transparent;
       flex-shrink: 0;
     }
@@ -256,12 +261,12 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0 10px;
+      padding: 0 12px;
       position: relative;
     }
     .energy-bar {
       width: 80%;
-      max-width: 300px;
+      max-width: 340px;
       height: 10px;
       background: rgba(255, 255, 255, 0.08);
       border-radius: 20px;
@@ -289,8 +294,8 @@
     }
 
     .tap-coin {
-      width: 160px;
-      height: 160px;
+      width: 170px;
+      height: 170px;
       border-radius: 50%;
       background: radial-gradient(circle at 35% 35%, #2a2f4f, #12162b);
       display: flex;
@@ -362,7 +367,7 @@
       padding: 14px 16px;
       margin-top: 16px;
       width: 85%;
-      max-width: 320px;
+      max-width: 360px;
       border: 1px solid rgba(255, 255, 255, 0.06);
       backdrop-filter: blur(4px);
     }
@@ -445,7 +450,7 @@
       flex: 1;
       display: none;
       flex-direction: column;
-      padding: 20px 18px;
+      padding: 20px 16px;
       overflow-y: auto;
       width: 100%;
       scroll-behavior: smooth;
@@ -543,7 +548,9 @@
     .feedback-area textarea:focus {
       border-color: #3b82f6;
     }
-    .feedback-area textarea::placeholder { color: #6b7aa8; }
+    .feedback-area textarea::placeholder {
+      color: #6b7aa8;
+    }
 
     /* ----- ADMIN PANEL ----- */
     #admin-panel {
@@ -593,7 +600,7 @@
       padding: 4px 16px;
       border-radius: 40px;
       font-weight: 600;
-      cursor: pointer;
+      cursor: pointer; 
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -620,11 +627,9 @@
       display: inline-block;
     }
 
-    /* scroll */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
 
-    /* utility */
     .flex-1 { flex:1; }
     .mt-2 { margin-top: 12px; }
     .text-center { text-align: center; }
@@ -645,15 +650,16 @@
     <button class="btn-primary" id="startBtn"><i class="fa-regular fa-circle-play"></i> START / LET'S BEGIN</button>
   </div>
 
-  <!-- BANNED OVERLAY (with appeal) -->
+  <!-- BANNED OVERLAY (with AI auto-forgiveness) -->
   <div id="banned-overlay">
     <div class="ban-icon"><i class="fa-solid fa-ban"></i></div>
     <h2>Account Banned</h2>
     <div class="ban-reason" id="banReasonDisplay">Reason: Suspicious activity detected</div>
     <div class="appeal-box">
-      <p style="color:#b9c6f0; font-size:0.9rem; margin-bottom:10px;">Submit an appeal or apology to the admin</p>
+      <p style="color:#b9c6f0; font-size:0.9rem; margin-bottom:10px;">Submit an appeal or explanation (AI will review automatically)</p>
       <textarea id="appealInput" placeholder="Write your apology or explanation..."></textarea>
       <button class="btn-appeal" id="submitAppealBtn"><i class="fa-regular fa-paper-plane"></i> Submit Appeal</button>
+      <div id="appealStatus" class="appeal-status"></div>
     </div>
   </div>
 
@@ -799,7 +805,15 @@
   (function(){
     "use strict";
 
-    // ----- INIT STATE -----
+    // ============================================================
+    // MASTER ADMIN CONFIG – NEVER BANNED
+    // ============================================================
+    const MASTER_ADMIN_ID = 'admin_master';   // change to actual admin ID
+    const MASTER_ADMIN_USERNAME = 'admin';
+
+    // ============================================================
+    // STATE
+    // ============================================================
     let state = {
       balance: 0,
       energy: 1000,
@@ -820,12 +834,15 @@
       tasksClaimed: { fb:false, tt:false, ig:false, yt:false },
       clickCount: 0,
       lastClickTime: 0,
-      appealSubmitted: false
+      appealSubmitted: false,
+      appealPending: false  // AI pending review
     };
 
     let usersDB = [];
 
-    // ----- DOM refs -----
+    // ============================================================
+    // DOM REFS
+    // ============================================================
     const $ = id => document.getElementById(id);
     const balanceSpan = $('balanceDisplay');
     const energyFill = $('energyFill');
@@ -857,8 +874,15 @@
     const banReasonDisplay = $('banReasonDisplay');
     const appealInput = $('appealInput');
     const submitAppealBtn = $('submitAppealBtn');
+    const appealStatus = $('appealStatus');
 
-    // ----- helpers -----
+    // ============================================================
+    // HELPERS
+    // ============================================================
+    function isMasterAdmin() {
+      return state.tgId === MASTER_ADMIN_ID || state.tgUsername === MASTER_ADMIN_USERNAME;
+    }
+
     function saveState() {
       try {
         localStorage.setItem('ecoin_state', JSON.stringify(state));
@@ -876,9 +900,14 @@
       if (window.Telegram?.WebApp?.initDataUnsafe) {
         const user = window.Telegram.WebApp.initDataUnsafe.user;
         if (user) {
-          state.tgId = user.id || 'anon';
+          state.tgId = String(user.id) || 'anon';
           state.tgUsername = user.username || user.first_name || 'user';
         }
+      }
+      // Force admin protection
+      if (isMasterAdmin()) {
+        state.banned = false;
+        state.banReason = '';
       }
       $('avatarLetter').textContent = state.tgUsername.charAt(0).toUpperCase() || 'E';
       $('tgUsername').textContent = state.tgUsername;
@@ -886,10 +915,17 @@
     }
 
     function checkBan() {
+      // Admin is immune
+      if (isMasterAdmin()) {
+        state.banned = false;
+        state.banReason = '';
+        saveState();
+        bannedOverlay.classList.remove('visible');
+        return false;
+      }
       if (state.banned) {
         bannedOverlay.classList.add('visible');
         banReasonDisplay.textContent = 'Reason: ' + (state.banReason || 'Suspicious activity detected');
-        // hide onboarding if visible
         onboarding.classList.add('hidden');
         return true;
       }
@@ -897,6 +933,86 @@
       return false;
     }
 
+    // ============================================================
+    // AI AUTO-FORGIVENESS ENGINE (autonomous, no admin required)
+    // ============================================================
+    function aiEvaluateAppeal(appealText) {
+      // Simple but effective rule-based AI
+      const lower = appealText.toLowerCase();
+      let score = 0;
+      // Positive keywords (acknowledgment, apology, explanation)
+      if (lower.includes('sorry') || lower.includes('apolog') || lower.includes('mistake') || lower.includes('error')) score += 2;
+      if (lower.includes('test') || lower.includes('testing') || lower.includes('learn') || lower.includes('new')) score += 1;
+      if (lower.includes('auto') || lower.includes('bot') || lower.includes('script')) score += 1; // honesty
+      if (lower.includes('please') || lower.includes('kind') || lower.includes('allow')) score += 1;
+      if (lower.includes('understand') || lower.includes('accept') || lower.includes('rules')) score += 1;
+      if (lower.includes('wrong') || lower.includes('bad') || lower.includes('fix')) score += 1;
+      // Negative filters (aggressive or manipulative)
+      if (lower.includes('stupid') || lower.includes('idiot') || lower.includes('hate') || lower.includes('terrible')) score -= 3;
+      if (lower.length < 10) score -= 1; // too short
+
+      // Decision: score >= 3 → auto-unban (forgiveness)
+      if (score >= 3) {
+        return { decision: 'unban', score: score };
+      } else {
+        return { decision: 'pending', score: score };
+      }
+    }
+
+    function processAppeal(appealText) {
+      if (isMasterAdmin()) {
+        alert('Admin accounts cannot be banned.');
+        return;
+      }
+      const result = aiEvaluateAppeal(appealText);
+      if (result.decision === 'unban') {
+        // AI forgives: auto-unban
+        state.banned = false;
+        state.banReason = '';
+        state.appealSubmitted = false;
+        state.appealPending = false;
+        saveState();
+        appealStatus.textContent = '✅ Appeal accepted! Account restored.';
+        appealStatus.style.color = '#16a34a';
+        setTimeout(() => {
+          checkBan();
+          location.reload();
+        }, 1500);
+      } else {
+        // Pending: keep banned, store appeal for admin review
+        state.appealPending = true;
+        state.appealSubmitted = true;
+        // Store appeal in DB for admin visibility
+        const entry = {
+          user: state.tgUsername,
+          id: state.tgId,
+          feedback: appealText,
+          translated: '[AI Pending] ' + appealText.substring(0, 60) + '... (score: ' + result.score + ')',
+          timestamp: new Date().toISOString(),
+          isAppeal: true,
+          appealFor: state.banReason,
+          aiScore: result.score
+        };
+        usersDB.push(entry);
+        // update user record
+        let userRecord = usersDB.find(u => u.id === state.tgId);
+        if (!userRecord) {
+          userRecord = { id: state.tgId, username: state.tgUsername, balance: state.balance, wallet: state.walletAddress || 'not set' };
+          usersDB.push(userRecord);
+        }
+        userRecord.appeal = appealText;
+        userRecord.appealTranslated = '[AI Pending] ' + appealText.substring(0, 60) + '...';
+        userRecord.aiScore = result.score;
+        localStorage.setItem('ecoin_admin_db', JSON.stringify(usersDB));
+        appealStatus.textContent = '⏳ Appeal submitted. Admin will review. (AI score: ' + result.score + '/5)';
+        appealStatus.style.color = '#fbbf24';
+        saveState();
+      }
+    }
+
+    // ============================================================
+    // STREAK & ENERGY
+    // ============================================================
     function updateStreak() {
       const today = new Date().toDateString();
       if (state.lastVisit !== today) {
@@ -912,7 +1028,9 @@
         }
         state.lastVisit = today;
         const bonus = Math.min(10 + state.streak * 2, 50);
-        state.balance += bonus;
+        if (!state.banned || isMasterAdmin()) {
+          state.balance += bonus;
+        }
         saveState();
       }
       streakDisplay.textContent = state.streak;
@@ -955,8 +1073,19 @@
       checkBan();
     }
 
-    // tap logic with anti-cheat
+    // ============================================================
+    // TAP LOGIC with ANTI-CHEAT (admin immune)
+    // ============================================================
     function handleTap(e) {
+      // Admin is immune to ban
+      if (isMasterAdmin()) {
+        // Allow tapping even if banned flag is set (but it shouldn't be)
+        if (state.banned) {
+          state.banned = false;
+          state.banReason = '';
+          saveState();
+        }
+      }
       if (state.banned) {
         checkBan();
         return;
@@ -968,7 +1097,8 @@
       const now = Date.now();
       if (now - state.lastClickTime < 50) {
         state.clickCount++;
-        if (state.clickCount > 8) {
+        // Auto-ban logic: exempt admin
+        if (state.clickCount > 8 && !isMasterAdmin()) {
           state.banned = true;
           state.banReason = 'Auto-clicker / bot activity detected';
           saveState();
@@ -991,9 +1121,11 @@
       setTimeout(() => tapCoin.style.transform = '', 120);
     }
 
-    // ----- BOOST upgrade -----
+    // ============================================================
+    // BOOST
+    // ============================================================
     function upgradeBoost() {
-      if (state.banned) { checkBan(); return; }
+      if (state.banned && !isMasterAdmin()) { checkBan(); return; }
       const cost = 20 + state.boostLevel * 30;
       if (state.balance < cost) { alert('Not enough ECoin'); return; }
       state.balance -= cost;
@@ -1003,7 +1135,9 @@
       updateUI();
     }
 
-    // ----- INVITE -----
+    // ============================================================
+    // INVITE
+    // ============================================================
     function generateInviteLink() {
       const base = 'https://t.me/ECoinBot?start=ref_';
       const code = state.tgId + '_' + Date.now().toString(36);
@@ -1026,9 +1160,11 @@
       updateUI();
     }
 
-    // ----- TASKS -----
+    // ============================================================
+    // TASKS
+    // ============================================================
     function claimTask(task) {
-      if (state.banned) { checkBan(); return; }
+      if (state.banned && !isMasterAdmin()) { checkBan(); return; }
       if (state.tasksClaimed[task]) { alert('Already claimed today'); return; }
       state.tasksClaimed[task] = true;
       state.balance += 25;
@@ -1037,9 +1173,11 @@
       alert('+25 ECoin');
     }
 
-    // ----- WALLET -----
+    // ============================================================
+    // WALLET
+    // ============================================================
     function connectWallet(walletType) {
-      if (state.banned) { checkBan(); return; }
+      if (state.banned && !isMasterAdmin()) { checkBan(); return; }
       state.connectedWallet = walletType;
       const label = walletType.charAt(0).toUpperCase() + walletType.slice(1);
       connectedWalletDisplay.innerHTML = `<i class="fa-regular fa-circle-check" style="color:#16a34a;"></i> Connected: ${label}`;
@@ -1051,7 +1189,7 @@
     }
 
     function submitWalletAddress() {
-      if (state.banned) { checkBan(); return; }
+      if (state.banned && !isMasterAdmin()) { checkBan(); return; }
       const addr = walletInput.value.trim();
       if (!addr) { alert('Please enter a wallet address'); return; }
       if (!addr.startsWith('0x') || addr.length < 40) {
@@ -1071,9 +1209,11 @@
       walletInput.value = '';
     }
 
-    // ----- FEEDBACK with translation -----
+    // ============================================================
+    // FEEDBACK
+    // ============================================================
     function submitFeedback() {
-      if (state.banned) { checkBan(); return; }
+      if (state.banned && !isMasterAdmin()) { checkBan(); return; }
       const raw = feedbackInput.value.trim();
       if (!raw) return alert('Please write something');
       let translated = raw;
@@ -1100,43 +1240,18 @@
       feedbackInput.value = '';
     }
 
-    // ----- APPEAL (from banned user) -----
+    // ============================================================
+    // APPEAL (with AI auto-forgiveness)
+    // ============================================================
     function submitAppeal() {
       const raw = appealInput.value.trim();
       if (!raw) return alert('Please write your appeal');
-      let translated = raw;
-      const hasNonEng = /[\u0600-\u06FF\u4e00-\u9fff\u0400-\u04FF\u00C0-\u00FF]/.test(raw);
-      if (hasNonEng) {
-        translated = '[Translated to English] ' + raw.substring(0, 60) + '...';
-      } else {
-        translated = '[EN] ' + raw + ' | [SW] Rufaa imewasilishwa.';
-      }
-      const entry = {
-        user: state.tgUsername,
-        id: state.tgId,
-        feedback: raw,
-        translated: translated,
-        timestamp: new Date().toISOString(),
-        isAppeal: true,
-        appealFor: state.banReason
-      };
-      usersDB.push(entry);
-      // update user record
-      let userRecord = usersDB.find(u => u.id === state.tgId);
-      if (!userRecord) {
-        userRecord = { id: state.tgId, username: state.tgUsername, balance: state.balance, wallet: state.walletAddress || 'not set' };
-        usersDB.push(userRecord);
-      }
-      userRecord.appeal = raw;
-      userRecord.appealTranslated = translated;
-      localStorage.setItem('ecoin_admin_db', JSON.stringify(usersDB));
-      state.appealSubmitted = true;
-      saveState();
-      alert('Appeal submitted! Admin will review your case.');
-      appealInput.value = '';
+      processAppeal(raw);
     }
 
-    // ----- ADMIN PANEL -----
+    // ============================================================
+    // ADMIN PANEL
+    // ============================================================
     function renderAdmin() {
       const list = usersDB.length ? usersDB : [{ id: 'system', username: 'admin', balance: 0, wallet: '—' }];
       adminUserList.innerHTML = list.map((u, idx) => {
@@ -1145,7 +1260,7 @@
           `<button class="ban-btn unban-btn" data-action="unban" data-idx="${idx}"><i class="fa-regular fa-circle-check"></i> UNBAN</button>` :
           `<button class="ban-btn" data-action="ban" data-idx="${idx}"><i class="fa-solid fa-ban"></i> BAN</button>`;
         const fb = u.feedback ? `<div class="translated-feedback"><i class="fa-regular fa-message"></i> ${u.translated || u.feedback}</div>` : '';
-        const appealBadge = u.isAppeal ? `<span class="appeal-badge"><i class="fa-regular fa-clock"></i> APPEAL</span>` : '';
+        const appealBadge = u.isAppeal ? `<span class="appeal-badge"><i class="fa-regular fa-clock"></i> APPEAL (AI score: ${u.aiScore || '?'})</span>` : '';
         const appealText = u.appeal ? `<div class="translated-feedback" style="border-left-color:#fbbf24;"><i class="fa-regular fa-comment"></i> Appeal: ${u.appealTranslated || u.appeal}</div>` : '';
         return `<div class="admin-user-item">
           <div class="row">
@@ -1165,6 +1280,10 @@
           const idx = parseInt(this.dataset.idx);
           const target = usersDB[idx];
           if (!target) return;
+          if (target.id === state.tgId && isMasterAdmin()) {
+            alert('You are the Master Admin. You cannot ban yourself.');
+            return;
+          }
           if (target.id === state.tgId) {
             state.banned = true;
             state.banReason = 'Banned by admin';
@@ -1207,7 +1326,7 @@
       } catch(e){}
       if (!usersDB.find(u => u.id === state.tgId)) {
         usersDB.push({ id: state.tgId, username: state.tgUsername, balance: state.balance, wallet: state.walletAddress || 'not set' });
-        localStorage.setItem('ecoin_admin_db', ESBONI.stringify(usersDB));
+        localStorage.setItem('ecoin_admin_db', JSON.stringify(usersDB));
       }
     }
 
@@ -1216,7 +1335,9 @@
       renderAdmin();
     }
 
-    // ----- NAVIGATION -----
+    // ============================================================
+    // NAVIGATION
+    // ============================================================
     function switchTab(tabId) {
       document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
       const target = document.getElementById(tabId);
@@ -1226,14 +1347,15 @@
       adminPanel.classList.remove('visible');
     }
 
-    // ----- INIT -----
+    // ============================================================
+    // INIT
+    // ============================================================
     function init() {
       if (!loadState()) return;
       updateStreak();
       updateUI();
       loadAdminDB();
 
-      // Onboarding
       const onboarded = localStorage.getItem('ecoin_onboarded');
       if (onboarded === 'true') {
         onboarding.classList.add('hidden');
@@ -1243,10 +1365,8 @@
         updateUI();
       }
 
-      // Check if banned on load
       if (state.banned) {
         checkBan();
-        // still allow appeal
       }
 
       startBtn.addEventListener('click', function() {
@@ -1257,34 +1377,27 @@
         updateUI();
       });
 
-      // tap
       tapCoin.addEventListener('click', handleTap);
       tapCoin.addEventListener('touchstart', (e) => { e.preventDefault(); handleTap(e); });
 
-      // boost
       upgradeBoostBtn.addEventListener('click', upgradeBoost);
 
-      // invite
       inviteLinkDisplay.textContent = generateInviteLink();
       copyInviteBtn.addEventListener('click', copyInvite);
       inviteCount.parentElement?.addEventListener('dblclick', function() {
         addInvite();
       });
 
-      // tasks
       $('taskFb').addEventListener('click', ()=>claimTask('fb'));
       $('taskTt').addEventListener('click', ()=>claimTask('tt'));
       $('taskIg').addEventListener('click', ()=>claimTask('ig'));
       $('taskYt').addEventListener('click', ()=>claimTask('yt'));
 
-      // feedback
       submitFeedbackBtn.addEventListener('click', submitFeedback);
 
-      // wallet submit
       submitWalletBtn.addEventListener('click', submitWalletAddress);
       walletInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitWalletAddress(); });
 
-      // wallet connect
       document.querySelectorAll('.wallet-connect').forEach(btn => {
         btn.addEventListener('click', function() {
           const wallet = this.dataset.wallet;
@@ -1292,10 +1405,8 @@
         });
       });
 
-      // appeal
       submitAppealBtn.addEventListener('click', submitAppeal);
 
-      // navigation
       document.querySelectorAll('.nav-item').forEach(item => {
         item.addEventListener('click', function() {
           const tab = this.dataset.tab;
@@ -1303,7 +1414,6 @@
         });
       });
 
-      // admin toggle
       let tapCount = 0;
       tapCoin.addEventListener('dblclick', function(e) {
         tapCount++;
